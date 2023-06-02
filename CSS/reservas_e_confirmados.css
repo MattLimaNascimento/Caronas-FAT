@@ -1,0 +1,198 @@
+.reservas {
+    position: absolute;
+    top: 45.5%;
+    left: 50%;
+    width: 350px;
+    height: 410px;
+    background: #fff;
+    border: 2px solid rgba(255, 255, 255, .5);
+    border-radius: 25px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+    overflow: hidden;
+    transform: translate(-50%,-50%) scale(0);
+    transition: transform .5s ease, height .2s ease;
+    z-index: 2;
+}
+
+.icon_close {
+    color: #FFF;
+    position: absolute;
+    font-size: 40px;
+    padding-top: 10px;
+    cursor: pointer;
+    left: 300px;
+}
+
+.reservas.active {
+    transform: translate(-50%,-50%) scale(1);
+}
+.overlay2 {
+    position: absolute;
+    left: 306px;
+    top: 122px;
+    height: 40px;
+    width: 40px;
+    background-color: #2196F3;
+    border-radius: 25px 25px 0 25px;
+}
+.overlay2::before,
+.overlay2::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: -50px;
+    height: 50px;
+    width: 40px;
+    background-color: #2196F3;
+}
+
+.overlay2::after {
+    border-radius: 0 60px 0 0;
+    background-color: #FFF;
+
+}
+
+.rodape_reservas{
+    background-color: #2196F3;
+    border-radius: 25px 25px 0 25px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.motorista_img {
+    border: 4px solid #FFF;
+    width: 40%;
+    border-radius: 50%;
+}
+
+.main_reservas {
+    display: flex;
+    justify-content: center;
+    padding-top: 5%;
+}
+
+.name_reserva {
+    display: flex;
+    justify-content: center;
+    color: black;
+    font-size: xx-large;
+}
+
+.infos_reservas {
+    padding-top: 20px;
+    font-size: 20px;
+    color: #707070;
+    text-align: center;
+}
+
+.footer-reservas {
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    background-color: #FFF;
+}
+
+.desmarcar {
+    font-family: 'Inter', sans-serif;
+    font-size: 17px;
+    width: 50%;
+    height: 35px;
+    border: none;
+    color: #FFF;
+    background-color: #2196F3;
+    border-radius: 5px;
+    position: absolute;
+    cursor: pointer;
+    transition: .5s;
+}
+
+.desmarcar:hover {
+    background-color: #1976D2;
+}
+
+.container-confirmados {
+    position: absolute;
+    top: 40%;
+    left: 50.4%;
+    width: 350px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .5);
+    border-radius: 40px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+    overflow: hidden;
+    padding: 6px;
+    transform: translate(-50%,-50%) scale(0);
+    transition: transform .5s ease, height .2s ease;
+    z-index: 2;
+}
+
+.container-confirmados.active {
+    transform: translate(-50%,-50%) scale(1);
+}
+
+.confirmado {
+    padding: 4px;
+    width: 60px;
+    border-radius: 50%;
+}
+
+.confirmados {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 40px;
+    background-color: #2196F3;
+    width: 100%;
+    height: auto;
+    border: 3px solid #fff;
+    color: #fff;
+}
+
+.confirmados i {
+    font-size: 25px;
+}
+
+.rodape_confirmados {
+    display: flex;
+    position: relative;
+    align-items: center;
+    
+    padding-bottom: 20px;
+    color: black;
+}
+
+#icon-close-4 {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 45px;
+    height: 45px;
+    background: black;
+    font-size: 2em;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom-left-radius: 20px;
+    cursor: pointer;
+    z-index: 1;
+    transition: .5s;
+}
+
+#icon-close-4:hover {
+    background-color: #1976D2;
+}
+
+.confirmados_title {
+    padding-left: 15px;
+    font-size: 1.8em;
+    color: black;
+    text-align: center;
+}

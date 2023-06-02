@@ -1,0 +1,8 @@
+- SELECT * FROM tabela1 JOIN tabela2 ON tabela1.coluna1 = tabela2.coluna2; // Une duas tabelas pelos mesmo nomes e assim por diante
+- SELECT * FROM tabela // mostra toda a tabela
+- TRUNCATE TABLE tabela; // Exclui tudo da tabela e zera a contagem do id
+// Comando que diz onde está o usuário:
+- SELECT CASE WHEN frente = 'usuario' THEN 'frente' WHEN atras1 = 'Matheus Manassés' THEN 'atras1' WHEN atras2 = 'Matheus Manassés' THEN 'atras2' WHEN atras3 = 'Matheus Manassés' THEN 'atras3' WHEN atras4 = 'Matheus Manassés' THEN 'atras4' WHEN atras5 = 'Matheus Manassés' THEN 'atras5' WHEN atras6 = 'Matheus Manassés' THEN 'atras6' WHEN atras7 = 'Matheus Manassés' THEN 'atras7' END AS column_name from reservas;
+
+// Comando que deleta o usuario desejado da coluna:
+- UPDATE reservas SET acento = CASE WHEN frente = 'usuario' THEN NULL ELSE frente END;

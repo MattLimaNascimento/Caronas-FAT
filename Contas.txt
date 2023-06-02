@@ -1,0 +1,11 @@
+Vahid:
+email:	vahid.nikoofard@gmail.com
+senha:	79845612
+
+João Gabriel:
+email:	joao.gabriel@gmail.com
+senha:	254687954
+
+Pedro:
+email:	pedro.djangoboy@gmail.com
+senha:	598745612
