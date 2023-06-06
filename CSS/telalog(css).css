@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@800&display=swap');
 
-body::-webkit-scrollbar{
+body::-webkit-scrollbar {
     width: 12px;
     background-color: rgba(200, 200, 200);
     border: 5px solid white;
 }
 
-body::-webkit-scrollbar-thumb{
+body::-webkit-scrollbar-thumb {
     background-color: dodgerblue;
     border-radius: 50px;
     border: 2px solid white;
@@ -167,11 +167,9 @@ body {
     background-color: #2196F3;
     border-radius: 1em 1em 4.5em 4.5em;
     -webkit-tap-highlight-color: transparent;
-
 }
 
 .menu__item {
-
     all: unset;
     flex-grow: 1;
     display: flex;
@@ -183,18 +181,15 @@ body {
     color: #ffffffb6;
     justify-content: center;
     transition: flex-grow var(--duration) var(--cubic);
-
 }
 
 .menu__icon {
     font-size: 1.05em;
     stroke: currentColor;
     transition: transform var(--duration) var(--cubic);
-
 }
 
 .menu__item::before {
-
     top: 9%;
     left: 36%;
     width: 1.5em;
@@ -206,11 +201,9 @@ body {
     transform-origin: center;
     background-color: #f0ecfdd5;
     transition: transform var(--duration) var(--cubic);
-
 }
 
 .menu__item::after {
-
     right: 25em;
     bottom: 0;
     content: " ";
@@ -222,7 +215,6 @@ body {
     width: calc(var(--lineWidth) + 5px);
     transform: translate3d(3em, 0, 0) scaleX(0);
     transition: transform calc(var(--duration) + .2s) var(--cubic);
-
 }
 
 .menu__text {
@@ -396,20 +388,49 @@ body {
 }
 
 /* Principal */
+
+.rodape-menu1 {
+    padding: 30px;
+}
+
 main {
-    transform: scale(1);
-    transition: transform .5s ease, height .2s ease;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
 }
 
-.day.select {
+/* ------------------ Card dos dias --------------------- */
+
+.select-box1 {
     position: absolute;
-    padding-top: 55px;
-    left: 8.7em;
+    display: flex;
+    justify-content: center;
+    width: 290px;
+    flex-direction: column;
+    z-index: 2;
 }
 
-.day.select .selected {
+.select-box1 .options-container {
+    display: flex;
+    flex-direction: column;
+    background: black;
+    color: #f5f6fa;
+    width: 50%;
+    border-radius: 8px;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    order: 1;
+    transition: all .4s;
+}
+
+.select-box1 .selected1 {
+    display: flex;
+    top: 3px;
+    padding-left: 10px;
     background: #2196F3;
-    width: 70%;
+    width: 100%;
     border-radius: 7px;
     margin-bottom: 8px;
     color: #f5f6fa;
@@ -418,41 +439,72 @@ main {
     order: 0;
 }
 
-.day.select .selected:hover {
+.select-box1 .selected1:hover {
     background-color: #1976D2;
 }
 
-.day.select .select-box {
+.select-box1 .selected1::after {
+    content: "";
+    background: url("/CSS/Imagens/down-arrow2-svgrepo-com\ \(1\).svg");
+    background-size: contain;
     position: absolute;
-    display: flex;
-    width: 400px;
-    flex-direction: column;
-    z-index: 2;
+    font-size: 30px;
+    height: 35px;
+    top: 5px;
+    width: 35px;
+    right: 5px;
+    transition: all .4s;
 }
 
-.day.select .select-box .options-container {
-    background: #0d141f;
-    width: 8em;
+.select-box1 .options-container.active {
+    max-height: 240px;
+    opacity: 1;
+    overflow-y: scroll;
 }
 
-.day.select .select-box .option1,
-.selected {
+.select-box1 .options-container.active+.selected1::after {
+    transform: rotateX(180deg);
+}
+
+.select-box1 .options-container::-webkit-scrollbar {
+    width: 8px;
+    background: black;
+    border-radius: 0 8px 8px 0;
+}
+
+.select-box1 .options-container::-webkit-scrollbar-thumb {
+    background: #fff;
+    border-radius: 0 8px 8px 0;
+}
+
+.select-box1 .options-container .option1,
+.select-box1 .selected1 {
     padding: 12px 24px;
     cursor: pointer;
 }
 
-.day.select .select-box .option1:hover {
+.select-box1 .options-container .option1:hover {
     background: #414b57;
 }
 
-.day.select .select-box .option1 .radio {
+.select-box1 label {
+    cursor: pointer;
+}
+
+.select-box1 .options-container .option1 .radio {
     display: none;
+}
+
+
+/* --------------------------------------------- */
+
+.rodape-menu2 {
+    padding-top: 30px;
 }
 
 .container-car-register {
     display: flex;
     justify-content: center;
-    padding-top: 50px;
 }
 
 .container-car-register.desactive {
@@ -569,20 +621,11 @@ main {
 }
 
 /* Menus */
-.container_global {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    display: flex;
-}
 
 .menu1 {
     position: relative;
-    top: 0;
-    left: 0;
+    min-height: 100vh;
     width: 100%;
-    height: 100%;
     transition: transform 1s ease, height .2s ease;
     transform: translateX(0);
 }
@@ -613,10 +656,10 @@ main {
     display: flex;
     justify-content: center;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     transition: transform 1s ease, height .2s ease;
     overflow: hidden;
-    transform: translateY(-100%);
+    transform: translateY(-200%);
 }
 
 .seguranca.active {
@@ -726,7 +769,6 @@ main {
     display: flex;
     justify-content: center;
     padding-top: 20px;
-    height: 100vh;
 }
 
 .wrapper {
@@ -1061,7 +1103,7 @@ main {
     display: flex;
     justify-content: center;
     padding-top: 20px;
-    height: 100vh;
+    height: 600px;
 }
 
 .wrapper_menu2 {
@@ -1359,23 +1401,37 @@ main {
 /* Anuncios Caronas */
 .container.anuncios_caronas {
     position: absolute;
-    display: flex;
-    justify-content: center;
-    height: 100vh;
-    top: 15%;
-    padding-left: 5%;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.slide-container.swiper {
+    width: 100%;
     transition: .5s ease-in-out;
     transform: scale(0);
 }
 
-.container.anuncios_caronas.active {
+.slide-container.swiper.active {
     transform: scale(1);
+}
+
+.slide-container {
+    max-width: 1120px;
+    width: 100%;
+    padding: 40px 0;
 }
 
 .slide-content {
     margin: 0 40px;
     overflow: hidden;
     border-radius: 25px;
+}
+
+.card {
+    border-radius: 25px;
+    background-color: #FFF;
 }
 
 .image-content,
@@ -1386,29 +1442,10 @@ main {
     padding: 10px 14px;
 }
 
-.buttons.container {
-    position: relative;
-    left: 17%;
-    gap: 8%;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.card-content {
-    height: 100%;
-}
-
 .image-content {
     position: relative;
     row-gap: 5px;
     padding: 25px 0;
-}
-
-.slide-container {
-    max-width: 1200px;
-    width: 100%;
-    height: 37em;
-    padding: 40px 0;
 }
 
 .overlay {
@@ -1435,13 +1472,6 @@ main {
 .overlay::after {
     border-radius: 0 25px 0 0;
     background-color: #FFF;
-
-}
-
-.card {
-    width: 320px;
-    border-radius: 25px;
-    background-color: #FFF;
 }
 
 .card-image {
@@ -1454,17 +1484,17 @@ main {
 }
 
 .card-image .card-img {
-    height: 94%;
-    width: 94%;
+    height: 95%;
+    width: 95%;
     object-fit: cover;
     border-radius: 50%;
     border: 4px solid #2196F3;
 }
 
 .name {
-    font-size: 30px;
-    font-weight: 500;
-    font-weight: #333;
+    font-size: 25px;
+    font-weight: 600;
+    color: black;
 }
 
 .description {
@@ -1482,25 +1512,25 @@ main {
     border-radius: 6px;
     margin: 14px;
     cursor: pointer;
-    transition: all .3s ease;
+    transition: all 0.3s ease;
 }
 
 .button:hover {
-    background: #265df2;
+    background: #265DF2;
 }
 
 .swiper-navBtn {
-    color: #6e93f7;
-    transition: color .3s ease;
+    color: #6E93f7;
+    transition: color 0.3s ease;
 }
 
 .swiper-navBtn:hover {
-    color: #4070f4;
+    color: #4070F4;
 }
 
 .swiper-navBtn::before,
 .swiper-navBtn::after {
-    font-size: 40px;
+    font-size: 35px;
 }
 
 .swiper-button-next {
@@ -1512,16 +1542,28 @@ main {
 }
 
 .swiper-pagination-bullet {
-    background-color: #6e93f7;
+    background-color: #2196F3;
     opacity: 1;
 }
 
 .swiper-pagination-bullet-active {
-    background-color: #4070f4;
+    background-color: #2196F3;
+}
+
+.nav {
+    opacity: 0;
+    visibility: hidden;
+}
+footer {
+    width: 100%;
+    border-radius: 20px 20px 0 0;
+    height: 150px;
+    background: #2196F3;
 }
 
 /* Responsividade do Site p/ Outros Dispositivos */
-@media screen and (max-width:768px) {
+@media screen and (max-width:940px) {
+
     .slide-content {
         margin: 0 10px;
     }
@@ -1530,31 +1572,154 @@ main {
         display: none;
     }
 
-
-}
-@media screen and (min-width: 2560px) {
-    .container.anuncios_caronas {
-        position: absolute;
-        display: none;
+    .day.select {
+        display: flex;
         justify-content: center;
-        /* align-items: center; */
-        height: 20em;
-        left: 27%;
+        align-content: center;
     }
-}
-@media screen and (min-width: 1980px) {
-    .container.anuncios_caronas {
+
+    .rodape-menu1 {
+        width: 100%;
+        display: flex;
+        padding-top: 120px;
+        gap: 15px;
+        flex-direction: column-reverse;
+        justify-content: center;
+    }
+
+    .container_wrapper {
+        top: 25px;
+    }
+
+    .menu {
+        opacity: 0;
+        visibility: hidden;
+        width: 0;
+        height: 0;
+    }
+
+    .select-box1 .options-container .option1:hover {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        background: #414b57;
+    }
+
+    .select-box1 .options-container {
+        width: 100%;
+        align-items: center;
+    }
+
+    .menus {
         position: absolute;
         display: flex;
         justify-content: center;
-        /* align-items: center; */
-        height: 20em;
-        left: 17%;
+        width: 100%;
+        top: 20px;
+    }
+
+    .nav {
+        opacity: 1;
+        visibility: visible;
+        display: inline-flex;
+        position: relative;
+        background-color: #fff;
+        padding: 0 20px;
+        border-radius: 40px;
+        box-shadow: 0 10px 40px rgba(159, 162, 177, .8);
+    }
+
+    .nav-item {
+        color: #83818c;
+        padding: 20px;
+        text-decoration: none;
+        transition: .3s;
+        margin: 0 6px;
+        z-index: 1;
+        font-family: 'DM Sans', sans-serif;
+        font-weight: 500;
+        position: relative;
+    }
+
+    .nav-item:before {
+        content: "";
+        position: absolute;
+        bottom: -6px;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background-color: #dfe2ea;
+        border-radius: 8px 8px 0 0;
+        opacity: 0;
+        transition: .3s;
+    }
+
+    .nav-item:not(.is-active):hover:before {
+        opacity: 1;
+        bottom: 0;
+    }
+
+    .nav-item:not(.is-active):hover {
+        color: #333;
+    }
+
+    .nav-indicator {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 4px;
+        transition: .4s;
+        height: 5px;
+        z-index: 1;
+        border-radius: 8px 8px 0 0;
+    }
+
+    .rodape-menu2 {
+        padding-top: 120px;
+    }
+
+    .container_wrapper_menu2 {
+        width: 100%;
+        padding-top: 40px;
+    }
+
+    .seguranca {
+        top: 50px;
+        width: 100%;
+    }
+
+    .wrapper_menu2 {
+        width: 500px;
+    }
+
+    .container.anuncios_caronas {
+        top: 500px;
+    }
+
+}
+
+@media screen and (max-width: 530px) {
+    
+    .wrapper {
+        width: 100%;
+    }
+    
+    .wrapper_menu2 {
+        width: 100%;
+    }
+
+    .wrapper2 {
+        width: 100%;
+    }
+
+    .seguranca {
+        top: 50px;
+        width: 100%;
     }
 }
-footer {
-    width: 100%;
-    border-radius: 20px 20px 0 0;
-    height: 150px;
-    background: #2196F3;
+
+@media screen and (max-height:668px) {
+    .container_wrapper{
+        padding-bottom: 90px;
+    }
 }

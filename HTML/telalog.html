@@ -5,20 +5,20 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tela inicial</title>
+  <title>Caronas-Fat: Home</title>
   <link rel="stylesheet" href="/CSS/swiper-bundle.min.css">
   <link rel="stylesheet" href="/CSS/telalog(css).css">
   <link rel="stylesheet" href="/CSS/user_drop.css">
   <link rel="stylesheet" href="/CSS/reservas_e_confirmados.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <link rel="icon" href="/CSS/Imagens/Caronas_FAT icon.png" />
   <script src="/Js/swiper-bundle.min.js"></script>
-  <script src="/Js/swiper.js" defer></script>
-  <link rel="icon" type="image/png" href="/CSS/Imagens/Caronas_FAT-removebg-preview.ico"/>
+  <script src="/Js/swiper.js"></script>
 </head>
 
 <body>
-  <header class="rodape ">
+  <header class="rodape">
     <button id="refresh" class="Btn_refresh">
       <h5 class="carona_fat">Carona FAT</h5>
       <img src="/CSS/Imagens/logo carrinho.png" alt="Logo Caronas FAT" class="logo_carrinho">
@@ -71,19 +71,25 @@
         <strong class="menu__text">Motoristas</strong>
       </button>
     </menu>
-    
+
     <div class="container">
       <div class="action_user">
       </div>
     </div>
-
   </header>
   <main>
-    <div class="container_global">
+    <div class="menus">
+      <nav class="nav">
+        <a href="#" class="nav-item is-active" id="tela1_cel" active-color="#1976D2">Home</a>
+        <a href="#" class="nav-item" id="tela2_cel" active-color="#2196F3">Motoristas</a>
+        <span class="nav-indicator"></span>
+      </nav>
+    </div>
 
-      <div class="menu1">
+    <div class="menu1">
+      <header class="rodape-menu1">
         <div class="day select">
-          <div class="select-box">
+          <div class="select-box1">
             <div class="options-container" id="options-container2">
               <div class="option1" id="option1">
                 <input type="radio" class="radio" id="segunda" value="Segunda" name="category">
@@ -106,12 +112,11 @@
                 <label for="sexta">Sexta</label>
               </div>
             </div>
-            <div class="selected" id="selected2">
+            <div class="selected1" id="selected2">
               <h4>Selecione o Dia p/ Sua Carona!</h4>
             </div>
           </div>
         </div>
-
         <div class="container-car-register">
           <button id="Caroneiro" class="Car_register">
             <a class="Caroneiro">
@@ -119,36 +124,38 @@
             </a>
           </button>
         </div>
+      </header>
 
-        <div class="container_wrapper">
-          <div class="wrapper">
-            <span class="icon-close"><ion-icon name="close"></ion-icon></span>
-            <div class="form-box register">
-              <h2>Registro</h2>
-              <form id="myForm">
-                <div class="input-box">
-                  <span class="icon"><i class="fa fa-id-card"></i></span>
-                  <input type="number" id="n_registro" name="n_registro" maxlength="11" pattern="\d{1,11}" required>
-                  <label>Nº Registro (CNH)</label>
-                </div>
-                <div class="input-box">
-                  <span class="icon"><i class="fa fa-car"></i></span>
-                  <input type="text" id="placa_carro" name="placa_carro" oninput="formatarPlaca('placa_carro')"
-                    maxlength="8" required>
-                  <label>Placa do Carro</label>
-                </div>
-                <div class="remember-forgot">
-                  <label><input type="checkbox">Eu aceito os termos & condições</label>
-                </div>
-                <button type="submit" id="Button_register" name="submit" class="btn">
-                  <div class="message submitMessage">
-                    <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13 12.2">
+
+      <div class="container_wrapper">
+        <div class="wrapper">
+          <span class="icon-close"><ion-icon name="close"></ion-icon></span>
+          <div class="form-box register">
+            <h2>Registro</h2>
+            <form id="myForm">
+              <div class="input-box">
+                <span class="icon"><i class="fa fa-id-card"></i></span>
+                <input type="number" id="n_registro" name="n_registro" maxlength="11" pattern="\d{1,11}" required>
+                <label>Nº Registro (CNH)</label>
+              </div>
+              <div class="input-box">
+                <span class="icon"><i class="fa fa-car"></i></span>
+                <input type="text" id="placa_carro" name="placa_carro" oninput="formatarPlaca('placa_carro')"
+                  maxlength="8" required>
+                <label>Placa do Carro</label>
+              </div>
+              <div class="remember-forgot">
+                <label><input type="checkbox">Eu aceito os termos & condições</label>
+              </div>
+              <button type="submit" id="Button_register" name="submit" class="btn">
+                <div class="message submitMessage">
+                  <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13 12.2">
                       <polyline stroke="currentColor" points="2,7.1 6.5,11.1 11,7.1 " />
                       <line stroke="currentColor" x1="6.5" y1="1.2" x2="6.5" y2="10.3" /> -->
-                    </svg> <span id="Button-text" class="button-text">Registrar-se</span>
-                  </div>
+                  </svg> <span id="Button-text" class="button-text">Registrar-se</span>
+                </div>
 
-                  <!-- <div class="message loadingMessage">
+                <!-- <div class="message loadingMessage">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 17">
                       <circle class="loadingCircle" cx="2.2" cy="10" r="1.6" />
                       <circle class="loadingCircle" cx="9.5" cy="10" r="1.6" />
@@ -161,61 +168,64 @@
                       <polyline stroke="currentColor" points="1.4,5.8 5.1,9.5 11.6,2.1 " />
                     </svg> <span id="Button-text" class="button-text">Cadastrado!</span>
                   </div> -->
-                </button>
-                <div class="login-register">
-                  <p>Já possui uma conta? <a href="#" class="login-link">Login</a></p>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-
-        <div class="container anuncios_caronas">
-          <div class="slide-container swiper">
-            <div class="slide-content">
-              <div class="card-wrapper swiper-wrapper" id="anuncios_caronas">
-
-              </div>
-            </div>
-            <div class="swiper-button-next swiper-navBtn"></div>
-            <div class="swiper-button-prev swiper-navBtn"></div>
-            <div class="swiper-pagination"></div>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="seguranca">
-        <div class="wrapper2">
-          <span class="icon-close" id="icon-close-2"><ion-icon name="close"></ion-icon></span>
-          <div class="form-box login">
-            <h2>Login</h2>
-            <form action="#">
-              <div class="input-box">
-                <span class="icon"><i class="fa fa-id-card"></i></span>
-                <input type="number" id="n_registro_login" name="n_registro_login" required>
-                <label>Nº Registro (CNH)</label>
-              </div>
-              
-              <div class="input-box">
-                <span class="icon"><i class="fa fa-car"></i></span>
-                <input type="text" id="placa_carro_login" name="placa_carro_login"
-                  oninput="formatarPlaca('placa_carro_login')" maxlength="8" required>
-                <label>Placa do Carro</label>
-              </div>
-              <div class="remember-forgot">
-                <a href="#">Esqueceu sua Senha?</a>
-              </div>
-              <button type="submit" id="btn_login" name="submit2" class="btn_1">Login</button>
+              </button>
               <div class="login-register">
-                <p>Já possui uma conta? <a href="#" class="register-link">Registrar</a></p>
+                <p>Já possui uma conta? <a href="#" class="login-link">Login</a></p>
               </div>
             </form>
           </div>
         </div>
       </div>
 
-      <div class="menu2">
+
+      <div class="container anuncios_caronas">
+        <div class="slide-container swiper" id="container anuncios_caronas">
+          <div class="slide-content">
+            <div class="card-wrapper swiper-wrapper" id="anuncios_caronas">
+              
+            </div>
+          </div>
+          <div class="swiper-button-next swiper-navBtn"></div>
+          <div class="swiper-button-prev swiper-navBtn"></div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+
+    <div class="seguranca">
+      <div class="wrapper2">
+        <span class="icon-close" id="icon-close-2"><ion-icon name="close"></ion-icon></span>
+        <div class="form-box login">
+          <h2>Login</h2>
+          <form action="#">
+            <div class="input-box">
+              <span class="icon"><i class="fa fa-id-card"></i></span>
+              <input type="number" id="n_registro_login" name="n_registro_login" required>
+              <label>Nº Registro (CNH)</label>
+            </div>
+
+            <div class="input-box">
+              <span class="icon"><i class="fa fa-car"></i></span>
+              <input type="text" id="placa_carro_login" name="placa_carro_login"
+                oninput="formatarPlaca('placa_carro_login')" maxlength="8" required>
+              <label>Placa do Carro</label>
+            </div>
+            <div class="remember-forgot">
+              <a href="#">Esqueceu sua Senha?</a>
+            </div>
+            <button type="submit" id="btn_login" name="submit2" class="btn_1">Login</button>
+            <div class="login-register">
+              <p>Já possui uma conta? <a href="#" class="register-link">Registrar</a></p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu2">
+      <header class="rodape-menu2">
         <div class="container-car-register">
           <button id="anuncio-caronas" class="Car_register">
             <a class="Caroneiro">
@@ -223,101 +233,104 @@
             </a>
           </button>
         </div>
-        <div class="container_wrapper_menu2">
-          <div class="wrapper_menu2">
-            <span class="icon-close" id="icon-close3"><ion-icon name="close"></ion-icon></span>
-            <div class="form-box anuncio-caronas">
-              <h2>Informações</h2>
-              <form action="#">
-                <div class="container_menu2">
-                  <div class="select-box">
-                    <div class="options-container" id="options-container">
-                      <div class="option">
-                        <input type="radio" class="radio" id="carro" value="carro" name="category">
-                        <label for="carro">Carro</label>
-                      </div>
-                      <div class="option">
-                        <input type="radio" class="radio" id="moto" value="moto" name="category">
-                        <label for="moto">Moto</label>
-                      </div>
+      </header>
+      <div class="container_wrapper_menu2">
+        <div class="wrapper_menu2">
+          <span class="icon-close" id="icon-close3"><ion-icon name="close"></ion-icon></span>
+          <div class="form-box anuncio-caronas">
+            <h2>Informações</h2>
+            <form action="#">
+              <div class="container_menu2">
+                <div class="select-box">
+                  <div class="options-container" id="options-container">
+                    <div class="option">
+                      <input type="radio" class="radio" id="carro" value="carro" name="category">
+                      <label for="carro">Carro</label>
                     </div>
-                    <div class="selected" id="selected">
-                      <H4>Selecione o Veículo</H4>
+                    <div class="option">
+                      <input type="radio" class="radio" id="moto" value="moto" name="category">
+                      <label for="moto">Moto</label>
                     </div>
+                  </div>
+                  <div class="selected" id="selected">
+                    <H4>Selecione o Veículo</H4>
                   </div>
                 </div>
-                <div class="container left">
-                  <div class="input-box">
-                    <span class="icon"><i class="fa fa-location-dot"></i></span>
-                    <input type="text" id="origin" name="origin" required>
-                    <label>Origem</label>
+              </div>
+              <div class="container left">
+                <div class="input-box">
+                  <span class="icon"><i class="fa fa-location-dot"></i></span>
+                  <input type="text" id="origin" name="origin" required>
+                  <label>Origem</label>
+                </div>
+                <div class="input-box">
+                  <span class="icon"><i class="fa fa-location-dot"></i></span>
+                  <input type="text" id="destiny" name="destiny" required>
+                  <label>Destino</label>
+                </div>
+                <div class="input-box">
+                  <span class="icon"><i class="fa-sharp fa-solid fa-brazilian-real-sign"></i></span>
+                  <input type="number" id="preco" name="preco" min="0" max="4" required>
+                  <label>Preço</label>
+                </div>
+                <div class="input-box">
+                  <span class="icon"><span class="material-icons">
+                      airline_seat_recline_normal
+                    </span></span>
+                  <input type="number" id="qtd_acentos" name="qtd_acentos" min="0" max="7" required>
+                  <label>Vagas Totais</label>
+                </div>
+              </div>
+              <div class="container right">
+                <div class="times">
+                  <div id="time1">
+                    <label for="time1">Segunda</label>
+                    <input type="time" id="time" value="00:00" required>
                   </div>
-                  <div class="input-box">
-                    <span class="icon"><i class="fa fa-location-dot"></i></span>
-                    <input type="text" id="destiny" name="destiny" required>
-                    <label>Destino</label>
+                  <div id="time2">
+                    <label for="time2">Terça</label>
+                    <input type="time" id="time" value="00:00" required>
                   </div>
-                  <div class="input-box">
-                    <span class="icon"><i class="fa-sharp fa-solid fa-brazilian-real-sign"></i></span>
-                    <input type="number" id="preco" name="preco" min="0" max="4" required>
-                    <label>Preço</label>
+                  <div id="time3">
+                    <label for="time3">Quarta</label>
+                    <input type="time" id="time" value="00:00" required>
                   </div>
-                  <div class="input-box">
-                    <span class="icon"><span class="material-icons">
-                        airline_seat_recline_normal
-                      </span></span>
-                    <input type="number" id="qtd_acentos" name="qtd_acentos" min="0" max="7" required>
-                    <label>Vagas Totais</label>
+                  <div id="time4">
+                    <label for="time4">Quinta</label>
+                    <input type="time" id="time" value="00:00" required>
+                  </div>
+                  <div id="time5">
+                    <label for="time5">Sexta</label>
+                    <input type="time" id="time" value="00:00" required>
                   </div>
                 </div>
-                <div class="container right">
-                  <div class="times">
-                    <div id="time1">
-                      <label for="time1">Segunda</label>
-                      <input type="time" id="time" value="00:00" required>
-                    </div>
-                    <div id="time2">
-                      <label for="time2">Terça</label>
-                      <input type="time" id="time" value="00:00" required>
-                    </div>
-                    <div id="time3">
-                      <label for="time3">Quarta</label>
-                      <input type="time" id="time" value="00:00" required>
-                    </div>
-                    <div id="time4">
-                      <label for="time4">Quinta</label>
-                      <input type="time" id="time" value="00:00" required>
-                    </div>
-                    <div id="time5">
-                      <label for="time5">Sexta</label>
-                      <input type="time" id="time" value="00:00" required>
-                    </div>
-                  </div>
-                </div>
-                <div class="fixo mark">
-                  <input type="checkbox" id="fixo">
-                  <div class="explicacao">Selecione esta opção se você estiver oferecendo carona regularmente nos mesmos
-                    horários. Isso irá permitir que você salve seus horários fixos e poupe tempo no futuro.</div>
-                  <label for="fixo">Guardar Horários? (Carona Fixa)</label>
-                </div>
-                <button type="submit" name="submit3" class="btn_menu2" onclick="mostrarValores(event)">
-                  <span id="Button-text" class="button-text">Anunciar Carona!</span>
-                </button>
-              </form>
-            </div>
+              </div>
+              <div class="fixo mark">
+                <input type="checkbox" id="fixo">
+                <div class="explicacao">Selecione esta opção se você estiver oferecendo carona regularmente nos mesmos
+                  horários. Isso irá permitir que você salve seus horários fixos e poupe tempo no futuro.</div>
+                <label for="fixo">Guardar Horários? (Carona Fixa)</label>
+              </div>
+              <button type="submit" name="submit3" class="btn_menu2" onclick="mostrarValores(event)">
+                <span id="Button-text" class="button-text">Anunciar Carona!</span>
+              </button>
+            </form>
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="reservas">
-        
-      </div>
+    <div class="reservas">
 
-      <div class="container-confirmados" id="container-confirmados">
-      
-      </div>
+    </div>
+
+    <div class="container-confirmados" id="container-confirmados">
+
     </div>
   </main>
+  <footer>
+
+  </footer>
 </body>
 <script src="/Js/menu_user.js"></script>
 <script src="/Js/telalog.js"></script>

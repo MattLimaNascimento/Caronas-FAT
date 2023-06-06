@@ -11,6 +11,8 @@ const menu1 = document.querySelector(".menu1");
 const menu2 = document.querySelector(".menu2");
 const tela1 = document.getElementById("tela1");
 const tela2 = document.getElementById("tela2");
+const tela1_cel = document.getElementById("tela1_cel");
+const tela2_cel = document.getElementById("tela2_cel");
 const anuncio_caronas = document.getElementById("anuncio-caronas");
 const login_link = document.querySelector(".login-link");
 const registro_link = document.querySelector(".register-link");
@@ -23,12 +25,14 @@ const optionsList = document.querySelectorAll(".option");
 const selected1 = document.getElementById("selected2");
 const optionsContainer1 = document.getElementById("options-container2");
 const optionsList1 = document.querySelectorAll(".option1");
-const anuncios_car = document.querySelector(".container.anuncios_caronas");
+const anuncios_car = document.getElementById("container anuncios_caronas");
 const register_car = document.querySelector("Button_register");
 const action = document.querySelector(".action_user");
 const sinal = document.getElementById("sinal");
 const reservas = document.querySelector('.reservas');
 const container_confirmados = document.querySelector(".container-confirmados");
+const indicator = document.querySelector('.nav-indicator');
+const items = document.querySelectorAll('.nav-item');
 let activeButton = document.querySelector(".menu__item.active");
 
 $.ajax({
@@ -41,6 +45,7 @@ $.ajax({
     document.dispatchEvent(event);
   },
 });
+
 document.addEventListener("infosCarregadas", () => {
   $.ajax({
     url: "/PHP/reg_caronas.php",
@@ -55,6 +60,7 @@ document.addEventListener("infosCarregadas", () => {
       }
     },
   });
+  
   $.ajax({
     url: "/PHP/reg_caronas.php",
     type: "POST",
@@ -236,6 +242,7 @@ buttons.forEach((item) => {
     activeButton = this;
   });
 });
+
 function setLineWidth(text, item) {
   const lineWidth = text.offsetWidth + "px";
   item.style.setProperty("--lineWidth", lineWidth);
@@ -262,12 +269,49 @@ iconClose.addEventListener("click", () => {
 });
 iconClose2.addEventListener("click", () => {
   tela1.click();
+  tela1_cel.click();
   if (wrapper.classList.contains("active-popup")) {
     wrapper.classList.remove("active-popup");
   }
 });
 
 // Movimentação de troca de Telas
+tela2_cel.addEventListener("click", () => {
+  menu1.classList.add("desactivate");
+  $.ajax({
+    url: "/PHP/sessao.php",
+    type: "post",
+    data: {
+      tipo: "motorista",
+    },
+    success: (resultado) => {
+      if (resultado == "Há sessão") {
+        menu2.classList.add("active");
+      } else {
+        seguranca.classList.add("active");
+      }
+    },
+  });
+});
+
+tela1_cel.addEventListener("click", () => {
+  menu1.classList.remove("desactivate");
+  $.ajax({
+    url: "/PHP/sessao.php",
+    type: "post",
+    data: {
+      tipo: "motorista",
+    },
+    success: (resultado) => {
+      if (resultado == "Há sessão") {
+        menu2.classList.remove("active");
+      } else {
+        seguranca.classList.remove("active");
+      }
+    },
+  });
+});
+
 tela2.addEventListener("click", () => {
   menu1.classList.add("desactivate");
   $.ajax({
@@ -284,7 +328,6 @@ tela2.addEventListener("click", () => {
       }
     },
   });
-  // menu2.classList.add('active');
 });
 
 tela1.addEventListener("click", () => {
@@ -303,7 +346,6 @@ tela1.addEventListener("click", () => {
       }
     },
   });
-  // menu2.classList.remove('active');
 });
 
 // troca para login e registro
@@ -323,6 +365,7 @@ login_link.addEventListener("click", () => {
   });
   wrapper.classList.remove("active-popup");
   tela2.click();
+  tela2_cel.click();
 });
 
 registro_link.addEventListener("click", () => {
@@ -356,7 +399,6 @@ login_confirm.addEventListener("click", (e) => {
     },
   });
 });
-
 
 anuncio_caronas.addEventListener("click", () => {
   if (wrapper2.classList.contains("active-popup")) {
@@ -691,4 +733,23 @@ document.addEventListener('infosReserva', () => {
       });
     }
   });
-})
+});
+
+function handleIndicator(el) {
+  items.forEach(item => {
+    item.classList.remove('is-active');
+    item.removeAttribute('style');
+  });
+  
+  indicator.style.width = `${el.offsetWidth}px`;
+  indicator.style.left = `${el.offsetLeft}px`;
+  indicator.style.backgroundColor = el.getAttribute('active-color');
+
+  el.classList.add('is-active');
+  el.style.color = el.getAttribute('active-color');
+}
+
+items.forEach((item, index) => {
+  item.addEventListener('click', (e) => { handleIndicator(e.target)});
+  item.classList.contains('is-active') && handleIndicator(item);
+});
