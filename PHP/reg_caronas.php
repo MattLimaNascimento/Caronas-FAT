@@ -45,35 +45,39 @@ if ($tipo == 'reserva') {
     $Data = $_POST['data_hoje'];
     $sql = "SELECT * FROM anuncios_caronas JOIN usuarios ON anuncios_caronas.Usuario = usuarios.Usuario JOIN reservas ON usuarios.Usuario = reservas.Motorista WHERE '$usuario' IN (reservas.frente, reservas.atras1, reservas.atras2, reservas.atras3, reservas.atras4, reservas.atras5, reservas.atras6, reservas.garupa);";
     $result = $conexao->query($sql);
-    $user_data = mysqli_fetch_assoc($result);
-    $newpath = '/PHP' . '/' . $user_data['path'];
-
-    $cards = array();
-
-    $card = '<span class="icon_close" id="icon-close-3"><ion-icon name="close"></ion-icon></span>
-             <header class="rodape_reservas">
-                <img src="' . $newpath . '" alt="motorita imagem" class="motorista_img">
-             </header>
-             <span class="overlay2"></span>
-             <main class="main_reservas" >
-                 <div class="infos">
-                 <h3 class="name_reserva">' . $user_data['Usuario'] . '</h3>
-                 <h2 class="infos_reservas">
-                     Origem: ' . $user_data['Origem'] . '<br>
-                     Destino: ' . $user_data['Destino'] . '<br>
-                     Preço: R$ ' . $user_data['Preco'] . '<br>
-                     Veículo: ' . $user_data['Veiculo'] . '<br>
-                     Horário: ' . substr($user_data[$Data], 0, 5) . '<br>
-                 </h2>
-                 </div>
-             </main>
-             <footer class="footer-reservas">
-               <button class="desmarcar" id="desmarcar">Cancelar Carona</button>
-             </footer>
-             ';
-    $cards[] = $card;
-
-    echo json_encode($cards);
+    if ($result && $result->num_rows > 0) {
+        $user_data = mysqli_fetch_assoc($result);
+        $newpath = '/PHP' . '/' . $user_data['path'];
+    
+        $cards = array();
+    
+        $card = '<span class="icon_close" id="icon-close-3"><ion-icon name="close"></ion-icon></span>
+                 <header class="rodape_reservas">
+                    <img src="' . $newpath . '" alt="motorita imagem" class="motorista_img">
+                 </header>
+                 <span class="overlay2"></span>
+                 <main class="main_reservas" >
+                     <div class="infos">
+                     <h3 class="name_reserva">' . $user_data['Usuario'] . '</h3>
+                     <h2 class="infos_reservas">
+                         Origem: ' . $user_data['Origem'] . '<br>
+                         Destino: ' . $user_data['Destino'] . '<br>
+                         Preço: R$ ' . $user_data['Preco'] . '<br>
+                         Veículo: ' . $user_data['Veiculo'] . '<br>
+                         Horário: ' . substr($user_data[$Data], 0, 5) . '<br>
+                     </h2>
+                     </div>
+                 </main>
+                 <footer class="footer-reservas">
+                   <button class="desmarcar" id="desmarcar">Cancelar Carona</button>
+                 </footer>
+                 ';
+        $cards[] = $card;
+    
+        echo json_encode($cards);
+    } else {
+        echo "Nenhum resultado encontrado.";
+    }
 } else if ($tipo == 'Confirmados') {
     $tipo2 = $_POST['tipo2'];
     if ($tipo2 == 1) {
@@ -89,73 +93,78 @@ if ($tipo == 'reserva') {
     FROM reservas
     WHERE Motorista = '$usuario';";
     $result = $conexao->query($sql);
-    $user_data = mysqli_fetch_assoc($result);
-    
-    // Construir a cláusula IN com os nomes não nulos
-    $names = array();
-    if ($user_data['frente'] !== null) {
-        $names[] = "'" . $user_data['frente'] . "'";
-    }
-    if ($user_data['atras1'] !== null) {
-        $names[] = "'" . $user_data['atras1'] . "'";
-    }
-    if ($user_data['atras2'] !== null) {
-        $names[] = "'" . $user_data['atras2'] . "'";
-    }
-    if ($user_data['atras3'] !== null) {
-        $names[] = "'" . $user_data['atras3'] . "'";
-    }
-    if ($user_data['atras4'] !== null) {
-        $names[] = "'" . $user_data['atras4'] . "'";
-    }
-    if ($user_data['atras5'] !== null) {
-        $names[] = "'" . $user_data['atras5'] . "'";
-    }
-    if ($user_data['atras6'] !== null) {
-        $names[] = "'" . $user_data['atras6'] . "'";
-    }
-    if ($user_data['garupa'] !== null) {
-        $names[] = "'" . $user_data['garupa'] . "'";
-    }
-    
-    // Verificar se existem nomes não nulos para realizar a consulta
-    if (!empty($names)) {
-        $namesString = implode(', ', $names);
-    
-        // Construir a consulta SQL
-        $sql2 = "SELECT * FROM usuarios WHERE Usuario IN ($namesString)";
-    
-        // Executar a consulta
-        $result2 = $conexao->query($sql2);
+    if ($result && $result->num_rows > 0) {
+        $user_data = mysqli_fetch_assoc($result);
         
-        $header = '<header class="rodape_confirmados">
-                <h2 class="confirmados_title">Caronas Confirmadas</h2>
-                <span class="icon_close2" id="icon-close-4"><ion-icon name="close"></ion-icon></span>
-           </header>';
-
-        $cards = array(); // Array para armazenar os cards
-
-        while ($user_data2 = mysqli_fetch_assoc($result2)) {
-            $newpath = '/PHP' . '/' . $user_data2['path'];
-
-            $card = '<li class="confirmados">
-                        <img src="'.$newpath.'" alt="Confirmado" class="confirmado">
-                        <h2>'.$user_data2['Usuario'].'</h2>
-                        <i class="fa-solid fa-user-check"></i>
-                     </li>';
-    
-          $cards[] = $card; // Adiciona o card ao array
+        // Construir a cláusula IN com os nomes não nulos
+        $names = array();
+        if ($user_data['frente'] !== null) {
+            $names[] = "'" . $user_data['frente'] . "'";
         }
-
-        // Adicionar o header ao início do array de cards
-        array_unshift($cards, $header);
+        if ($user_data['atras1'] !== null) {
+            $names[] = "'" . $user_data['atras1'] . "'";
+        }
+        if ($user_data['atras2'] !== null) {
+            $names[] = "'" . $user_data['atras2'] . "'";
+        }
+        if ($user_data['atras3'] !== null) {
+            $names[] = "'" . $user_data['atras3'] . "'";
+        }
+        if ($user_data['atras4'] !== null) {
+            $names[] = "'" . $user_data['atras4'] . "'";
+        }
+        if ($user_data['atras5'] !== null) {
+            $names[] = "'" . $user_data['atras5'] . "'";
+        }
+        if ($user_data['atras6'] !== null) {
+            $names[] = "'" . $user_data['atras6'] . "'";
+        }
+        if ($user_data['garupa'] !== null) {
+            $names[] = "'" . $user_data['garupa'] . "'";
+        }
         
-        echo json_encode($cards);
+        // Verificar se existem nomes não nulos para realizar a consulta
+        if (!empty($names)) {
+            $namesString = implode(', ', $names);
+        
+            // Construir a consulta SQL
+            $sql2 = "SELECT * FROM usuarios WHERE Usuario IN ($namesString)";
+        
+            // Executar a consulta
+            $result2 = $conexao->query($sql2);
+            
+            $header = '<header class="rodape_confirmados">
+                    <h2 class="confirmados_title">Caronas Confirmadas</h2>
+                    <span class="icon_close2" id="icon-close-4"><ion-icon name="close"></ion-icon></span>
+               </header>';
+    
+            $cards = array(); // Array para armazenar os cards
+    
+            while ($user_data2 = mysqli_fetch_assoc($result2)) {
+                $newpath = '/PHP' . '/' . $user_data2['path'];
+    
+                $card = '<li class="confirmados">
+                            <img src="'.$newpath.'" alt="Confirmado" class="confirmado">
+                            <h2>'.$user_data2['Usuario'].'</h2>
+                            <i class="fa-solid fa-user-check"></i>
+                         </li>';
+        
+              $cards[] = $card; // Adiciona o card ao array
+            }
+    
+            // Adicionar o header ao início do array de cards
+            array_unshift($cards, $header);
+            
+            echo json_encode($cards);
+        } else {
+            // Caso não haja nomes não nulos, definir $user_data2 como vazio ou null
+            $user_data2 = null; // ou array() se desejar retornar um array vazio
+            echo 'Não há nenhuma carona';
+        }
     } else {
-        // Caso não haja nomes não nulos, definir $user_data2 como vazio ou null
-        $user_data2 = null; // ou array() se desejar retornar um array vazio
         echo 'Não há nenhuma carona';
     }
+
     } else if ($tipo2 == 2) {
         $sql = "SELECT
         CASE WHEN frente IS NOT NULL THEN frente ELSE NULL END as frente,
@@ -245,7 +254,7 @@ if ($tipo == 'reserva') {
 
     if ($column_name) {
     // Remove $_SESSION['usuario'] da coluna correspondente
-    $sql_update = "UPDATE reservas SET ".$column_name." = NULL WHERE ".$column_name." = '".$_SESSION['usuario']."'";
+    $sql_update = "UPDATE reservas SET $column_name = NULL WHERE $column_name = '".$_SESSION['usuario']."'";
     $conexao->query($sql_update);
 
     echo "Carona desmarcada com sucesso!";

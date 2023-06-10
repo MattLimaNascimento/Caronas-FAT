@@ -97,12 +97,16 @@ document.addEventListener("infosCarregadas", () => {
         tipo: 'conferir2',
       },
       success: (resultado) => {
-        const card = JSON.parse(resultado);
-        // Limpa o conteúdo existente do cardWrapper
-        reservas.innerHTML = card[0];
-        reservas.classList.add('active');
-        var event = new Event("infosReserva");
-        document.dispatchEvent(event);
+        if (resultado != 'Nenhum resultado encontrado.') {
+          const card = JSON.parse(resultado);
+          // Limpa o conteúdo existente do cardWrapper
+          reservas.innerHTML = card[0];
+          reservas.classList.add('active');
+          var event = new Event("infosReserva");
+          document.dispatchEvent(event);
+        } else {
+          alert("Você não tem nenhuma carona reservada.");
+        }
       }
     });
   });
@@ -116,23 +120,27 @@ document.addEventListener("infosCarregadas", () => {
         tipo2: 1
       },
       success: (resultado) => {
-        var cards = JSON.parse(resultado);
-        // Limpa o conteúdo existente do cardWrapper
-        container_confirmados.innerHTML = "";
-
-        for (var i = 0; i < cards.length; i++) {
-          container_confirmados.innerHTML += cards[i];
+        if (resultado != 'Não há nenhuma carona') {
+          var cards = JSON.parse(resultado);
+          // Limpa o conteúdo existente do cardWrapper
+          container_confirmados.innerHTML = "";
+  
+          for (var i = 0; i < cards.length; i++) {
+            container_confirmados.innerHTML += cards[i];
+          }
+  
+          container_confirmados.classList.add('active');
+  
+          $('#icon-close-4').click(() => {
+            container_confirmados.classList.remove('active');
+          });
+  
+          // Dispara o evento personalizado 'cardsCarregados' após adicionar os cards
+          var event = new Event("cardsConfirmados");
+          document.dispatchEvent(event);
+        } else {
+          alert("Você não tem nenhuma carona confirmada.");
         }
-
-        container_confirmados.classList.add('active');
-
-        $('#icon-close-4').click(() => {
-          container_confirmados.classList.remove('active');
-        });
-
-        // Dispara o evento personalizado 'cardsCarregados' após adicionar os cards
-        var event = new Event("cardsConfirmados");
-        document.dispatchEvent(event);
       },
     });
   });
