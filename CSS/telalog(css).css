@@ -62,6 +62,7 @@ html *::after {
 * {
     margin: 0;
     padding: 0;
+    border: none;
     box-sizing: border-box;
     text-decoration: none;
 }
@@ -1449,6 +1450,7 @@ main {
 }
 
 .overlay {
+    border: none;
     position: absolute;
     left: 0;
     top: 0;
@@ -1467,6 +1469,7 @@ main {
     height: 40px;
     width: 40px;
     background-color: #2196F3;
+    border-color: #fff;
 }
 
 .overlay::after {

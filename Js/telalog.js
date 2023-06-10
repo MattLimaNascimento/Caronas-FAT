@@ -60,7 +60,7 @@ document.addEventListener("infosCarregadas", () => {
       }
     },
   });
-  
+
   $.ajax({
     url: "/PHP/reg_caronas.php",
     type: "POST",
@@ -124,17 +124,17 @@ document.addEventListener("infosCarregadas", () => {
           var cards = JSON.parse(resultado);
           // Limpa o conteúdo existente do cardWrapper
           container_confirmados.innerHTML = "";
-  
+
           for (var i = 0; i < cards.length; i++) {
             container_confirmados.innerHTML += cards[i];
           }
-  
+
           container_confirmados.classList.add('active');
-  
+
           $('#icon-close-4').click(() => {
             container_confirmados.classList.remove('active');
           });
-  
+
           // Dispara o evento personalizado 'cardsCarregados' após adicionar os cards
           var event = new Event("cardsConfirmados");
           document.dispatchEvent(event);
@@ -161,57 +161,57 @@ $.ajax({
       // Define um cookie com o valor indicando que a sessão deve ser destruída
       document.cookie = "destruir_sessao=true";
       iniciarTemporizador(); // Inicia o temporizador
+
+      $(document).on("mousemove", redefinirTemporizador);
+
+      $(window).on("beforeunload", function () {
+        if (!isPageLoading) {
+          var destruirSessao = getCookie("destruir_sessao");
+          if (destruirSessao === "true") {
+            destruirSessao();
+          }
+        }
+      });
+
+      function iniciarTemporizador() {
+        temporizadorInatividade = setTimeout(destruirSessao, tempoInatividade);
+      }
+
+      function redefinirTemporizador() {
+        clearTimeout(temporizadorInatividade);
+        iniciarTemporizador();
+      }
+
+      function getCookie(name) {
+        var cookieArr = document.cookie.split("; ");
+        for (var i = 0; i < cookieArr.length; i++) {
+          var cookiePair = cookieArr[i].split("=");
+          if (cookiePair[0] === name) {
+            return decodeURIComponent(cookiePair[1]);
+          }
+        }
+        return "";
+      }
+
+      function destruirSessao() {
+        // Faz a requisição AJAX para destruir a sessão
+        $.ajax({
+          url: "/PHP/sair.php",
+          type: "post",
+          success: function (response) {
+            console.log("Sessão destruída com sucesso");
+          },
+          error: function (xhr) {
+            console.log("Erro ao destruir a sessão: " + xhr.status);
+          }
+        });
+      }
     } else if (resultado == 'Não há sessão') {
       window.location = '/index.html';
     }
     isPageLoading = false; // A página terminou de carregar
   },
 });
-
-$(document).on("mousemove", redefinirTemporizador);
-
-$(window).on("beforeunload", function() {
-  if (!isPageLoading) {
-    var destruirSessao = getCookie("destruir_sessao");
-    if (destruirSessao === "true") {
-      destruirSessao();
-    }
-  }
-});
-
-function iniciarTemporizador() {
-  temporizadorInatividade = setTimeout(destruirSessao, tempoInatividade);
-}
-
-function redefinirTemporizador() {
-  clearTimeout(temporizadorInatividade);
-  iniciarTemporizador();
-}
-
-function getCookie(name) {
-  var cookieArr = document.cookie.split("; ");
-  for (var i = 0; i < cookieArr.length; i++) {
-    var cookiePair = cookieArr[i].split("=");
-    if (cookiePair[0] === name) {
-      return decodeURIComponent(cookiePair[1]);
-    }
-  }
-  return "";
-}
-
-function destruirSessao() {
-  // Faz a requisição AJAX para destruir a sessão
-  $.ajax({
-    url: "/PHP/sair.php",
-    type: "post",
-    success: function(response) {
-      console.log("Sessão destruída com sucesso");
-    },
-    error: function(xhr) {
-      console.log("Erro ao destruir a sessão: " + xhr.status);
-    }
-  });
-}
 
 $.ajax({
   url: "/PHP/sessao.php",
@@ -513,6 +513,7 @@ mostrarValores = (event) => {
   } else {
     $.ajax({
       url: "/PHP/informacoes.php",
+      tipo: 1,
       type: "post",
       data: {
         destino: destino,
@@ -593,12 +594,20 @@ function clickHandler() {
   ];
   var diaSemanaAtual = diasSemana[numeroDia];
 
+  // Obtém o horário atual
+  var horaAtual = dataAtual.getHours();
+  var minutosAtual = dataAtual.getMinutes();
+
+  // Formata a hora e os minutos no formato "horas:minutos"
+  var horarioAtual = horaAtual + ":" + minutosAtual;
+
   $.ajax({
     url: "/PHP/anuncios.php",
     type: "post",
     data: {
       dia_semana: selectedDay,
       dia_SemanaAtual: diaSemanaAtual,
+      horario_atual: horarioAtual,
     },
     async: false,
     success: function (resultado) {
@@ -748,7 +757,7 @@ function handleIndicator(el) {
     item.classList.remove('is-active');
     item.removeAttribute('style');
   });
-  
+
   indicator.style.width = `${el.offsetWidth}px`;
   indicator.style.left = `${el.offsetLeft}px`;
   indicator.style.backgroundColor = el.getAttribute('active-color');
@@ -758,6 +767,6 @@ function handleIndicator(el) {
 }
 
 items.forEach((item, index) => {
-  item.addEventListener('click', (e) => { handleIndicator(e.target)});
+  item.addEventListener('click', (e) => { handleIndicator(e.target) });
   item.classList.contains('is-active') && handleIndicator(item);
 });

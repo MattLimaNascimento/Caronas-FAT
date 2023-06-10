@@ -33,7 +33,7 @@
   right: -15%;
   padding: 10px 20px;
   background: #0d141f;
-  width: 230px;
+  width: auto;
   box-sizing: 0 5px 25px rgba(0, 0, 0, .1);
   border-radius: 15px;
   transition: .5s;
@@ -63,14 +63,14 @@
   width:100%;
   text-align:center;
   font-size: 100%;
-  padding:20px 0;
+  padding:25px 0;
   font-weight: 500;
   font-size: 18px;
   color:#F8F8FA;
   line-height: 1.2em;
 }
 .action_user .menu_user h3 span{
-  font-size: 85%;
+  font-size: 70%;
   opacity: .6;
   color:#F8F8FA;
   font-weight: 400;

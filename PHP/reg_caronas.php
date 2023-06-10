@@ -254,7 +254,7 @@ if ($tipo == 'reserva') {
 
     if ($column_name) {
     // Remove $_SESSION['usuario'] da coluna correspondente
-    $sql_update = "UPDATE reservas SET $column_name = NULL WHERE $column_name = '".$_SESSION['usuario']."'";
+    $sql_update = "UPDATE reservas SET $column_name = '' WHERE $column_name = '".$_SESSION['usuario']."'";
     $conexao->query($sql_update);
 
     echo "Carona desmarcada com sucesso!";
