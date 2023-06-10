@@ -10,6 +10,12 @@
   <link rel="stylesheet" type="text/css" href="/CSS/index.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="/Js/scripts.js" type="module"></script>
+  <link rel="manifest" href="manifest.json">
+  <script>
+    if (typeof navigator.serviceWorker !== 'undefined') {
+      navigator.serviceWorker.register('pwabuilder-sw.js');
+    }
+  </script>
   <!-- <script src="/Js/anim-btn.js" defer></script> -->
 </head>
 
@@ -29,70 +35,70 @@
       <h2 class="text_1">Seja Bem vindo! Faça seu login para ter acesso às caronas</h2>
     </div>
 
-  <div class="wrapper">
-    <span class="icon-close"><ion-icon name="close"></ion-icon></span>
-    <div class="form-box login">
-      <h2>Login</h2>
-      <form action="#">
-        <div class="input-box">
-          <span class="icon"><ion-icon name="mail"></ion-icon></span>
-          <input type="email" id="email_entrada" required>
-          <label>Email</label>
-        </div>
-        <div class="input-box">
-          <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
-          <input type="password" id="senha_entrada" required>
-          <label>Senha</label>
-        </div>
-        <div class="remember-forgot">
-          <label><input type="checkbox" id="checkbox">Lembre-se de mim</label>
-          <a href="#">Esqueceu sua Senha?</a>
-        </div>
-        <button type="submit" class="btn_1" onclick="login(event)">Login</button>
-        <div class="login-register">
-          <p>Já possui uma conta? <a href="#" class="register-link">Registrar</a></p>
-        </div>
-      </form>
-    </div>
-    <div class="form-box register">
-      <h2>Registro</h2>
-      <form id="registroForm" enctype="multipart/form-data" action="/PHP/registro.php" method="POST">
-        <div class="input-foto">
-          <div class="max-width">
-            <div class="imageContainer">
-              <img src="/CSS/Imagens/sem_foto.png" alt="Selecione uma imagem" id="imgPhoto">
-            </div>
+    <div class="wrapper">
+      <span class="icon-close"><ion-icon name="close"></ion-icon></span>
+      <div class="form-box login">
+        <h2>Login</h2>
+        <form action="#">
+          <div class="input-box">
+            <span class="icon"><ion-icon name="mail"></ion-icon></span>
+            <input type="email" id="email_entrada" required>
+            <label>Email</label>
           </div>
-          <input type="file" name="file" id="flImage" name="fImage" accept="image/*" required>
-        </div>
+          <div class="input-box">
+            <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+            <input type="password" id="senha_entrada" required>
+            <label>Senha</label>
+          </div>
+          <div class="remember-forgot">
+            <label><input type="checkbox" id="checkbox">Lembre-se de mim</label>
+            <a href="#">Esqueceu sua Senha?</a>
+          </div>
+          <button type="submit" class="btn_1" onclick="login(event)">Login</button>
+          <div class="login-register">
+            <p>Já possui uma conta? <a href="#" class="register-link">Registrar</a></p>
+          </div>
+        </form>
+      </div>
+      <div class="form-box register">
+        <h2>Registro</h2>
+        <form id="registroForm" enctype="multipart/form-data" action="/PHP/registro.php" method="POST">
+          <div class="input-foto">
+            <div class="max-width">
+              <div class="imageContainer">
+                <img src="/CSS/Imagens/sem_foto.png" alt="Selecione uma imagem" id="imgPhoto">
+              </div>
+            </div>
+            <input type="file" name="file" id="flImage" name="fImage" accept="image/*" required>
+          </div>
 
-        <div class="input-box">
-          <span class="icon"><ion-icon name="person"></ion-icon></span>
-          <input type="text" name="usuario_registro" id="usuario_registro" required>
-          <label>Usuário</label>
-        </div>
-        <div class="input-box">
-          <span class="icon"><ion-icon name="mail"></ion-icon></span>
-          <input type="email" name="email_registro" id="email_registro" required>
-          <label>E-mail</label>
-        </div>
-        <div class="input-box">
-          <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
-          <input type="password" name="senha_registro" id="senha_registro" required>
-          <label>Senha</label>
-        </div>
-        <div class="remember-forgot">
-          <label><input type="checkbox" required>Eu aceito os termos & condições</label>
-        </div>
-        <button type="submit" id="Button_register" class="btn" onclick="registro(event);">
-          <div class="message submitMessage">
-            <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13 12.2">
+          <div class="input-box">
+            <span class="icon"><ion-icon name="person"></ion-icon></span>
+            <input type="text" name="usuario_registro" id="usuario_registro" required>
+            <label>Usuário</label>
+          </div>
+          <div class="input-box">
+            <span class="icon"><ion-icon name="mail"></ion-icon></span>
+            <input type="email" name="email_registro" id="email_registro" required>
+            <label>E-mail</label>
+          </div>
+          <div class="input-box">
+            <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+            <input type="password" name="senha_registro" id="senha_registro" required>
+            <label>Senha</label>
+          </div>
+          <div class="remember-forgot">
+            <label><input type="checkbox" required>Eu aceito os termos & condições</label>
+          </div>
+          <button type="submit" id="Button_register" class="btn" onclick="registro(event);">
+            <div class="message submitMessage">
+              <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13 12.2">
               <polyline stroke="currentColor" points="2,7.1 6.5,11.1 11,7.1 " />
               <line stroke="currentColor" x1="6.5" y1="1.2" x2="6.5" y2="10.3" /> -->
-            </svg> <span id="Button-text" class="button-text">Registrar-se</span>
-          </div>
+              </svg> <span id="Button-text" class="button-text">Registrar-se</span>
+            </div>
 
-          <!-- <div class="message loadingMessage">
+            <!-- <div class="message loadingMessage">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 17">
               <circle class="loadingCircle" cx="2.2" cy="10" r="1.6" />
               <circle class="loadingCircle" cx="9.5" cy="10" r="1.6" />
@@ -105,13 +111,13 @@
               <polyline stroke="currentColor" points="1.4,5.8 5.1,9.5 11.6,2.1 " />
             </svg> <span id="Button-text" class="button-text">Cadastrado!</span>
           </div> -->
-        </button>
-        <div class="login-register">
-          <p>Já possui uma conta? <a href="#" class="login-link">Login</a></p>
-        </div>
-      </form>
+          </button>
+          <div class="login-register">
+            <p>Já possui uma conta? <a href="#" class="login-link">Login</a></p>
+          </div>
+        </form>
+      </div>
     </div>
-  </div>
   </main>
   <canvas id="canvas"></canvas>
   <script src="/Js/foto.js"></script>
