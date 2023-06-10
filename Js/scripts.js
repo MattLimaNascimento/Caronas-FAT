@@ -89,7 +89,7 @@ window.registro = (e) => {
             usuario: obj.usuario
         },
         success: (response) => {
-            if(response == 'usuário já existente') {
+            if (response == 'usuário já existente') {
                 alert('Nome de usuário já existente. Se possível use nome e sobrenome!');
                 return;
             }
@@ -159,7 +159,11 @@ window.login = (e) => {
                 },
                 sync: false,
                 success: (res) => {
-                    window.location.href = "/HTML/telalog.html"
+                    if (res == 'sessão criada com sucesso') {
+                        window.location.href = "/HTML/telalog.html"
+                    } else if (res == 'Error') {
+                        alert('Erro ao criar sua sessão!');
+                    }
                 }
             });
         })

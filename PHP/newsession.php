@@ -29,6 +29,8 @@
         $_SESSION['senha_login'] = $senha_log;
         $_SESSION['usuario'] = $usuario;
         $_SESSION['path'] = $newpath;
+
+        echo "sessão criada com sucesso";
     } else if ($check_bool === false) {
         // Verificar se há uma sessão anteriormente criada
         if(isset($_SESSION['email_login']) && isset($_SESSION['senha_login'])) {
@@ -47,5 +49,8 @@
         $_SESSION['senha_login'] = $senha_log;
         $_SESSION['usuario'] = $usuario;
         $_SESSION['path'] = $newpath;
+        echo "sessão criada com sucesso";
+    } else {
+        echo 'Error';
     }
 ?>
