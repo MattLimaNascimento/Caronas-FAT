@@ -300,6 +300,7 @@ tela2_cel.addEventListener("click", () => {
       }
     },
   });
+  menu2.classList.add("active");
 });
 
 tela1_cel.addEventListener("click", () => {
@@ -318,6 +319,7 @@ tela1_cel.addEventListener("click", () => {
       }
     },
   });
+  menu2.classList.remove("active");
 });
 
 tela2.addEventListener("click", () => {
@@ -421,50 +423,86 @@ iconClose3.addEventListener("click", () => {
 });
 
 selected.addEventListener("click", () => {
-  // alert('Até aqui');
   optionsContainer.classList.toggle("active");
 });
-
+const qtdAcentos = document.getElementById("qtd_acentos");
 optionsList.forEach((o) => {
   o.addEventListener("click", () => {
-    // Desmarca todos os radios antes de marcar o radio selecionado
-    optionsList.forEach(
-      (radio) => (radio.querySelector("input").checked = false)
-    );
+    optionsList.forEach((radio) => {
+      radio.querySelector("input").checked = false;
+    });
 
-    // Marca o radio selecionado
     o.querySelector("input").checked = true;
-
-    // Define o texto selecionado como o valor do input "selected"
     selected.innerHTML = o.querySelector("label").innerHTML;
 
     optionsContainer.classList.remove("active");
+
+    if (o.querySelector("input").value === "moto") {
+      qtdAcentos.setAttribute("max", "1");
+      qtdAcentos.setAttribute("value", "1");
+    } else if (o.querySelector("input").value === "carro"){
+      qtdAcentos.setAttribute("max", "6");
+      qtdAcentos.setAttribute("value", "");
+    }
   });
 });
 
+
+
 selected1.addEventListener("click", () => {
-  // alert('Até aqui');
   optionsContainer1.classList.toggle("active");
 });
 
 optionsList1.forEach((o) => {
   o.addEventListener("click", () => {
-    // Desmarca todos os radios antes de marcar o radio selecionado
     optionsList1.forEach(
       (radio) => (radio.querySelector("input").checked = false)
     );
 
-    // Marca o radio selecionado
     o.querySelector("input").checked = true;
 
-    // Define o texto selecionado como o valor do input "selected"
-    selected1.innerHTML = o.querySelector("label").innerHTML;
+    const selectedDayOfWeek = o.querySelector("input").value;
+
+    const currentDate = new Date();
+    const currentDayOfWeekIndex = currentDate.getDay();
+    const selectedDayOfWeekIndex = getSelectedDayOfWeekIndex(selectedDayOfWeek);
+
+    let dayDiff;
+    if (currentDayOfWeekIndex === 0) { // Se for domingo
+      dayDiff = selectedDayOfWeekIndex - currentDayOfWeekIndex + 7; // Próximo domingo
+    } else {
+      dayDiff = selectedDayOfWeekIndex - currentDayOfWeekIndex;
+      if (dayDiff <= 0) {
+        dayDiff += 7;
+      }
+    }
+
+    const selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + dayDiff);
+
+    const selectedDay = selectedDate.getDate().toString().padStart(2, "0");
+    const selectedMonth = (selectedDate.getMonth() + 1).toString().padStart(2, "0");
+
+    selected1.innerHTML = `${selectedDayOfWeek} ${selectedDay}/${selectedMonth}`;
 
     anuncios_car.classList.add("active");
-
     optionsContainer1.classList.remove("active");
   });
 });
+
+function getSelectedDayOfWeekIndex(selectedDayOfWeek) {
+  const daysOfWeek = ["Domingo", "Segunda", "Terca", "Quarta", "Quinta", "Sexta", "Sabado"];
+  return daysOfWeek.indexOf(selectedDayOfWeek);
+}
+
+function getSelectedDayOfWeekIndex(selectedDayOfWeek) {
+  const daysOfWeek = ["Domingo", "Segunda", "Terca", "Quarta", "Quinta", "Sexta", "Sabado"];
+  return daysOfWeek.indexOf(selectedDayOfWeek);
+}
+
+function getSelectedDayOfWeekIndex(selectedDayOfWeek) {
+  const daysOfWeek = ["Domingo", "Segunda", "Terca", "Quarta", "Quinta", "Sexta", "Sabado"];
+  return daysOfWeek.indexOf(selectedDayOfWeek);
+}
 
 mostrarValores = (event) => {
   event.preventDefault();
@@ -477,6 +515,7 @@ mostrarValores = (event) => {
   const carro = document.getElementById("carro");
   const moto = document.getElementById("moto");
   let categoria;
+
   if (carro.checked) {
     categoria = carro.value;
   } else if (moto.checked) {
@@ -498,49 +537,55 @@ mostrarValores = (event) => {
   const time5 = document
     .getElementById("time5")
     .querySelector("input[type='time']").value;
-  const fixo = document.getElementById("fixo").checked;
+  const fixo = document
+  .getElementById("fixo")
+  .checked;
 
-  if (categoria == undefined) {
-    alert("Por favor selecione o tipo de veículo para a carona!");
-  } else if (
-    time1 == "00:00" &&
-    time2 == "00:00" &&
-    time3 == "00:00" &&
-    time4 == "00:00" &&
-    time5 == "00:00"
-  ) {
-    alert("Por favor, preencha pelo menos um horário.");
-  } else {
-    $.ajax({
-      url: "/PHP/informacoes.php",
-      tipo: 1,
-      type: "post",
-      data: {
-        destino: destino,
-        Preco: preco,
-        Tipo_de_Veiculo: categoria,
-        Vagas_Totais: qtd_acentos,
-        Segunda: time1,
-        Terca: time2,
-        Quarta: time3,
-        Quinta: time4,
-        Sexta: time5,
-        origem: origem,
-        Fixo: fixo,
-      },
-      success: (resultado) => {
-        if (resultado == "Já existe um registro!") {
-          alert("Só pode até 1 cadastro de carona!");
-          window.location.reload();
-        } else if (resultado == "Carona cadastrada com sucesso!") {
-          alert("Carona cadastrada com sucesso!");
-          window.location.reload();
-        } else {
-          alert(`Erro Information: ${resultado}`);
-        }
-      },
-    });
-  }
+  // if (categoria == undefined) {
+  //   alert("Por favor selecione o tipo de veículo para a carona!");
+  // } else if (
+  //   time1 == "00:00" &&
+  //   time2 == "00:00" &&
+  //   time3 == "00:00" &&
+  //   time4 == "00:00" &&
+  //   time5 == "00:00"
+  // ) {
+  //   alert("Por favor, preencha pelo menos um horário.");
+  // } else {
+    if (fixo) {
+      //   $.ajax({
+      //     url: "/PHP/informacoes.php",
+      //     tipo: 1,
+      //     type: "post",
+      //     data: {
+      //       destino: destino,
+      //       Preco: preco,
+      //       Tipo_de_Veiculo: categoria,
+      //       Vagas_Totais: qtd_acentos,
+      //       Segunda: time1,
+      //       Terca: time2,
+      //       Quarta: time3,
+      //       Quinta: time4,
+      //       Sexta: time5,
+      //       origem: origem,
+      //       Fixo: fixo,
+      //     },
+      //     success: (resultado) => {
+      //       if (resultado == "Já existe um registro!") {
+      //         alert("Só pode até 1 cadastro de carona!");
+      //         window.location.reload();
+      //       } else if (resultado == "Carona cadastrada com sucesso!") {
+      //         alert("Carona cadastrada com sucesso!");
+      //         window.location.reload();
+      //       } else {
+      //         alert(`Erro Information: ${resultado}`);
+      //       }
+      //     },
+      //   });
+     } else {
+       console.log('Não marcado');
+     }
+  // }
 };
 
 function formatarPlaca(id) {
