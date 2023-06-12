@@ -1410,6 +1410,12 @@ main {
     transform: translate(-50%, -50%);
 }
 
+/* .container.anuncios_caronas header {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+} */
+
 .slide-container.swiper {
     width: 100%;
     transition: .5s ease-in-out;
@@ -1552,19 +1558,19 @@ main {
 
 /* Cards Temps */
 
-.container.anuncios_caronas.temp .swiper-navBtn {
+.container.anuncios_caronas.temp{
+    position: absolute;
+    width: 100%;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.swiper-navBtn1 {
     color: #6E93f7;
     transition: color 0.3s ease;
 }
 
-.container.anuncios_caronas.temp .swiper-navBtn:hover {
-    color: #4070F4;
-}
-
-.container.anuncios_caronas.temp .swiper-navBtn::before,
-.container.anuncios_caronas.temp .swiper-navBtn::after {
-    font-size: 35px;
-}
 .slide-container1.swiper {
     width: 100%;
     transition: .5s ease-in-out;
@@ -1582,10 +1588,119 @@ main {
     border-radius: 25px;
 }
 
-.swiper-button-next1 {
+.card {
+    border-radius: 25px;
+    background-color: #FFF;
+}
+
+.image-content,
+.card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 14px;
+}
+
+.image-content {
+    position: relative;
+    row-gap: 5px;
+    padding: 25px 0;
+}
+
+.overlay {
+    border: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #2196F3;
+    border-radius: 25px 25px 0 25px;
+}
+
+.overlay::before,
+.overlay::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: -40px;
+    height: 40px;
+    width: 40px;
+    background-color: #2196F3;
+    border-color: #fff;
+}
+
+.overlay::after {
+    border-radius: 0 25px 0 0;
+    background-color: #FFF;
+}
+
+.card-image {
+    position: relative;
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    background: #FFF;
+    padding: 3px;
+}
+
+.card-image .card-img {
+    height: 95%;
+    width: 95%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #2196F3;
+}
+
+.name {
+    font-size: 25px;
+    font-weight: 600;
+    color: black;
+}
+
+.description {
+    font-size: 18px;
+    color: #707070;
+    text-align: center;
+}
+
+.button {
+    border: none;
+    font-size: 16px;
+    color: #FFF;
+    padding: 8px 16px;
+    background-color: #2196F3;
+    border-radius: 6px;
+    margin: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.button:hover {
+    background: #265DF2;
+}
+
+.swiper-navBtn1 {
+    color: #6E93f7;
+    transition: color 0.3s ease;
+}
+
+.swiper-navBtn1:hover {
+    color: #4070F4;
+}
+
+.swiper-navBtn1::before,
+.swiper-navBtn1::after {
+    font-size: 35px;
+}
+
+.swiper-navBtn1 {    
     right: 0;
 }
 
+.swiper-button-next1 {
+    right: 0;
+}
 .swiper-button-prev1 {
     left: 0;
 }
@@ -1598,6 +1713,7 @@ main {
 .swiper-pagination1-bullet-active {
     background-color: #2196F3;
 }
+/* ---------------------------------------------------------- */
 
 
 .nav {
@@ -1610,14 +1726,6 @@ footer {
     border-radius: 20px 20px 0 0;
     height: 150px;
     background: #2196F3;
-}
-
-.container.anuncios_caronas.temp {
-    position: absolute;
-    width: 100%;
-    top: 70%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(1);
 }
 
 /* Responsividade do Site p/ Outros Dispositivos */

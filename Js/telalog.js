@@ -25,7 +25,6 @@ const optionsList = document.querySelectorAll(".option");
 const selected1 = document.getElementById("selected2");
 const optionsContainer1 = document.getElementById("options-container2");
 const optionsList1 = document.querySelectorAll(".option1");
-const anuncios_car = document.getElementById("container anuncios_caronas");
 const register_car = document.querySelector("Button_register");
 const action = document.querySelector(".action_user");
 const sinal = document.getElementById("sinal");
@@ -33,7 +32,7 @@ const reservas = document.querySelector('.reservas');
 const container_confirmados = document.querySelector(".container-confirmados");
 const indicator = document.querySelector('.nav-indicator');
 const items = document.querySelectorAll('.nav-item');
-const cardWrapper2 = document.getElementById('anuncios_caronas temp');
+const cardWrapper2 = document.getElementById('anuncios_caronas_temp');
 let activeButton = document.querySelector(".menu__item.active");
 
 $.ajax({

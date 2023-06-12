@@ -1,5 +1,4 @@
-document.addEventListener('cardsCarregados', function () {
-  var swiper = new Swiper(".slide-content", {
+var swiper = new Swiper(".slide-content", {
     slidesPerView: 3,
     spaceBetween: 25,
     loop: true,
@@ -15,6 +14,7 @@ document.addEventListener('cardsCarregados', function () {
       nextEl: ".swiper-button-next",
       prevEl: ".swiper-button-prev",
     },
+
     breakpoints:{
         0: {
             slidesPerView: 1,
@@ -27,7 +27,7 @@ document.addEventListener('cardsCarregados', function () {
         },
     },
   });
-  var swiper = new Swiper(".slide-content1", {
+var swiper = new Swiper(".slide-content1", {
     slidesPerView: 3,
     spaceBetween: 25,
     loop: true,
@@ -35,7 +35,7 @@ document.addEventListener('cardsCarregados', function () {
     fade: 'true',
     grabCursor: 'true',
     pagination: {
-      el: ".swiper-pagination1",
+      el: ".swiper-pagination",
       clickable: true,
       dynamicBullets: true,
     },
@@ -43,6 +43,7 @@ document.addEventListener('cardsCarregados', function () {
       nextEl: ".swiper-button-next1",
       prevEl: ".swiper-button-prev1",
     },
+
     breakpoints:{
         0: {
             slidesPerView: 1,
@@ -55,4 +56,3 @@ document.addEventListener('cardsCarregados', function () {
         },
     },
   });
-});
