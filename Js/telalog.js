@@ -33,6 +33,7 @@ const reservas = document.querySelector('.reservas');
 const container_confirmados = document.querySelector(".container-confirmados");
 const indicator = document.querySelector('.nav-indicator');
 const items = document.querySelectorAll('.nav-item');
+const cardWrapper2 = document.getElementById('anuncios_caronas temp');
 let activeButton = document.querySelector(".menu__item.active");
 
 $.ajax({
@@ -42,6 +43,52 @@ $.ajax({
     var res = JSON.parse(resultado);
     action.innerHTML += res[0];
     var event = new Event("infosCarregadas");
+    document.dispatchEvent(event);
+  },
+});
+
+//Pegar o dia da semana atual
+var dataAtual = new Date();
+var numeroDia = dataAtual.getDay();
+
+var diasSemana = [
+  "Domingo",
+  "Segunda",
+  "Terca",
+  "Quarta",
+  "Quinta",
+  "Sexta",
+  "Sábado",
+];
+var diaSemanaAtual = diasSemana[numeroDia];
+ // Obtém o horário atual
+ var horaAtual = dataAtual.getHours();
+ var minutosAtual = dataAtual.getMinutes();
+
+ // Formata a hora e os minutos no formato "horas:minutos"
+ var horarioAtual = horaAtual + ":" + minutosAtual;
+
+$.ajax({
+  url: "/PHP/anuncios.php",
+  type: "post",
+  data: {
+    horario_atual: horarioAtual,
+    dia_SemanaAtual: diaSemanaAtual,
+    tipo: 2
+  },
+  async: false,
+  success: function (resultado) {
+    var cards = JSON.parse(resultado);
+
+    // Limpa o conteúdo existente do cardWrapper
+    cardWrapper2.innerHTML = "";
+
+    for (var i = 0; i < cards.length; i++) {
+      cardWrapper2.innerHTML += cards[i];
+    }
+
+    // Dispara o evento personalizado 'cardsCarregados' após adicionar os cards
+    var event = new Event("cardstemp");
     document.dispatchEvent(event);
   },
 });
@@ -447,8 +494,6 @@ optionsList.forEach((o) => {
   });
 });
 
-
-
 selected1.addEventListener("click", () => {
   optionsContainer1.classList.toggle("active");
 });
@@ -468,13 +513,10 @@ optionsList1.forEach((o) => {
     const selectedDayOfWeekIndex = getSelectedDayOfWeekIndex(selectedDayOfWeek);
 
     let dayDiff;
-    if (currentDayOfWeekIndex === 0) { // Se for domingo
-      dayDiff = selectedDayOfWeekIndex - currentDayOfWeekIndex + 7; // Próximo domingo
-    } else {
+    if (currentDayOfWeekIndex <= selectedDayOfWeekIndex) {
       dayDiff = selectedDayOfWeekIndex - currentDayOfWeekIndex;
-      if (dayDiff <= 0) {
-        dayDiff += 7;
-      }
+    } else {
+      dayDiff = 7 - (currentDayOfWeekIndex - selectedDayOfWeekIndex);
     }
 
     const selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + dayDiff);
@@ -483,21 +525,9 @@ optionsList1.forEach((o) => {
     const selectedMonth = (selectedDate.getMonth() + 1).toString().padStart(2, "0");
 
     selected1.innerHTML = `${selectedDayOfWeek} ${selectedDay}/${selectedMonth}`;
-
-    anuncios_car.classList.add("active");
     optionsContainer1.classList.remove("active");
   });
 });
-
-function getSelectedDayOfWeekIndex(selectedDayOfWeek) {
-  const daysOfWeek = ["Domingo", "Segunda", "Terca", "Quarta", "Quinta", "Sexta", "Sabado"];
-  return daysOfWeek.indexOf(selectedDayOfWeek);
-}
-
-function getSelectedDayOfWeekIndex(selectedDayOfWeek) {
-  const daysOfWeek = ["Domingo", "Segunda", "Terca", "Quarta", "Quinta", "Sexta", "Sabado"];
-  return daysOfWeek.indexOf(selectedDayOfWeek);
-}
 
 function getSelectedDayOfWeekIndex(selectedDayOfWeek) {
   const daysOfWeek = ["Domingo", "Segunda", "Terca", "Quarta", "Quinta", "Sexta", "Sabado"];
@@ -541,51 +571,47 @@ mostrarValores = (event) => {
   .getElementById("fixo")
   .checked;
 
-  // if (categoria == undefined) {
-  //   alert("Por favor selecione o tipo de veículo para a carona!");
-  // } else if (
-  //   time1 == "00:00" &&
-  //   time2 == "00:00" &&
-  //   time3 == "00:00" &&
-  //   time4 == "00:00" &&
-  //   time5 == "00:00"
-  // ) {
-  //   alert("Por favor, preencha pelo menos um horário.");
-  // } else {
-    if (fixo) {
-      //   $.ajax({
-      //     url: "/PHP/informacoes.php",
-      //     tipo: 1,
-      //     type: "post",
-      //     data: {
-      //       destino: destino,
-      //       Preco: preco,
-      //       Tipo_de_Veiculo: categoria,
-      //       Vagas_Totais: qtd_acentos,
-      //       Segunda: time1,
-      //       Terca: time2,
-      //       Quarta: time3,
-      //       Quinta: time4,
-      //       Sexta: time5,
-      //       origem: origem,
-      //       Fixo: fixo,
-      //     },
-      //     success: (resultado) => {
-      //       if (resultado == "Já existe um registro!") {
-      //         alert("Só pode até 1 cadastro de carona!");
-      //         window.location.reload();
-      //       } else if (resultado == "Carona cadastrada com sucesso!") {
-      //         alert("Carona cadastrada com sucesso!");
-      //         window.location.reload();
-      //       } else {
-      //         alert(`Erro Information: ${resultado}`);
-      //       }
-      //     },
-      //   });
-     } else {
-       console.log('Não marcado');
-     }
-  // }
+  if (categoria == undefined) {
+    alert("Por favor selecione o tipo de veículo para a carona!");
+  } else if (
+    time1 == "00:00" &&
+    time2 == "00:00" &&
+    time3 == "00:00" &&
+    time4 == "00:00" &&
+    time5 == "00:00"
+  ) {
+    alert("Por favor, preencha pelo menos um horário.");
+  } else {
+        $.ajax({
+          url: "/PHP/informacoes.php",
+          type: "post",
+          data: {
+            destino: destino,
+            Preco: preco,
+            Tipo_de_Veiculo: categoria,
+            Vagas_Totais: qtd_acentos,
+            Segunda: time1,
+            Terca: time2,
+            Quarta: time3,
+            Quinta: time4,
+            Sexta: time5,
+            origem: origem,
+            Fixo: fixo,
+            tipo: 1
+          },
+          success: (resultado) => {
+            if (resultado == "Já existe um registro!") {
+              alert("Só pode até 1 cadastro de carona!");
+              window.location.reload();
+            } else if (resultado == "Carona cadastrada com sucesso!") {
+              alert("Carona cadastrada com sucesso!");
+              window.location.reload();
+            } else {
+              alert(`Erro Information: ${resultado}`);
+            }
+          },
+        });
+  }
 };
 
 function formatarPlaca(id) {
@@ -653,6 +679,7 @@ function clickHandler() {
       dia_semana: selectedDay,
       dia_SemanaAtual: diaSemanaAtual,
       horario_atual: horarioAtual,
+      tipo: 1
     },
     async: false,
     success: function (resultado) {

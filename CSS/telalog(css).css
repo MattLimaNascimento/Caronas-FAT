@@ -396,7 +396,7 @@ body {
 
 main {
     position: relative;
-    height: 1000px;
+    height: 1300px;
     width: 100%;
     overflow: hidden;
     display: flex;
@@ -634,7 +634,7 @@ main {
 
 .menu1.desactivate {
     overflow: hidden;
-    transform: translateX(-100%);
+    transform: translateX(-150%);
 }
 
 .menu2 {
@@ -1405,7 +1405,7 @@ main {
 .container.anuncios_caronas {
     position: absolute;
     width: 100%;
-    top: 50%;
+    top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -1413,11 +1413,6 @@ main {
 .slide-container.swiper {
     width: 100%;
     transition: .5s ease-in-out;
-    transform: scale(0);
-}
-
-.slide-container.swiper.active {
-    transform: scale(1);
 }
 
 .slide-container {
@@ -1555,6 +1550,56 @@ main {
     background-color: #2196F3;
 }
 
+/* Cards Temps */
+
+.container.anuncios_caronas.temp .swiper-navBtn {
+    color: #6E93f7;
+    transition: color 0.3s ease;
+}
+
+.container.anuncios_caronas.temp .swiper-navBtn:hover {
+    color: #4070F4;
+}
+
+.container.anuncios_caronas.temp .swiper-navBtn::before,
+.container.anuncios_caronas.temp .swiper-navBtn::after {
+    font-size: 35px;
+}
+.slide-container1.swiper {
+    width: 100%;
+    transition: .5s ease-in-out;
+}
+
+.slide-container1 {
+    max-width: 1120px;
+    width: 100%;
+    padding: 40px 0;
+}
+
+.slide-content1 {
+    margin: 0 40px;
+    overflow: hidden;
+    border-radius: 25px;
+}
+
+.swiper-button-next1 {
+    right: 0;
+}
+
+.swiper-button-prev1 {
+    left: 0;
+}
+
+.swiper-pagination1-bullet {
+    background-color: #2196F3;
+    opacity: 1;
+}
+
+.swiper-pagination1-bullet-active {
+    background-color: #2196F3;
+}
+
+
 .nav {
     opacity: 0;
     visibility: hidden;
@@ -1567,10 +1612,22 @@ footer {
     background: #2196F3;
 }
 
+.container.anuncios_caronas.temp {
+    position: absolute;
+    width: 100%;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
 /* Responsividade do Site p/ Outros Dispositivos */
 @media screen and (max-width:940px) {
 
     .slide-content {
+        margin: 0 10px;
+    }
+
+    .slide-content1 {
         margin: 0 10px;
     }
 
