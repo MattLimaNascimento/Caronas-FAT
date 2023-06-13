@@ -1728,6 +1728,11 @@ footer {
     background: #2196F3;
 }
 
+.rodape_anuncios {
+    display: flex;
+    justify-content: center;
+}
+
 /* Responsividade do Site p/ Outros Dispositivos */
 @media screen and (max-width:940px) {
 

@@ -66,6 +66,58 @@ var diaSemanaAtual = diasSemana[numeroDia];
 
  // Formata a hora e os minutos no formato "horas:minutos"
  var horarioAtual = horaAtual + ":" + minutosAtual;
+// Função para verificar o horário dos cards
+function verificarHorarios() {
+  // Obter todos os elementos com a classe "card"
+  const cards = document.getElementsByClassName("card");
+
+  // Obter o horário atual
+  const horarioAtual = new Date();
+
+  // Converter o horário atual para o formato desejado (ex: "HH:MM")
+  const horarioAtualFormatado = `${horarioAtual.getHours()}:${horarioAtual.getMinutes()}`;
+
+  // Percorrer os cards
+  for (let i = 0; i < cards.length; i++) {
+    const card = cards[i];
+
+    // Obter o elemento de horário dentro do card
+    const horarioElemento = card.querySelector(".horario");
+
+    // Obter o horário do card
+    const horarioCard = horarioElemento.textContent.trim();
+
+    // Verificar se o horário do card já passou em relação ao horário atual
+    if (horarioCard < horarioAtualFormatado) {
+      // Remover o card do DOM
+      card.remove();
+
+      // Enviar a requisição AJAX
+      $.ajax({
+        url: "/PHP/anuncios.php",
+        type: "post",
+        data: {
+          horario_atual: horarioAtualFormatado,
+          dia_SemanaAtual: getDiaSemanaAtual(),
+          tipo: 3
+        },
+        success: (resultado) => {
+          console.log(resultado);
+        },
+      });
+    }
+  }
+}
+
+// Função para obter o dia da semana atual
+function getDiaSemanaAtual() {
+  const diasSemana = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
+  const diaSemanaAtual = new Date().getDay();
+  return diasSemana[diaSemanaAtual];
+}
+
+// Adicionar um ouvinte de eventos para o movimento do mouse
+document.addEventListener("mousemove", verificarHorarios);
 
 $.ajax({
   url: "/PHP/anuncios.php",
@@ -85,10 +137,6 @@ $.ajax({
     for (var i = 0; i < cards.length; i++) {
       cardWrapper2.innerHTML += cards[i];
     }
-
-    // Dispara o evento personalizado 'cardsCarregados' após adicionar os cards
-    var event = new Event("cardstemp");
-    document.dispatchEvent(event);
   },
 });
 

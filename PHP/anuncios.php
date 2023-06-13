@@ -314,7 +314,7 @@ if ($tipo == 1){
     echo json_encode($cards);
   } else {
     $Data = $_POST['dia_SemanaAtual'];
-    $sql = "SELECT * FROM anuncios_caronas JOIN usuarios ON anuncios_caronas" . '.' . "Usuario = usuarios" . '.' . "Usuario WHERE anuncios_caronas" . '.' . "$Data <> '00:00';";
+    $sql = "SELECT * FROM `anuncios_caronas temp` JOIN usuarios ON `anuncios_caronas temp`.Usuario = usuarios.Usuario WHERE `anuncios_caronas temp`.$Data <> '00:00';";
     $result = $conexao->query($sql);
 
     $cards = array(); // Array para armazenar os cards
