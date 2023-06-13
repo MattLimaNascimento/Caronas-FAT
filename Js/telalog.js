@@ -552,11 +552,96 @@ optionsList.forEach((o) => {
   });
 });
 
+// Define o tempo de desativação do evento de clique em milissegundos
+const disableTime = 500; // 1 segundo
+
+// Função de manipulador de clique
+function clickHandler() {
+  // Variáveis do Container Anuncios das Caronas
+  const cardWrapper = document.querySelector(".card-wrapper");
+
+  // Obtém o valor do dia selecionado
+  const selectedDay = this.querySelector("input").value;
+
+  //Pegar o dia da semana atual
+  var dataAtual = new Date();
+  var numeroDia = dataAtual.getDay();
+
+  var diasSemana = [
+    "Domingo",
+    "Segunda",
+    "Terca",
+    "Quarta",
+    "Quinta",
+    "Sexta",
+    "Sábado",
+  ];
+  var diaSemanaAtual = diasSemana[numeroDia];
+
+  // Obtém o horário atual
+  var horaAtual = dataAtual.getHours();
+  var minutosAtual = dataAtual.getMinutes();
+
+  // Formata a hora e os minutos no formato "horas:minutos"
+  var horarioAtual = horaAtual + ":" + minutosAtual;
+
+  $.ajax({
+    url: "/PHP/anuncios.php",
+    type: "post",
+    data: {
+      dia_semana: selectedDay,
+      dia_SemanaAtual: diaSemanaAtual,
+      horario_atual: horarioAtual,
+      tipo: 1
+    },
+    async: false,
+    success: function (resultado) {
+      var cards = JSON.parse(resultado);
+
+      // Limpa o conteúdo existente do cardWrapper
+      cardWrapper.innerHTML = "";
+
+      for (var i = 0; i < cards.length; i++) {
+        cardWrapper.innerHTML += cards[i];
+      }
+
+      // Dispara o evento personalizado 'cardsCarregados' após adicionar os cards
+      var event = new Event("cardsCarregados");
+      document.dispatchEvent(event);
+    },
+  });
+
+  // Desativa o evento de clique temporariamente
+  disableClickEvent();
+}
+
+// Função para desativar temporariamente o evento de clique
+function disableClickEvent() {
+  optionsList1.forEach((option) => {
+    option.removeEventListener("click", clickHandler);
+  });
+
+  setTimeout(() => {
+    optionsList1.forEach((option) => {
+      option.addEventListener("click", clickHandler);
+    });
+  }, disableTime);
+}
+
+
 selected1.addEventListener("click", () => {
   optionsContainer1.classList.toggle("active");
 });
 
 optionsList1.forEach((o) => {
+  // Obtenha a primeira opção do optionsList1
+  const primeiraOpcao = optionsList1[0];
+
+  // Dispare o evento de clique na primeira opção
+  primeiraOpcao.click();
+
+  o.addEventListener('click', clickHandler);
+
   o.addEventListener("click", () => {
     optionsList1.forEach(
       (radio) => (radio.querySelector("input").checked = false)
@@ -585,27 +670,13 @@ optionsList1.forEach((o) => {
     selected1.innerHTML = `${selectedDayOfWeek} ${selectedDay}/${selectedMonth}`;
     optionsContainer1.classList.remove("active");
   });
+
 });
 
 function getSelectedDayOfWeekIndex(selectedDayOfWeek) {
   const daysOfWeek = ["Domingo", "Segunda", "Terca", "Quarta", "Quinta", "Sexta", "Sabado"];
   return daysOfWeek.indexOf(selectedDayOfWeek);
 };
-
-// Obtém o dia da semana atual
-const currentDate = new Date();
-const daysOfWeek = ["Domingo", "Segunda", "Terca", "Quarta", "Quinta", "Sexta", "Sábado"];
-const currentDayOfWeek = daysOfWeek[currentDate.getDay()];
-
-// Encontra o elemento da opção relacionada ao dia da semana atual
-const currentDayOption = document.querySelector(`input[value="${currentDayOfWeek}"]`);
-
-// Aciona o evento de clique na opção correspondente ao dia da semana atual
-if (currentDayOption) {
-  const clickEvent = new Event("click");
-  currentDayOption.dispatchEvent(clickEvent);
-}
-
 
 mostrarValores = (event) => {
   event.preventDefault();
@@ -698,87 +769,6 @@ function formatarPlaca(id) {
   }
   document.getElementById(id).value = placa.toUpperCase();
 }
-
-// Define o tempo de desativação do evento de clique em milissegundos
-const disableTime = 500; // 1 segundo
-
-// Função para desativar temporariamente o evento de clique
-function disableClickEvent() {
-  optionsList1.forEach((option) => {
-    option.removeEventListener("click", clickHandler);
-  });
-
-  setTimeout(() => {
-    optionsList1.forEach((option) => {
-      option.addEventListener("click", clickHandler);
-    });
-  }, disableTime);
-}
-
-// Variáveis do Container Anuncios das Caronas
-const cardWrapper = document.querySelector(".card-wrapper");
-
-// Função de manipulador de clique
-function clickHandler() {
-  // Obtém o valor do dia selecionado
-  const selectedDay = this.querySelector("input").value;
-
-  //Pegar o dia da semana atual
-  var dataAtual = new Date();
-  var numeroDia = dataAtual.getDay();
-
-  var diasSemana = [
-    "Domingo",
-    "Segunda",
-    "Terca",
-    "Quarta",
-    "Quinta",
-    "Sexta",
-    "Sábado",
-  ];
-  var diaSemanaAtual = diasSemana[numeroDia];
-
-  // Obtém o horário atual
-  var horaAtual = dataAtual.getHours();
-  var minutosAtual = dataAtual.getMinutes();
-
-  // Formata a hora e os minutos no formato "horas:minutos"
-  var horarioAtual = horaAtual + ":" + minutosAtual;
-
-  $.ajax({
-    url: "/PHP/anuncios.php",
-    type: "post",
-    data: {
-      dia_semana: selectedDay,
-      dia_SemanaAtual: diaSemanaAtual,
-      horario_atual: horarioAtual,
-      tipo: 1
-    },
-    async: false,
-    success: function (resultado) {
-      var cards = JSON.parse(resultado);
-
-      // Limpa o conteúdo existente do cardWrapper
-      cardWrapper.innerHTML = "";
-
-      for (var i = 0; i < cards.length; i++) {
-        cardWrapper.innerHTML += cards[i];
-      }
-
-      // Dispara o evento personalizado 'cardsCarregados' após adicionar os cards
-      var event = new Event("cardsCarregados");
-      document.dispatchEvent(event);
-    },
-  });
-
-  // Desativa o evento de clique temporariamente
-  disableClickEvent();
-}
-
-// Adiciona o evento de clique a cada opção
-optionsList1.forEach((option) => {
-  option.addEventListener("click", clickHandler);
-});
 
 limitMaxLength = (inputElement) => {
   const maxLength = 11;
