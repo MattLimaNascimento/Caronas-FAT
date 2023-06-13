@@ -65,30 +65,35 @@ var diaSemanaAtual = diasSemana[numeroDia];
  var minutosAtual = dataAtual.getMinutes();
 
  // Formata a hora e os minutos no formato "horas:minutos"
- var horarioAtual = horaAtual + ":" + minutosAtual;
+var horarioAtual = horaAtual + ":" + minutosAtual;
+ 
 // Função para verificar o horário dos cards
 function verificarHorarios() {
-  // Obter todos os elementos com a classe "card"
-  const cards = document.getElementsByClassName("card");
+  // Obter todos os elementos com o ID "cards_temp"
+  const cards = document.querySelectorAll("#cards_temp");
 
   // Obter o horário atual
   const horarioAtual = new Date();
+  const horarioAtualFormatado = horarioAtual.getHours() * 60 + horarioAtual.getMinutes();
 
-  // Converter o horário atual para o formato desejado (ex: "HH:MM")
-  const horarioAtualFormatado = `${horarioAtual.getHours()}:${horarioAtual.getMinutes()}`;
+  let cardsRemovidos = false; // Variável de controle para verificar se os cards foram removidos
 
   // Percorrer os cards
   for (let i = 0; i < cards.length; i++) {
     const card = cards[i];
 
     // Obter o elemento de horário dentro do card
-    const horarioElemento = card.querySelector(".horario");
-
+    const horarioElemento = card.querySelector("#horario_temp");
     // Obter o horário do card
     const horarioCard = horarioElemento.textContent.trim();
+    const horarioCardSplit = horarioCard.split(":");
+    const horarioCardFormatado = parseInt(horarioCardSplit[0]) * 60 + parseInt(horarioCardSplit[1]);
 
     // Verificar se o horário do card já passou em relação ao horário atual
-    if (horarioCard < horarioAtualFormatado) {
+    if (horarioCardFormatado < horarioAtualFormatado) {
+      const nome_motor = card.querySelector(".name");
+      const nomeMotorista = nome_motor.textContent.trim();
+
       // Remover o card do DOM
       card.remove();
 
@@ -97,15 +102,20 @@ function verificarHorarios() {
         url: "/PHP/anuncios.php",
         type: "post",
         data: {
+          nome_motor: nomeMotorista,
           horario_atual: horarioAtualFormatado,
           dia_SemanaAtual: getDiaSemanaAtual(),
           tipo: 3
-        },
-        success: (resultado) => {
-          console.log(resultado);
-        },
+        }
       });
+
+      cardsRemovidos = true; // Atualizar a variável de controle
     }
+  }
+
+  // Verificar se os cards foram removidos antes de recarregar a página
+  if (cardsRemovidos) {
+    location.reload(); // Recarregar a página
   }
 }
 
@@ -118,6 +128,7 @@ function getDiaSemanaAtual() {
 
 // Adicionar um ouvinte de eventos para o movimento do mouse
 document.addEventListener("mousemove", verificarHorarios);
+
 
 $.ajax({
   url: "/PHP/anuncios.php",
@@ -579,7 +590,22 @@ optionsList1.forEach((o) => {
 function getSelectedDayOfWeekIndex(selectedDayOfWeek) {
   const daysOfWeek = ["Domingo", "Segunda", "Terca", "Quarta", "Quinta", "Sexta", "Sabado"];
   return daysOfWeek.indexOf(selectedDayOfWeek);
+};
+
+// Obtém o dia da semana atual
+const currentDate = new Date();
+const daysOfWeek = ["Domingo", "Segunda", "Terca", "Quarta", "Quinta", "Sexta", "Sábado"];
+const currentDayOfWeek = daysOfWeek[currentDate.getDay()];
+
+// Encontra o elemento da opção relacionada ao dia da semana atual
+const currentDayOption = document.querySelector(`input[value="${currentDayOfWeek}"]`);
+
+// Aciona o evento de clique na opção correspondente ao dia da semana atual
+if (currentDayOption) {
+  const clickEvent = new Event("click");
+  currentDayOption.dispatchEvent(clickEvent);
 }
+
 
 mostrarValores = (event) => {
   event.preventDefault();

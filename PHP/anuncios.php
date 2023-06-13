@@ -209,7 +209,7 @@ if ($tipo == 1){
       $horario_card = substr($user_data[$Data], 0, 5);
       if (strtotime($horario_card) < strtotime($hora_atual)) {
         $newpath = '/PHP' . '/' . $user_data['path'];
-        $card = '<div class="card swiper-slide">
+        $card = '<div class="card swiper-slide" id="cards_temp">
           <div class="image-content">
             <span class="overlay"></span>
             <div class="card-image">
@@ -222,7 +222,7 @@ if ($tipo == 1){
                 Veículo: <span class="veiculo">' . $user_data['Veiculo'] . '</span><br>
                 Origem: <span class="origem">' . $user_data['Origem'] . '</span><br>
                 Destino: <span class="destino">' . $user_data['Destino'] . '</span><br>
-                Horário: <span class="horario">' . $horario_card . '</span><br>
+                Horário: <span class="horario" id="horario_temp">' . $horario_card . '</span><br>
                 Preço: R$ <span class="preco">' . $user_data['Preco'] . '</span><br>          
             </h2>
           </div>
@@ -234,7 +234,7 @@ if ($tipo == 1){
       }
       if ($user_data['Usuario'] == $usuario || $user_data['Email'] == $_SESSION['email_login']) {
         $newpath = '/PHP' . '/' . $user_data['path'];
-        $card = '<div class="card swiper-slide">
+        $card = '<div class="card swiper-slide" id="cards_temp">
           <div class="image-content">
             <span class="overlay"></span>
             <div class="card-image">
@@ -247,7 +247,7 @@ if ($tipo == 1){
                 Veículo: <span class="veiculo">' . $user_data['Veiculo'] . '</span><br>
                 Origem: <span class="origem">' . $user_data['Origem'] . '</span><br>
                 Destino: <span class="destino">' . $user_data['Destino'] . '</span><br>
-                Horário: <span class="horario">' . $horario_card . '</span><br>
+                Horário: <span class="horario" id="horario_temp">' . $horario_card . '</span><br>
                 Preço: R$ <span class="preco">' . $user_data['Preco'] . '</span><br>          
             </h2>
           </div>
@@ -263,7 +263,7 @@ if ($tipo == 1){
       $reservasData = mysqli_fetch_assoc($reservasResult);
 
       $newpath = '/PHP' . '/' . $user_data['path'];
-      $card = '<div class="card swiper-slide">
+      $card = '<div class="card swiper-slide" id="cards_temp">
           <div class="image-content">
             <span class="overlay"></span>
             <div class="card-image">
@@ -276,7 +276,7 @@ if ($tipo == 1){
                 Veículo: <span class="veiculo">' . $user_data['Veiculo'] . '</span><br>
                 Origem: <span class="origem">' . $user_data['Origem'] . '</span><br>
                 Destino: <span class="destino">' . $user_data['Destino'] . '</span><br>
-                Horário: <span class="horario">' . substr($user_data[$Data], 0, 5) . '</span><br>
+                Horário: <span class="horario" id="horario_temp">' . substr($user_data[$Data], 0, 5) . '</span><br>
                 Preço: R$ <span class="preco">' . $user_data['Preco'] . '</span><br>          
             </h2>';
 
@@ -312,38 +312,10 @@ if ($tipo == 1){
     }
 
     echo json_encode($cards);
-  } else {
-    $Data = $_POST['dia_SemanaAtual'];
-    $sql = "SELECT * FROM `anuncios_caronas temp` JOIN usuarios ON `anuncios_caronas temp`.Usuario = usuarios.Usuario WHERE `anuncios_caronas temp`.$Data <> '00:00';";
-    $result = $conexao->query($sql);
-
-    $cards = array(); // Array para armazenar os cards
-
-    while ($user_data = mysqli_fetch_assoc($result)) {
-      $newpath = '/PHP' . '/' . $user_data['path'];
-      $card = '<div class="card swiper-slide">
-              <div class="image-content">
-                <span class="overlay"></span>
-                <div class="card-image">
-                <img src="' . $newpath . '" alt="" class="card-img">
-                </div>
-              </div>
-              <div class="card-content">
-                <h2 class="name">' . $user_data['Usuario'] . '</h2>
-                <h2 class="description">
-                  Veículo: ' . $user_data['Veiculo'] . '<br>
-                  Origem: ' . $user_data['Origem'] . '<br>
-                  Destino: ' . $user_data['Destino'] . '<br>
-                  Horário: ' . substr($user_data[$Data], 0, 5) . '<br>
-                  Preço: R$ ' . $user_data['Preco'] . '<br>          
-
-                </h2>
-              </div>
-            </div>';
-      $cards[] = $card; // Adiciona o card ao array
-    }
-
-    echo json_encode($cards);
   }
+} else if ($tipo == 3) {
+  $motorista = $_POST['nome_motor'];
+  $sql = "DELETE FROM `anuncios_caronas temp` WHERE `anuncios_caronas temp`.Usuario = '$motorista'";
+  $result = $conexao->query($sql);
 }
 ?>

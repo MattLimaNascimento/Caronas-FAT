@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@800&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Lora&family=Poppins:wght@300;400;500&display=swap');
 body::-webkit-scrollbar {
     width: 12px;
     background-color: rgba(200, 200, 200);
@@ -1731,6 +1731,14 @@ footer {
 .rodape_anuncios {
     display: flex;
     justify-content: center;
+    width: 550px;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    font-family: 'lora';
+    border-radius: 30px;
 }
 
 /* Responsividade do Site p/ Outros Dispositivos */
