@@ -99,6 +99,7 @@ function verificarHorarios() {
   const horarioAtual = new Date();
   const horarioAtualFormatado = horarioAtual.getHours() * 60 + horarioAtual.getMinutes();
 
+
   // Verificar se é meia-noite (horário atual igual a 00:00)
   if (horarioAtual.getHours() === 0 && horarioAtual.getMinutes() === 0) {
     cards.forEach((card) => {
@@ -139,9 +140,9 @@ function verificarHorarios() {
     const horarioCardDate = new Date();
     horarioCardDate.setHours(horarioCardHours);
     horarioCardDate.setMinutes(horarioCardMinutes);
-
+    
     // Verificar se o horário do card já passou em relação ao horário atual
-    if (horarioAtual < horarioCardDate) {
+    if (horarioAtual > horarioCardDate) {
       const nome_motor = card.querySelector(".name");
       const nomeMotorista = nome_motor.textContent.trim();
 
@@ -859,30 +860,36 @@ $(document).on("click", ".button", function () {
   var origem = card.find(".description .origem").text();
   var horario = card.find(".description .horario").text();
 
-  if (confirm("Tem certeza que deseja confirmar para esta carona?")) {
-    $.ajax({
-      url: "/PHP/reg_caronas.php",
-      type: "POST",
-      data: {
-        tipo: "reserva",
-        acento: buttonId,
-        motorista: name,
-        veiculo: veiculo,
-        preco: preco,
-        origem: origem,
-        destino: destino,
-        horario: horario,
-      },
-      success: (res) => {
-        if (res == 'Reserva feita com sucesso!') {
-          alert(res);
-          window.location.reload();
-        } else if (res == 'Error') {
-          alert('Error');
-        }
-      },
-    });
+  var buttonId = $(this).attr("id");
+  console.log(buttonId);
+  if (buttonId == 'temp') {
+    console.log("Card temporario");
   }
+
+  // if (confirm("Tem certeza que deseja confirmar para esta carona?")) {
+  //   $.ajax({
+  //     url: "/PHP/reg_caronas.php",
+  //     type: "POST",
+  //     data: {
+  //       tipo: "reserva",
+  //       acento: buttonId,
+  //       motorista: name,
+  //       veiculo: veiculo,
+  //       preco: preco,
+  //       origem: origem,
+  //       destino: destino,
+  //       horario: horario,
+  //     },
+  //     success: (res) => {
+  //       if (res == 'Reserva feita com sucesso!') {
+  //         alert(res);
+  //         window.location.reload();
+  //       } else if (res == 'Error') {
+  //         alert('Error');
+  //       }
+  //     },
+  //   });
+  // }
 });
 
 document.getElementById("myForm").addEventListener("submit", function (event) {

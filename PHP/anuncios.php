@@ -290,14 +290,14 @@ if ($tipo == 1){
         $maxButtons = min($user_data['Vagas'], 7); // Número máximo de botões a serem exibidos
 
         if (empty($reservasData['frente']) && $contador < $maxButtons) {
-          $card .= '<button class="button" data-button-id="frente">Frente</button>';
+          $card .= '<button class="button" id="temp" data-button-id="frente">Frente</button>';
           $contador++;
         }
 
         for ($i = 1; $i <= 7; $i++) {
           $coluna = 'atras' . $i;
           if ($i > 1 && $i <= $user_data['Vagas'] && empty($reservasData[$coluna]) && $contador < $maxButtons) {
-            $card .= '<button class="button" data-button-id="' . $coluna . '">Atrás</button>';
+            $card .= '<button class="button" id="temp" data-button-id="' . $coluna . '">Atrás</button>';
             $contador++;
           }
         }
