@@ -1405,7 +1405,7 @@ main {
 .container.anuncios_caronas {
     position: absolute;
     width: 100%;
-    top: 30%;
+    top: 33%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -1715,7 +1715,6 @@ main {
 }
 /* ---------------------------------------------------------- */
 
-
 .nav {
     opacity: 0;
     visibility: hidden;
@@ -1731,8 +1730,10 @@ footer {
 .rodape_anuncios {
     display: flex;
     justify-content: center;
+    height: 50px;
     width: 550px;
     position: absolute;
+    padding-top: 10px;
     left: 50%;
     top: 0;
     transform: translate(-50%, -50%);
@@ -1743,6 +1744,14 @@ footer {
 
 /* Responsividade do Site p/ Outros Dispositivos */
 @media screen and (max-width:940px) {
+    main {
+        height: 1500px;
+    }
+
+    .rodape_anuncios {
+        padding-top: 15px;
+        font-size: 15px;
+    }
 
     .slide-content {
         margin: 0 10px;
@@ -1760,13 +1769,14 @@ footer {
         display: flex;
         justify-content: center;
         align-content: center;
+        padding-top: 0;
     }
 
     .rodape-menu1 {
         width: 100%;
         display: flex;
-        padding-top: 120px;
-        gap: 15px;
+        padding-top: 100px;
+        gap: 10px;
         flex-direction: column-reverse;
         justify-content: center;
     }
@@ -1882,7 +1892,14 @@ footer {
 
 }
 
-@media screen and (max-width: 530px) {
+@media screen and (max-width: 575px) {
+
+    .rodape_anuncios {
+        padding-top: 20px;
+        font-size: 9px;
+        width: 100%;
+        height: 60px;
+    }
     
     .wrapper {
         width: 100%;

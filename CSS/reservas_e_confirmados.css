@@ -88,9 +88,10 @@
 }
 
 .footer-reservas {
-    display: flex;
-    justify-content: center;
-    padding: 5px;
+    position: absolute;
+    background-color: #707070;
+    top: 90%;
+    left: 25%;
     background-color: #FFF;
 }
 

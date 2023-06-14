@@ -35,6 +35,29 @@ const items = document.querySelectorAll('.nav-item');
 const cardWrapper2 = document.getElementById('anuncios_caronas_temp');
 let activeButton = document.querySelector(".menu__item.active");
 
+// //Mandar Notificações
+// Notification.requestPermission().then(perm => {
+//   if (perm === "granted") {
+//     new Notification("Notificação Teste", {
+//       body: "Sua carona exprirará em 10 minutos!",
+//       icon: '/CSS/Imagens/Caronas_FAT icon.png'
+//     });
+//   } else {
+//     alert("Por favor libere as permissões de notificações para melhor experiência com o app!");
+//   }
+// });
+
+// // Geolocalização
+// const getlocation = () => {
+//   if (navigator.geolocation) {
+//     navigator.geolocation.getCurrentPosition(
+//           (position) => {
+//             console.log(position);
+//           });
+//   }
+// }
+// getlocation();
+
 $.ajax({
   url: "/PHP/infos.php",
   type: "post",
@@ -60,13 +83,13 @@ var diasSemana = [
   "Sábado",
 ];
 var diaSemanaAtual = diasSemana[numeroDia];
- // Obtém o horário atual
- var horaAtual = dataAtual.getHours();
- var minutosAtual = dataAtual.getMinutes();
+// Obtém o horário atual
+var horaAtual = dataAtual.getHours();
+var minutosAtual = dataAtual.getMinutes();
 
- // Formata a hora e os minutos no formato "horas:minutos"
+// Formata a hora e os minutos no formato "horas:minutos"
 var horarioAtual = horaAtual + ":" + minutosAtual;
- 
+
 // Função para verificar o horário dos cards
 function verificarHorarios() {
   // Obter todos os elementos com o ID "cards_temp"
@@ -76,21 +99,49 @@ function verificarHorarios() {
   const horarioAtual = new Date();
   const horarioAtualFormatado = horarioAtual.getHours() * 60 + horarioAtual.getMinutes();
 
+  // Verificar se é meia-noite (horário atual igual a 00:00)
+  if (horarioAtual.getHours() === 0 && horarioAtual.getMinutes() === 0) {
+    cards.forEach((card) => {
+      const nome_motor = card.querySelector(".name");
+      const nomeMotorista = nome_motor.textContent.trim();
+
+      // Remover o card do DOM
+      card.remove();
+
+      // Enviar a requisição AJAX
+      $.ajax({
+        url: "/PHP/anuncios.php",
+        type: "post",
+        data: {
+          nome_motor: nomeMotorista,
+          horario_atual: horarioAtualFormatado,
+          dia_SemanaAtual: getDiaSemanaAtual(),
+          tipo: 3
+        }
+      });
+    });
+
+    return; // Encerrar a função após remover os cards e enviar as requisições AJAX
+  }
+
   let cardsRemovidos = false; // Variável de controle para verificar se os cards foram removidos
 
   // Percorrer os cards
   for (let i = 0; i < cards.length; i++) {
     const card = cards[i];
 
-    // Obter o elemento de horário dentro do card
     const horarioElemento = card.querySelector("#horario_temp");
-    // Obter o horário do card
     const horarioCard = horarioElemento.textContent.trim();
     const horarioCardSplit = horarioCard.split(":");
-    const horarioCardFormatado = parseInt(horarioCardSplit[0]) * 60 + parseInt(horarioCardSplit[1]);
+    const horarioCardHours = parseInt(horarioCardSplit[0]);
+    const horarioCardMinutes = parseInt(horarioCardSplit[1]);
+  
+    const horarioCardDate = new Date();
+    horarioCardDate.setHours(horarioCardHours);
+    horarioCardDate.setMinutes(horarioCardMinutes);
 
     // Verificar se o horário do card já passou em relação ao horário atual
-    if (horarioCardFormatado < horarioAtualFormatado) {
+    if (horarioAtual < horarioCardDate) {
       const nome_motor = card.querySelector(".name");
       const nomeMotorista = nome_motor.textContent.trim();
 
@@ -545,7 +596,7 @@ optionsList.forEach((o) => {
     if (o.querySelector("input").value === "moto") {
       qtdAcentos.setAttribute("max", "1");
       qtdAcentos.setAttribute("value", "1");
-    } else if (o.querySelector("input").value === "carro"){
+    } else if (o.querySelector("input").value === "carro") {
       qtdAcentos.setAttribute("max", "6");
       qtdAcentos.setAttribute("value", "");
     }
@@ -634,8 +685,19 @@ selected1.addEventListener("click", () => {
 });
 
 optionsList1.forEach((o) => {
+
+  const currentDate = new Date();
+  const currentDayOfWeekIndex = currentDate.getDay();
+  let selectedDayOfWeekIndex;
+
+  if (currentDayOfWeekIndex === 0 || currentDayOfWeekIndex === 6) {
+    selectedDayOfWeekIndex = 0;  // Domingo ou sábado
+  } else {
+    selectedDayOfWeekIndex = currentDayOfWeekIndex - 1;  // Segunda a sexta-feira
+  }
+
   // Obtenha a primeira opção do optionsList1
-  const primeiraOpcao = optionsList1[0];
+  const primeiraOpcao = optionsList1[selectedDayOfWeekIndex];
 
   // Dispare o evento de clique na primeira opção
   primeiraOpcao.click();
@@ -712,8 +774,8 @@ mostrarValores = (event) => {
     .getElementById("time5")
     .querySelector("input[type='time']").value;
   const fixo = document
-  .getElementById("fixo")
-  .checked;
+    .getElementById("fixo")
+    .checked;
 
   if (categoria == undefined) {
     alert("Por favor selecione o tipo de veículo para a carona!");
@@ -726,35 +788,35 @@ mostrarValores = (event) => {
   ) {
     alert("Por favor, preencha pelo menos um horário.");
   } else {
-        $.ajax({
-          url: "/PHP/informacoes.php",
-          type: "post",
-          data: {
-            destino: destino,
-            Preco: preco,
-            Tipo_de_Veiculo: categoria,
-            Vagas_Totais: qtd_acentos,
-            Segunda: time1,
-            Terca: time2,
-            Quarta: time3,
-            Quinta: time4,
-            Sexta: time5,
-            origem: origem,
-            Fixo: fixo,
-            tipo: 1
-          },
-          success: (resultado) => {
-            if (resultado == "Já existe um registro!") {
-              alert("Só pode até 1 cadastro de carona!");
-              window.location.reload();
-            } else if (resultado == "Carona cadastrada com sucesso!") {
-              alert("Carona cadastrada com sucesso!");
-              window.location.reload();
-            } else {
-              alert(`Erro Information: ${resultado}`);
-            }
-          },
-        });
+    $.ajax({
+      url: "/PHP/informacoes.php",
+      type: "post",
+      data: {
+        destino: destino,
+        Preco: preco,
+        Tipo_de_Veiculo: categoria,
+        Vagas_Totais: qtd_acentos,
+        Segunda: time1,
+        Terca: time2,
+        Quarta: time3,
+        Quinta: time4,
+        Sexta: time5,
+        origem: origem,
+        Fixo: fixo,
+        tipo: 1
+      },
+      success: (resultado) => {
+        if (resultado == "Já existe um registro!") {
+          alert("Só pode até 1 cadastro de carona!");
+          window.location.reload();
+        } else if (resultado == "Carona cadastrada com sucesso!") {
+          alert("Carona cadastrada com sucesso!");
+          window.location.reload();
+        } else {
+          alert(`Erro Information: ${resultado}`);
+        }
+      },
+    });
   }
 };
 
