@@ -282,7 +282,7 @@ if ($tipo == 1){
 
       if ($user_data['Veiculo'] == "moto") {
         $card .= '<div class="buttons container">
-                  <button class="button garupa" data-button-id="garupa">Garupa</button>                      
+                  <button class="button garupa" id="temp" data-button-id="garupa">Garupa</button>                      
                 </div>';
       } else {
         $card .= '<div class="buttons container">';
@@ -308,6 +308,40 @@ if ($tipo == 1){
       $card .= '</div>
         </div>';
 
+      $cards[] = $card; // Adiciona o card ao array
+    }
+
+    echo json_encode($cards);
+  } else {
+    $hora_atual  = $_POST['horario_atual'];
+    $Data = $_POST['dia_SemanaAtual'];
+
+    $sql = "SELECT * FROM `anuncios_caronas temp` JOIN usuarios ON `anuncios_caronas temp`" . '.' . "Usuario = usuarios" . '.' . "Usuario WHERE `anuncios_caronas temp`" . '.' . "$Data <> '00:00';";
+    $result = $conexao->query($sql);
+
+    $cards = array(); // Array para armazenar os cards
+
+    while ($user_data = mysqli_fetch_assoc($result)) {
+      $newpath = '/PHP' . '/' . $user_data['path'];
+      $card = '<div class="card swiper-slide">
+              <div class="image-content">
+                <span class="overlay"></span>
+                <div class="card-image">
+                <img src="' . $newpath . '" alt="" class="card-img">
+                </div>
+              </div>
+              <div class="card-content">
+                <h2 class="name">' . $user_data['Usuario'] . '</h2>
+                <h2 class="description">
+                  Veículo: ' . $user_data['Veiculo'] . '<br>
+                  Origem: ' . $user_data['Origem'] . '<br>
+                  Destino: ' . $user_data['Destino'] . '<br>
+                  Horário: ' . substr($user_data[$Data], 0, 5) . '<br>
+                  Preço: R$ ' . $user_data['Preco'] . '<br>          
+
+                </h2>
+              </div>
+            </div>';
       $cards[] = $card; // Adiciona o card ao array
     }
 

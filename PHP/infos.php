@@ -18,9 +18,9 @@ $card = '<div class="profile_user" id="profile">
         <div class="menu_user">
           <h3>'.$usuario.'<br/><span>'.$user_data['Email'].'</span></h3>
           <ul>
-            <li>
+            <li id="Caronas-confirmadas">
               <i class="fa-solid fa-user-check"></i>
-              <a href="#" id="Caronas-confirmadas">Caronas Confirmadas</a>
+              <a href="#">Caronas Confirmadas</a>
               <div class="sinal2" id = "sinal2"></div>
             </li>
             <li id="Carona_ok">

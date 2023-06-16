@@ -11,11 +11,9 @@ photo.addEventListener('click', () => {
 });
 
 file.addEventListener('change', () => {
-
   if (file.files.length <= 0) {
     return;
   }
-
 
   let reader = new FileReader();
   reader.onload = () => {

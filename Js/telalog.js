@@ -35,7 +35,7 @@ const items = document.querySelectorAll('.nav-item');
 const cardWrapper2 = document.getElementById('anuncios_caronas_temp');
 let activeButton = document.querySelector(".menu__item.active");
 
-// //Mandar Notificações
+// // Mandar Notificações
 // Notification.requestPermission().then(perm => {
 //   if (perm === "granted") {
 //     new Notification("Notificação Teste", {
@@ -91,7 +91,7 @@ var minutosAtual = dataAtual.getMinutes();
 var horarioAtual = horaAtual + ":" + minutosAtual;
 
 // Função para verificar o horário dos cards
-function verificarHorarios() {
+verificarHorarios = () => {
   // Obter todos os elementos com o ID "cards_temp"
   const cards = document.querySelectorAll("#cards_temp");
 
@@ -136,11 +136,11 @@ function verificarHorarios() {
     const horarioCardSplit = horarioCard.split(":");
     const horarioCardHours = parseInt(horarioCardSplit[0]);
     const horarioCardMinutes = parseInt(horarioCardSplit[1]);
-  
+
     const horarioCardDate = new Date();
     horarioCardDate.setHours(horarioCardHours);
     horarioCardDate.setMinutes(horarioCardMinutes);
-    
+
     // Verificar se o horário do card já passou em relação ao horário atual
     if (horarioAtual > horarioCardDate) {
       const nome_motor = card.querySelector(".name");
@@ -191,7 +191,7 @@ $.ajax({
     tipo: 2
   },
   async: false,
-  success: function (resultado) {
+  success: (resultado) => {
     var cards = JSON.parse(resultado);
 
     // Limpa o conteúdo existente do cardWrapper
@@ -277,27 +277,28 @@ document.addEventListener("infosCarregadas", () => {
         tipo2: 1
       },
       success: (resultado) => {
-        if (resultado != 'Não há nenhuma carona') {
-          var cards = JSON.parse(resultado);
-          // Limpa o conteúdo existente do cardWrapper
-          container_confirmados.innerHTML = "";
+        console.log(resultado);
+        // if (resultado != 'Não há nenhuma carona') {
+        //   var cards = JSON.parse(resultado);
+        //   // Limpa o conteúdo existente do cardWrapper
+        //   container_confirmados.innerHTML = "";
 
-          for (var i = 0; i < cards.length; i++) {
-            container_confirmados.innerHTML += cards[i];
-          }
+        //   for (var i = 0; i < cards.length; i++) {
+        //     container_confirmados.innerHTML += cards[i];
+        //   }
 
-          container_confirmados.classList.add('active');
+        //   container_confirmados.classList.add('active');
 
-          $('#icon-close-4').click(() => {
-            container_confirmados.classList.remove('active');
-          });
+        //   $('#icon-close-4').click(() => {
+        //     container_confirmados.classList.remove('active');
+        //   });
 
-          // Dispara o evento personalizado 'cardsCarregados' após adicionar os cards
-          var event = new Event("cardsConfirmados");
-          document.dispatchEvent(event);
-        } else {
-          alert("Você não tem nenhuma carona confirmada.");
-        }
+        //   // Dispara o evento personalizado 'cardsCarregados' após adicionar os cards
+        //   var event = new Event("cardsConfirmados");
+        //   document.dispatchEvent(event);
+        // } else {
+        //   alert("Você não tem nenhuma carona confirmada.");
+        // }
       },
     });
   });
@@ -457,7 +458,6 @@ tela2_cel.addEventListener("click", () => {
       }
     },
   });
-  menu2.classList.add("active");
 });
 
 tela1_cel.addEventListener("click", () => {
@@ -476,7 +476,6 @@ tela1_cel.addEventListener("click", () => {
       }
     },
   });
-  menu2.classList.remove("active");
 });
 
 tela2.addEventListener("click", () => {
@@ -582,12 +581,13 @@ iconClose3.addEventListener("click", () => {
 selected.addEventListener("click", () => {
   optionsContainer.classList.toggle("active");
 });
-const qtdAcentos = document.getElementById("qtd_acentos");
+
 optionsList.forEach((o) => {
   o.addEventListener("click", () => {
     optionsList.forEach((radio) => {
       radio.querySelector("input").checked = false;
     });
+    const qtdAcentos = document.getElementById("qtd_acentos");
 
     o.querySelector("input").checked = true;
     selected.innerHTML = o.querySelector("label").innerHTML;
@@ -614,6 +614,7 @@ function clickHandler() {
 
   // Obtém o valor do dia selecionado
   const selectedDay = this.querySelector("input").value;
+
 
   //Pegar o dia da semana atual
   var dataAtual = new Date();
@@ -680,13 +681,11 @@ function disableClickEvent() {
   }, disableTime);
 }
 
-
 selected1.addEventListener("click", () => {
   optionsContainer1.classList.toggle("active");
 });
 
 optionsList1.forEach((o) => {
-
   const currentDate = new Date();
   const currentDayOfWeekIndex = currentDate.getDay();
   let selectedDayOfWeekIndex;
@@ -699,9 +698,13 @@ optionsList1.forEach((o) => {
 
   // Obtenha a primeira opção do optionsList1
   const primeiraOpcao = optionsList1[selectedDayOfWeekIndex];
-
-  // Dispare o evento de clique na primeira opção
+  
   primeiraOpcao.click();
+
+  if (o.classList.contains("sexta")) {
+    o.click();
+    console.log(o);
+  }
 
   o.addEventListener('click', clickHandler);
 
@@ -748,7 +751,6 @@ mostrarValores = (event) => {
   const origem = document.getElementById("origin").value;
   const preco = document.getElementById("preco").value;
   const qtd_acentos = document.getElementById("qtd_acentos").value;
-
   const carro = document.getElementById("carro");
   const moto = document.getElementById("moto");
   let categoria;
@@ -780,7 +782,23 @@ mostrarValores = (event) => {
 
   if (categoria == undefined) {
     alert("Por favor selecione o tipo de veículo para a carona!");
+    return;
   } else if (
+    qtd_acentos == 0
+  ) {
+    alert('Por favor coloque a quantidade de acentos que deseja');
+    return;
+  }
+  else if (
+    preco == 0
+  ) {
+    if (confirm('Você tem certeza que a carona será de graça?')) {
+    } else {
+      return;
+    }
+  }
+  
+  if (
     time1 == "00:00" &&
     time2 == "00:00" &&
     time3 == "00:00" &&
@@ -821,7 +839,7 @@ mostrarValores = (event) => {
   }
 };
 
-function formatarPlaca(id) {
+formatarPlaca = (id) => {
   var placa = document.getElementById(id).value;
   placa = placa.replace(/[^a-zA-Z0-9\-]/g, "");
   if (placa.length > 3) {
@@ -842,54 +860,71 @@ limitMaxLength = (inputElement) => {
   }
 };
 
-input.addEventListener("input", function () {
+input.addEventListener("input", () => {
   limitMaxLength(input);
 });
 
-input1.addEventListener("input", function () {
+input1.addEventListener("input", () => {
   limitMaxLength(input1);
 });
 
-$(document).on("click", ".button", function () {
-  var buttonId = $(this).attr("data-button-id");
-  var card = $(this).closest(".card");
+$(document).on("click", ".button", (e) => {
+  var button = $(e.target);
+  var buttonId = button.attr("data-button-id");
+  var card = button.closest(".card");
   var name = card.find(".name").text();
-  var veiculo = card.find(".description .veiculo").text();
-  var preco = card.find(".description .preco").text();
-  var destino = card.find(".description .destino").text();
-  var origem = card.find(".description .origem").text();
-  var horario = card.find(".description .horario").text();
+  var sinal = document.getElementById("sinal");
 
-  var buttonId = $(this).attr("id");
-  console.log(buttonId);
-  if (buttonId == 'temp') {
-    console.log("Card temporario");
+  if (button.attr("id") == "temp") {
+    if (sinal.classList.contains('active')) {
+      alert('Não é possível marcar esta carona, pois você já possui uma carona marcada!');
+      return;
+    }
+    if (confirm("Tem certeza que deseja confirmar para esta carona?")) {
+      $.ajax({
+        url: "/PHP/reg_caronas.php",
+        type: "POST",
+        data: {
+          tipo: "reserva",
+          acento: buttonId,
+          motorista: name,
+          Reserva: 'temp'
+        },
+        success: (res) => {
+          if (res == 'Reserva feita com sucesso!') {
+            alert(res);
+            window.location.reload();
+          } else if (res == 'Error') {
+            alert('Error');
+          }
+        },
+      });
+    }
+  } else {
+    if (sinal.classList.contains('active')) {
+      alert('Não é possível marcar esta carona, pois você já possui uma carona marcada!');
+      return;
+    }
+    if (confirm("Tem certeza que deseja confirmar para esta carona?")) {
+      $.ajax({
+        url: "/PHP/reg_caronas.php",
+        type: "POST",
+        data: {
+          tipo: "reserva",
+          acento: buttonId,
+          motorista: name,
+        },
+        success: (res) => {
+          if (res == 'Reserva feita com sucesso!') {
+            alert(res);
+            window.location.reload();
+          } else if (res == 'Error') {
+            alert('Error');
+          }
+        },
+      });
+    }
   }
-
-  // if (confirm("Tem certeza que deseja confirmar para esta carona?")) {
-  //   $.ajax({
-  //     url: "/PHP/reg_caronas.php",
-  //     type: "POST",
-  //     data: {
-  //       tipo: "reserva",
-  //       acento: buttonId,
-  //       motorista: name,
-  //       veiculo: veiculo,
-  //       preco: preco,
-  //       origem: origem,
-  //       destino: destino,
-  //       horario: horario,
-  //     },
-  //     success: (res) => {
-  //       if (res == 'Reserva feita com sucesso!') {
-  //         alert(res);
-  //         window.location.reload();
-  //       } else if (res == 'Error') {
-  //         alert('Error');
-  //       }
-  //     },
-  //   });
-  // }
 });
 
 document.getElementById("myForm").addEventListener("submit", function (event) {
