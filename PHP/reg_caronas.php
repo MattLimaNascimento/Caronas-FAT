@@ -64,7 +64,8 @@ if ($tipo == 'reserva') {
         }
     }
 } else if ($tipo == 'conferir') {
-    if ($_SESSION['carona-temporária'] == '1' && isset($_SESSION['carona-temporária'])) {
+
+    if (!empty($_SESSION['carona-temporária'])) {
         $sql = "SELECT * FROM reservas_temp WHERE '$usuario' IN (frente, atras1, atras2, atras3, atras4, atras5,atras6,garupa)";
         $result = $conexao->query($sql);
     
@@ -87,7 +88,7 @@ if ($tipo == 'reserva') {
     $Data = $_POST['data_hoje'];
     $sql = "SELECT * FROM anuncios_caronas JOIN usuarios ON anuncios_caronas.Usuario = usuarios.Usuario JOIN reservas ON usuarios.Usuario = reservas.Motorista WHERE '$usuario' IN (reservas.frente, reservas.atras1, reservas.atras2, reservas.atras3, reservas.atras4, reservas.atras5, reservas.atras6, reservas.garupa);";
     $result = $conexao->query($sql);
-    if ($result && $result->num_rows > 0 && $_SESSION['carona-temporária'] != '1') {
+    if ($result && $result->num_rows > 0) {
         $user_data = mysqli_fetch_assoc($result);
         $newpath = '/PHP' . '/' . $user_data['path'];
     
@@ -463,7 +464,7 @@ if ($tipo == 'reserva') {
         }
 
 } else if ($tipo == 'Cancelar') {
-    if ($_SESSION['carona-temporária'] == '1' && isset($_SESSION['carona-temporária'])) {
+    if (!empty($_SESSION['carona-temporária'])) {
         $sql_find_column = "SELECT * FROM (
             SELECT
                 CASE

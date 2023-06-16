@@ -20,6 +20,7 @@ if ($tipo == 1){
 
     while ($user_data = mysqli_fetch_assoc($result)) {
       $horario_card = substr($user_data[$Data], 0, 5);
+      
       if (strtotime($horario_card) < strtotime($hora_atual)) {
         $newpath = '/PHP' . '/' . $user_data['path'];
         $card = '<div class="card swiper-slide">
@@ -349,7 +350,9 @@ if ($tipo == 1){
   }
 } else if ($tipo == 3) {
   $motorista = $_POST['nome_motor'];
-  $sql = "DELETE FROM `anuncios_caronas temp` WHERE `anuncios_caronas temp`.Usuario = '$motorista'";
+  $sql = "DELETE FROM `anuncios_caronas temp` WHERE `anuncios_caronas temp`.Usuario = '$motorista';";
+  $sql2 = "DELETE FROM reservas_temp WHERE `reservas_temp`.Motorista = '$motorista';";
   $result = $conexao->query($sql);
+  $result = $conexao->query($sql2);
 }
 ?>
