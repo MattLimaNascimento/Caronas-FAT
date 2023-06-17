@@ -3,12 +3,12 @@ session_start();
 include_once('config.php');
 $usuario = $_SESSION['usuario'];
 $tipo = $_POST['tipo'];
-
+// && $_POST['dia_semana'] == $_POST['dia_SemanaAtual'] && $result && $result->num_rows == 0
 if ($tipo == 1){
   $sql = "SELECT * FROM reservas WHERE '$usuario' IN (frente, atras1, atras2, atras3, atras4, atras5,atras6,garupa)";
   $result = $conexao->query($sql);
 
-  if (isset($_POST['dia_semana']) && $_POST['dia_semana'] == $_POST['dia_SemanaAtual'] && $result && $result->num_rows == 0) {
+  if (isset($_POST['dia_semana'])) {
     $Data = $_POST['dia_semana'];
     
     $hora_atual  = $_POST['horario_atual'];

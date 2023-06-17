@@ -192,14 +192,15 @@ $.ajax({
   },
   async: false,
   success: (resultado) => {
-    var cards = JSON.parse(resultado);
+    console.log(resultado);
+    // var cards = JSON.parse(resultado);
 
-    // Limpa o conteúdo existente do cardWrapper
-    cardWrapper2.innerHTML = "";
+    // // Limpa o conteúdo existente do cardWrapper
+    // cardWrapper2.innerHTML = "";
 
-    for (var i = 0; i < cards.length; i++) {
-      cardWrapper2.innerHTML += cards[i];
-    }
+    // for (var i = 0; i < cards.length; i++) {
+    //   cardWrapper2.innerHTML += cards[i];
+    // }
   },
 });
 
@@ -873,6 +874,7 @@ $(document).on("click", ".button", (e) => {
   var buttonId = button.attr("data-button-id");
   var card = button.closest(".card");
   var name = card.find(".name").text();
+  var horario = card.find(".description .horario").text();
   var sinal = document.getElementById("sinal");
 
   if (button.attr("id") == "temp") {
@@ -888,6 +890,7 @@ $(document).on("click", ".button", (e) => {
           tipo: "reserva",
           acento: buttonId,
           motorista: name,
+          horario: horario,
           Reserva: 'temp'
         },
         success: (res) => {
@@ -913,6 +916,7 @@ $(document).on("click", ".button", (e) => {
           tipo: "reserva",
           acento: buttonId,
           motorista: name,
+          horario: horario
         },
         success: (res) => {
           if (res == 'Reserva feita com sucesso!') {
@@ -972,21 +976,24 @@ document.addEventListener('infosReserva', () => {
   });
   $('#desmarcar').click(() => {
     if (confirm('Tem certeza que deseja desmarcar sua carona?')) {
-      $.ajax({
-        url: '/PHP/reg_caronas.php',
-        type: 'POST',
-        data: {
-          tipo: 'Cancelar'
-        },
-        success: (res) => {
-          if (res == 'Carona desmarcada com sucesso!') {
-            alert('Carona desmarcada com sucesso!');
-            window.location.reload();
-          } else if (res == 'Você não possui carona marcada.') {
-            alert('Você não possui carona marcada!');
-          }
-        }
-      });
+      var horario = $('.horario_reserva').text();
+      // $.ajax({
+      //   url: '/PHP/reg_caronas.php',
+      //   type: 'POST',
+      //   data: {
+      //     tipo: 'Cancelar',
+      //     horario: horario
+      //   },
+      //   success: (res) => {
+      //     console.log(res);
+      //     // if (res == 'Carona desmarcada com sucesso!') {
+      //     //   alert('Carona desmarcada com sucesso!');
+      //     //   window.location.reload();
+      //     // } else if (res == 'Você não possui carona marcada.') {
+      //     //   alert('Você não possui carona marcada!');
+      //     // }
+      //   }
+      // });
     }
   });
 });

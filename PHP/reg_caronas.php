@@ -7,6 +7,7 @@ $tipo = $_POST['tipo'];
 
 if ($tipo == 'reserva') {
     if (!isset($_POST['Reserva'])) {
+        $horario = $_POST['horario'];
         $acento = $_POST['acento'];
         $motorista = $_POST['motorista'];
     
@@ -16,7 +17,7 @@ if ($tipo == 'reserva') {
     
         if ($resultVerifica->num_rows > 0) {
             // O motorista já está na tabela   
-            $sql = "UPDATE `reservas` SET `$acento` = '$usuario' WHERE `reservas`.`Motorista` = '$motorista';";
+            $sql = "UPDATE `reservas` SET `$acento` = '$usuario', `Horario` = '$horario' WHERE `reservas`.`Motorista` = '$motorista';";
             $result = $conexao->query($sql);
             if ($result == 1) {
                 echo 'Reserva feita com sucesso!';
@@ -25,7 +26,7 @@ if ($tipo == 'reserva') {
             }
         } else {
             // O motorista não está na tabela, realiza a inserção na tabela   
-            $sql = "INSERT INTO reservas(`Motorista`, `$acento`) VALUES ('$motorista' , '$usuario')";
+            $sql = "INSERT INTO reservas(`Motorista`, `$acento`, `Horario`) VALUES ('$motorista' , '$usuario', '$horario');";
             $result = $conexao->query($sql);
             if ($result == 1) {
                 echo 'Reserva feita com sucesso!';
@@ -34,6 +35,7 @@ if ($tipo == 'reserva') {
             }
         }
     } else {
+        $horario = $_POST['horario'];
         $acento = $_POST['acento'];
         $motorista = $_POST['motorista'];
         $_SESSION['carona-temporária'] = 1;
@@ -44,7 +46,7 @@ if ($tipo == 'reserva') {
     
         if ($resultVerifica->num_rows > 0) {
             // O motorista já está na tabela   
-            $sql = "UPDATE `reservas_temp` SET `$acento` = '$usuario' WHERE `reservas_temp`.`Motorista` = '$motorista';";
+            $sql = "UPDATE `reservas_temp` SET `$acento` = '$usuario', `Horario` = '$horario' WHERE `reservas_temp`.`Motorista` = '$motorista';";
             $result = $conexao->query($sql);
             if ($result == 1) {
                 echo 'Reserva feita com sucesso!';
@@ -53,7 +55,7 @@ if ($tipo == 'reserva') {
             }
         } else {
             // O motorista não está na tabela, realiza a inserção na tabela   
-            $sql = "INSERT INTO reservas_temp(`Motorista`, `$acento`) VALUES ('$motorista' , '$usuario')";
+            $sql = "INSERT INTO reservas_temp(`Motorista`, `$acento`, `Horario`) VALUES ('$motorista' , '$usuario', '$horario');";
             $result = $conexao->query($sql);
             if ($result == 1) {
                 $_SESSION['carona-temporária'] = 1;
@@ -85,7 +87,9 @@ if ($tipo == 'reserva') {
         }
     }
 } else if ($tipo == 'conferir2') {
-    $Data = $_POST['data_hoje'];
+    // $Data = $_POST['data_hoje'];
+    $Data = 'Segunda';
+    
     $sql = "SELECT * FROM anuncios_caronas JOIN usuarios ON anuncios_caronas.Usuario = usuarios.Usuario JOIN reservas ON usuarios.Usuario = reservas.Motorista WHERE '$usuario' IN (reservas.frente, reservas.atras1, reservas.atras2, reservas.atras3, reservas.atras4, reservas.atras5, reservas.atras6, reservas.garupa);";
     $result = $conexao->query($sql);
     if ($result && $result->num_rows > 0) {
@@ -107,7 +111,7 @@ if ($tipo == 'reserva') {
                          Destino: ' . $user_data['Destino'] . '<br>
                          Preço: R$ ' . $user_data['Preco'] . '<br>
                          Veículo: ' . $user_data['Veiculo'] . '<br>
-                         Horário: ' . substr($user_data[$Data], 0, 5) . '<br>
+                         Horário: <span class="horario_reserva">' . substr($user_data[$Data], 0, 5) . '</span><br>
                      </h2>
                      </div>
                  </main>
