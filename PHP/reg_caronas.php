@@ -17,7 +17,7 @@ if ($tipo == 'reserva') {
     
         if ($resultVerifica->num_rows > 0) {
             // O motorista já está na tabela   
-            $sql = "UPDATE `reservas` SET `$acento` = '$usuario', `Horario` = '$horario' WHERE `reservas`.`Motorista` = '$motorista';";
+            $sql = "UPDATE `reservas` SET `$acento` = '$usuario' WHERE `reservas`.`Motorista` = '$motorista' AND `reservas`.`Horario` = '$horario';";
             $result = $conexao->query($sql);
             if ($result == 1) {
                 echo 'Reserva feita com sucesso!';
@@ -46,7 +46,7 @@ if ($tipo == 'reserva') {
     
         if ($resultVerifica->num_rows > 0) {
             // O motorista já está na tabela   
-            $sql = "UPDATE `reservas_temp` SET `$acento` = '$usuario', `Horario` = '$horario' WHERE `reservas_temp`.`Motorista` = '$motorista';";
+            $sql = "UPDATE `reservas_temp` SET `$acento` = '$usuario' WHERE `reservas_temp`.`Motorista` = '$motorista' AND `reservas_temp`.`Horario` = '$horario';";
             $result = $conexao->query($sql);
             if ($result == 1) {
                 echo 'Reserva feita com sucesso!';

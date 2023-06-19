@@ -141,25 +141,28 @@ verificarHorarios = () => {
     horarioCardDate.setHours(horarioCardHours);
     horarioCardDate.setMinutes(horarioCardMinutes);
 
+    // Enviar a requisição AJAX
+    $.ajax({
+      url: "/PHP/anuncios.php",
+      type: "post",
+      data: {
+        // nome_motor: nomeMotorista,
+        horario_atual: horarioAtualFormatado,
+        dia_SemanaAtual: getDiaSemanaAtual(),
+        tipo: 3
+      }, 
+      success: (resultado) => {
+        console.log(resultado);
+      }
+    });
     // Verificar se o horário do card já passou em relação ao horário atual
     if (horarioAtual > horarioCardDate) {
       const nome_motor = card.querySelector(".name");
       const nomeMotorista = nome_motor.textContent.trim();
-
+      
       // Remover o card do DOM
       card.remove();
 
-      // Enviar a requisição AJAX
-      $.ajax({
-        url: "/PHP/anuncios.php",
-        type: "post",
-        data: {
-          nome_motor: nomeMotorista,
-          horario_atual: horarioAtualFormatado,
-          dia_SemanaAtual: getDiaSemanaAtual(),
-          tipo: 3
-        }
-      });
 
       cardsRemovidos = true; // Atualizar a variável de controle
     }
@@ -192,15 +195,14 @@ $.ajax({
   },
   async: false,
   success: (resultado) => {
-    console.log(resultado);
-    // var cards = JSON.parse(resultado);
+    var cards = JSON.parse(resultado);
 
-    // // Limpa o conteúdo existente do cardWrapper
-    // cardWrapper2.innerHTML = "";
+    // Limpa o conteúdo existente do cardWrapper
+    cardWrapper2.innerHTML = "";
 
-    // for (var i = 0; i < cards.length; i++) {
-    //   cardWrapper2.innerHTML += cards[i];
-    // }
+    for (var i = 0; i < cards.length; i++) {
+      cardWrapper2.innerHTML += cards[i];
+    }
   },
 });
 
@@ -702,10 +704,10 @@ optionsList1.forEach((o) => {
   
   primeiraOpcao.click();
 
-  if (o.classList.contains("sexta")) {
-    o.click();
-    console.log(o);
-  }
+  // if (o.classList.contains("sexta")) {
+  //   o.click();
+  //   console.log(o);
+  // }
 
   o.addEventListener('click', clickHandler);
 
