@@ -176,10 +176,10 @@ verificarHorarios = () => {
     }
   }
 
-  // // Verificar se os cards foram removidos antes de recarregar a página
-  // if (cardsRemovidos) {
-  //   location.reload(); // Recarregar a página
-  // }
+  // Verificar se os cards foram removidos antes de recarregar a página
+  if (cardsRemovidos) {
+    location.reload(); // Recarregar a página
+  }
 }
 
 // Função para obter o dia da semana atual
