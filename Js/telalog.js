@@ -99,6 +99,12 @@ verificarHorarios = () => {
   const horarioAtual = new Date();
   const horarioAtualFormatado = horarioAtual.getHours() * 60 + horarioAtual.getMinutes();
 
+  // Obtém o horário atual
+  var horaAtual = dataAtual.getHours();
+  var minutosAtual = dataAtual.getMinutes();
+
+  // Formata a hora e os minutos no formato "horas:minutos"
+  var horario_Atual = horaAtual + ":" + minutosAtual;
 
   // Verificar se é meia-noite (horário atual igual a 00:00)
   if (horarioAtual.getHours() === 0 && horarioAtual.getMinutes() === 0) {
@@ -141,24 +147,26 @@ verificarHorarios = () => {
     horarioCardDate.setHours(horarioCardHours);
     horarioCardDate.setMinutes(horarioCardMinutes);
 
-    // Enviar a requisição AJAX
-    $.ajax({
-      url: "/PHP/anuncios.php",
-      type: "post",
-      data: {
-        // nome_motor: nomeMotorista,
-        horario_atual: horarioAtualFormatado,
-        dia_SemanaAtual: getDiaSemanaAtual(),
-        tipo: 3
-      }, 
-      success: (resultado) => {
-        console.log(resultado);
-      }
-    });
+    
     // Verificar se o horário do card já passou em relação ao horário atual
     if (horarioAtual > horarioCardDate) {
       const nome_motor = card.querySelector(".name");
       const nomeMotorista = nome_motor.textContent.trim();
+
+      // Enviar a requisição AJAX
+      $.ajax({
+        url: "/PHP/anuncios.php",
+        type: "post",
+        data: {
+          nome_motor: nomeMotorista,
+          horario_atual: horario_Atual,
+          dia_SemanaAtual: getDiaSemanaAtual(),
+          tipo: 3
+        }, 
+        success: (resultado) => {
+          console.log(resultado);
+        }
+      });
       
       // Remover o card do DOM
       card.remove();
@@ -168,10 +176,10 @@ verificarHorarios = () => {
     }
   }
 
-  // Verificar se os cards foram removidos antes de recarregar a página
-  if (cardsRemovidos) {
-    location.reload(); // Recarregar a página
-  }
+  // // Verificar se os cards foram removidos antes de recarregar a página
+  // if (cardsRemovidos) {
+  //   location.reload(); // Recarregar a página
+  // }
 }
 
 // Função para obter o dia da semana atual
@@ -280,28 +288,27 @@ document.addEventListener("infosCarregadas", () => {
         tipo2: 1
       },
       success: (resultado) => {
-        console.log(resultado);
-        // if (resultado != 'Não há nenhuma carona') {
-        //   var cards = JSON.parse(resultado);
-        //   // Limpa o conteúdo existente do cardWrapper
-        //   container_confirmados.innerHTML = "";
+        if (resultado != 'Não há nenhuma carona') {
+          var cards = JSON.parse(resultado);
+          // Limpa o conteúdo existente do cardWrapper
+          container_confirmados.innerHTML = "";
 
-        //   for (var i = 0; i < cards.length; i++) {
-        //     container_confirmados.innerHTML += cards[i];
-        //   }
+          for (var i = 0; i < cards.length; i++) {
+            container_confirmados.innerHTML += cards[i];
+          }
 
-        //   container_confirmados.classList.add('active');
+          container_confirmados.classList.add('active');
 
-        //   $('#icon-close-4').click(() => {
-        //     container_confirmados.classList.remove('active');
-        //   });
+          $('#icon-close-4').click(() => {
+            container_confirmados.classList.remove('active');
+          });
 
-        //   // Dispara o evento personalizado 'cardsCarregados' após adicionar os cards
-        //   var event = new Event("cardsConfirmados");
-        //   document.dispatchEvent(event);
-        // } else {
-        //   alert("Você não tem nenhuma carona confirmada.");
-        // }
+          // Dispara o evento personalizado 'cardsCarregados' após adicionar os cards
+          var event = new Event("cardsConfirmados");
+          document.dispatchEvent(event);
+        } else {
+          alert("Você não tem nenhuma carona confirmada.");
+        }
       },
     });
   });
@@ -635,11 +642,12 @@ function clickHandler() {
   var diaSemanaAtual = diasSemana[numeroDia];
 
   // Obtém o horário atual
+  var dataAtual = new Date();
   var horaAtual = dataAtual.getHours();
   var minutosAtual = dataAtual.getMinutes();
 
   // Formata a hora e os minutos no formato "horas:minutos"
-  var horarioAtual = horaAtual + ":" + minutosAtual;
+  var horarioFormatado = horaAtual + ":" + String(minutosAtual).padStart(2, '0');
 
   $.ajax({
     url: "/PHP/anuncios.php",
@@ -647,11 +655,12 @@ function clickHandler() {
     data: {
       dia_semana: selectedDay,
       dia_SemanaAtual: diaSemanaAtual,
-      horario_atual: horarioAtual,
+      horario_atual: horarioFormatado,
       tipo: 1
     },
     async: false,
     success: function (resultado) {
+      
       var cards = JSON.parse(resultado);
 
       // Limpa o conteúdo existente do cardWrapper
@@ -979,23 +988,22 @@ document.addEventListener('infosReserva', () => {
   $('#desmarcar').click(() => {
     if (confirm('Tem certeza que deseja desmarcar sua carona?')) {
       var horario = $('.horario_reserva').text();
-      // $.ajax({
-      //   url: '/PHP/reg_caronas.php',
-      //   type: 'POST',
-      //   data: {
-      //     tipo: 'Cancelar',
-      //     horario: horario
-      //   },
-      //   success: (res) => {
-      //     console.log(res);
-      //     // if (res == 'Carona desmarcada com sucesso!') {
-      //     //   alert('Carona desmarcada com sucesso!');
-      //     //   window.location.reload();
-      //     // } else if (res == 'Você não possui carona marcada.') {
-      //     //   alert('Você não possui carona marcada!');
-      //     // }
-      //   }
-      // });
+      $.ajax({
+        url: '/PHP/reg_caronas.php',
+        type: 'POST',
+        data: {
+          tipo: 'Cancelar',
+          horario: horario
+        },
+        success: (res) => {
+          if (res == 'Carona desmarcada com sucesso!') {
+            alert('Carona desmarcada com sucesso!');
+            window.location.reload();
+          } else if (res == 'Você não possui carona marcada.') {
+            alert('Você não possui carona marcada!');
+          }
+        }
+      });
     }
   });
 });

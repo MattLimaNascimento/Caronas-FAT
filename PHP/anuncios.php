@@ -3,50 +3,52 @@ session_start();
 include_once('config.php');
 $usuario = $_SESSION['usuario'];
 $tipo = $_POST['tipo'];
-// && $_POST['dia_semana'] == $_POST['dia_SemanaAtual'] && $result && $result->num_rows == 0
+
 if ($tipo == 1){
   $sql = "SELECT * FROM reservas WHERE '$usuario' IN (frente, atras1, atras2, atras3, atras4, atras5,atras6,garupa)";
   $result = $conexao->query($sql);
 
-  if (isset($_POST['dia_semana'])) {
-    // $Data = $_POST['dia_semana'];
-    $Data = 'Segunda';
+  if (isset($_POST['dia_semana']) && $_POST['dia_semana'] == $_POST['dia_SemanaAtual'] && $result && $result->num_rows == 0) {
+    $Data = $_POST['dia_semana'];
     
     $hora_atual  = $_POST['horario_atual'];
 
     $sql = "SELECT * FROM anuncios_caronas JOIN usuarios ON anuncios_caronas" . '.' . "Usuario = usuarios" . '.' . "Usuario WHERE anuncios_caronas" . '.' . "$Data <> '00:00';";
     $result = $conexao->query($sql);
+    $query = "DELETE FROM reservas WHERE Horario <= '$hora_atual';";
+    $answer = $conexao -> query($query);
 
     $cards = array(); // Array para armazenar os cards
-
+    
     while ($user_data = mysqli_fetch_assoc($result)) {
       $horario_card = substr($user_data[$Data], 0, 5);
       
-      // if (strtotime($horario_card) < strtotime($hora_atual)) {
-      //   $newpath = '/PHP' . '/' . $user_data['path'];
-      //   $card = '<div class="card swiper-slide">
-      //     <div class="image-content">
-      //       <span class="overlay"></span>
-      //       <div class="card-image">
-      //         <img src="' . $newpath . '" alt="" class="card-img">
-      //       </div>
-      //     </div>
-      //     <div class="card-content">
-      //       <h2 class="name">' . $user_data['Usuario'] . '</h2>
-      //       <h2 class="description">
-      //           Veículo: <span class="veiculo">' . $user_data['Veiculo'] . '</span><br>
-      //           Origem: <span class="origem">' . $user_data['Origem'] . '</span><br>
-      //           Destino: <span class="destino">' . $user_data['Destino'] . '</span><br>
-      //           Horário: <span class="horario">' . $horario_card . '</span><br>
-      //           Preço: R$ <span class="preco">' . $user_data['Preco'] . '</span><br>          
-      //       </h2>
-      //     </div>
-      //   </div>';
+      if (strtotime($horario_card) < strtotime($hora_atual)) {
+        $newpath = '/PHP' . '/' . $user_data['path'];
+        $card = '<div class="card swiper-slide">
+          <div class="image-content">
+            <span class="overlay"></span>
+            <div class="card-image">
+              <img src="' . $newpath . '" alt="" class="card-img">
+            </div>
+          </div>
+          <div class="card-content">
+            <h2 class="name">' . $user_data['Usuario'] . '</h2>
+            <h2 class="description">
+                Veículo: <span class="veiculo">' . $user_data['Veiculo'] . '</span><br>
+                Origem: <span class="origem">' . $user_data['Origem'] . '</span><br>
+                Destino: <span class="destino">' . $user_data['Destino'] . '</span><br>
+                Horário: <span class="horario">' . $horario_card . '</span><br>
+                Preço: R$ <span class="preco">' . $user_data['Preco'] . '</span><br>          
+            </h2>
+          </div>
+        </div>';
 
-      //   $cards[] = $card; // Adiciona o card ao array
+        $cards[] = $card; // Adiciona o card ao array
 
-      //   continue; // Pula para a próxima iteração do loop
-      // }
+        continue; // Pula para a próxima iteração do loop
+      }
+
       if ($user_data['Usuario'] == $usuario || $user_data['Email'] == $_SESSION['email_login']) {
         $newpath = '/PHP' . '/' . $user_data['path'];
         $card = '<div class="card swiper-slide">
@@ -352,11 +354,14 @@ if ($tipo == 1){
   }
 } else if ($tipo == 3) {
   $horario_atual = $_POST['horario_atual'];
-  echo $horario_atual;
-  // $motorista = $_POST['nome_motor'];
-  // $sql = "DELETE FROM `anuncios_caronas temp` WHERE `anuncios_caronas temp`.Usuario = '$motorista';";
-  // $sql2 = "DELETE FROM reservas_temp WHERE `reservas_temp`.Motorista = '$motorista';";
-  // $result = $conexao->query($sql);
-  // $result = $conexao->query($sql2);
+  $motorista = $_POST['nome_motor'];
+  $sql = "DELETE FROM `anuncios_caronas temp` WHERE `anuncios_caronas temp`.Usuario = '$motorista';";
+  $sql2 = "DELETE FROM reservas_temp WHERE `reservas_temp`.Motorista = '$motorista';";
+  $sql3 = "DELETE FROM reservas WHERE Horario <= '$horario_atual';";
+  $sql4 = "DELETE FROM reservas_temp WHERE Horario <= '$horario_atual';";
+  $result = $conexao->query($sql);
+  $result = $conexao->query($sql2);
+  $result = $conexao->query($sql3);
+  $result = $conexao->query($sql4);
 }
 ?>

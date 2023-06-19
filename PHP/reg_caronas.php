@@ -12,7 +12,7 @@ if ($tipo == 'reserva') {
         $motorista = $_POST['motorista'];
     
         // Verificar se o motorista já está na tabela reservas
-        $sqlVerifica = "SELECT * FROM reservas WHERE Motorista = '$motorista'";
+        $sqlVerifica = "SELECT * FROM reservas WHERE Motorista = '$motorista' AND Horario = '$horario'";
         $resultVerifica = $conexao->query($sqlVerifica);
     
         if ($resultVerifica->num_rows > 0) {
@@ -41,7 +41,7 @@ if ($tipo == 'reserva') {
         $_SESSION['carona-temporária'] = 1;
 
         // Verificar se o motorista já está na tabela reservas
-        $sqlVerifica = "SELECT * FROM reservas_temp WHERE Motorista = '$motorista'";
+        $sqlVerifica = "SELECT * FROM reservas_temp WHERE Motorista = '$motorista' AND Horario = '$horario';";
         $resultVerifica = $conexao->query($sqlVerifica);
     
         if ($resultVerifica->num_rows > 0) {
@@ -162,7 +162,7 @@ if ($tipo == 'reserva') {
 } else if ($tipo == 'Confirmados') {
     $tipo2 = $_POST['tipo2'];
     if ($tipo2 == 1) {
-        // Verificação caronas temporárias
+            // Verificação caronas temporárias
             $sql = "SELECT
             COALESCE(frente, '') AS frente,
             COALESCE(atras1, '') AS atras1,
@@ -189,8 +189,6 @@ if ($tipo == 'reserva') {
             FROM reservas
             WHERE Motorista = '$usuario';";
             $result2 = $conexao->query($query);
-            print_r($result2);
-            print_r($result);
 
             if ($result && $result->num_rows > 0) {
                 $user_data = mysqli_fetch_assoc($result);
@@ -336,26 +334,27 @@ if ($tipo == 'reserva') {
 
     } else if ($tipo2 == 2) {
         $sql = "SELECT
-        CASE WHEN frente IS NOT NULL THEN frente ELSE NULL END as frente,
-        CASE WHEN atras1 IS NOT NULL THEN atras1 ELSE NULL END as atras1,
-        CASE WHEN atras2 IS NOT NULL THEN atras2 ELSE NULL END as atras2,
-        CASE WHEN atras3 IS NOT NULL THEN atras3 ELSE NULL END as atras3,
-        CASE WHEN atras4 IS NOT NULL THEN atras4 ELSE NULL END as atras4,
-        CASE WHEN atras5 IS NOT NULL THEN atras5 ELSE NULL END as atras5,
-        CASE WHEN atras6 IS NOT NULL THEN atras6 ELSE NULL END as atras6,
-        CASE WHEN garupa IS NOT NULL THEN garupa ELSE NULL END as garupa
+        COALESCE(frente, '') AS frente,
+        COALESCE(atras1, '') AS atras1,
+        COALESCE(atras2, '') AS atras2,
+        COALESCE(atras3, '') AS atras3,
+        COALESCE(atras4, '') AS atras4,
+        COALESCE(atras5, '') AS atras5,
+        COALESCE(atras6, '') AS atras6,
+        COALESCE(garupa, '') AS garupa
         FROM reservas
         WHERE Motorista = '$usuario';";
         $result = $conexao->query($sql);
+        
         $sql2 = "SELECT
-        CASE WHEN frente IS NOT NULL THEN frente ELSE NULL END as frente,
-        CASE WHEN atras1 IS NOT NULL THEN atras1 ELSE NULL END as atras1,
-        CASE WHEN atras2 IS NOT NULL THEN atras2 ELSE NULL END as atras2,
-        CASE WHEN atras3 IS NOT NULL THEN atras3 ELSE NULL END as atras3,
-        CASE WHEN atras4 IS NOT NULL THEN atras4 ELSE NULL END as atras4,
-        CASE WHEN atras5 IS NOT NULL THEN atras5 ELSE NULL END as atras5,
-        CASE WHEN atras6 IS NOT NULL THEN atras6 ELSE NULL END as atras6,
-        CASE WHEN garupa IS NOT NULL THEN garupa ELSE NULL END as garupa
+        COALESCE(frente, '') AS frente,
+        COALESCE(atras1, '') AS atras1,
+        COALESCE(atras2, '') AS atras2,
+        COALESCE(atras3, '') AS atras3,
+        COALESCE(atras4, '') AS atras4,
+        COALESCE(atras5, '') AS atras5,
+        COALESCE(atras6, '') AS atras6,
+        COALESCE(garupa, '') AS garupa
         FROM reservas_temp
         WHERE Motorista = '$usuario';";
         $result2 = $conexao->query($sql2);
