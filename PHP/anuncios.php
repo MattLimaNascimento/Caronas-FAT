@@ -202,8 +202,7 @@ if ($tipo == 1){
 
   if ($result && $result->num_rows == 0) {
     $hora_atual  = $_POST['horario_atual'];
-    // $Data = $_POST['dia_SemanaAtual'];
-    $Data = 'Segunda';
+    $Data = $_POST['dia_SemanaAtual'];
 
     $sql = "SELECT * FROM `anuncios_caronas temp` JOIN usuarios ON `anuncios_caronas temp`" . '.' . "Usuario = usuarios" . '.' . "Usuario WHERE `anuncios_caronas temp`" . '.' . "$Data <> '00:00';";
     $result = $conexao->query($sql);

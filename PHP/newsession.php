@@ -10,47 +10,49 @@
     $usuario = $user_data['Usuario'];
     $newpath = '/PHP'.'/'. $user_data['path'];
     $check_bool = filter_var($check, FILTER_VALIDATE_BOOLEAN);
-    
-    if ($check_bool === true) {
-        // Verificar se há uma sessão anteriormente criada
-        if(isset($_SESSION['email_login']) && isset($_SESSION['senha_login'])) {
-            // Verificar se a sessão existente é diferente da anterior
-            if($_SESSION['email_login'] != $email_log || $_SESSION['senha_login'] != $senha_log) {
-                // Apagar todas as informações da sessão anterior
-                session_unset();
-                session_destroy();
-                session_start();
-            }
-        }
-    
-        // Criar uma nova sessão com as informações fornecidas
-        $_SESSION['check'] = 1;
-        $_SESSION['email_login'] = $email_log;
-        $_SESSION['senha_login'] = $senha_log;
-        $_SESSION['usuario'] = $usuario;
-        $_SESSION['path'] = $newpath;
 
-        echo "sessão criada com sucesso";
-    } else if ($check_bool === false) {
-        // Verificar se há uma sessão anteriormente criada
-        if(isset($_SESSION['email_login']) && isset($_SESSION['senha_login'])) {
-            // Verificar se a sessão existente é diferente da anterior
-            if($_SESSION['email_login'] != $email_log || $_SESSION['senha_login'] != $senha_log) {
-                // Apagar todas as informações da sessão anterior
-                session_unset();
-                session_destroy();
-                session_start();
-            }
-        }
+    print_r($result);
+    
+    // if ($check_bool === true) {
+    //     // Verificar se há uma sessão anteriormente criada
+    //     if(isset($_SESSION['email_login']) && isset($_SESSION['senha_login'])) {
+    //         // Verificar se a sessão existente é diferente da anterior
+    //         if($_SESSION['email_login'] != $email_log || $_SESSION['senha_login'] != $senha_log) {
+    //             // Apagar todas as informações da sessão anterior
+    //             session_unset();
+    //             session_destroy();
+    //             session_start();
+    //         }
+    //     }
+    
+    //     // Criar uma nova sessão com as informações fornecidas
+    //     $_SESSION['check'] = 1;
+    //     $_SESSION['email_login'] = $email_log;
+    //     $_SESSION['senha_login'] = $senha_log;
+    //     $_SESSION['usuario'] = $usuario;
+    //     $_SESSION['path'] = $newpath;
+
+    //     echo "sessão criada com sucesso";
+    // } else if ($check_bool === false) {
+    //     // Verificar se há uma sessão anteriormente criada
+    //     if(isset($_SESSION['email_login']) && isset($_SESSION['senha_login'])) {
+    //         // Verificar se a sessão existente é diferente da anterior
+    //         if($_SESSION['email_login'] != $email_log || $_SESSION['senha_login'] != $senha_log) {
+    //             // Apagar todas as informações da sessão anterior
+    //             session_unset();
+    //             session_destroy();
+    //             session_start();
+    //         }
+    //     }
         
-        // Criar uma nova sessão com as informações fornecidas
-        $_SESSION['check'] = 0;
-        $_SESSION['email_login'] = $email_log;
-        $_SESSION['senha_login'] = $senha_log;
-        $_SESSION['usuario'] = $usuario;
-        $_SESSION['path'] = $newpath;
-        echo "sessão criada com sucesso";
-    } else {
-        echo 'Error';
-    }
+    //     // Criar uma nova sessão com as informações fornecidas
+    //     $_SESSION['check'] = 0;
+    //     $_SESSION['email_login'] = $email_log;
+    //     $_SESSION['senha_login'] = $senha_log;
+    //     $_SESSION['usuario'] = $usuario;
+    //     $_SESSION['path'] = $newpath;
+    //     echo "sessão criada com sucesso";
+    // } else {
+    //     echo 'Error';
+    // }
 ?>

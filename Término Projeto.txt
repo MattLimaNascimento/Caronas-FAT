@@ -1,6 +1,3 @@
 Término: 
 
-- Marcador de guardar horário funcionar;
--Cancelar carona button;
-- Ajustar card para carro 7 lugares;
 - Recuperação de senha;

@@ -87,8 +87,7 @@ if ($tipo == 'reserva') {
         }
     }
 } else if ($tipo == 'conferir2') {
-    // $Data = $_POST['data_hoje'];
-    $Data = 'Segunda';
+    $Data = $_POST['data_hoje'];
     
     $sql = "SELECT * FROM anuncios_caronas JOIN usuarios ON anuncios_caronas.Usuario = usuarios.Usuario JOIN reservas ON usuarios.Usuario = reservas.Motorista WHERE '$usuario' IN (reservas.frente, reservas.atras1, reservas.atras2, reservas.atras3, reservas.atras4, reservas.atras5, reservas.atras6, reservas.garupa);";
     $result = $conexao->query($sql);
@@ -173,7 +172,7 @@ if ($tipo == 'reserva') {
             COALESCE(atras6, '') AS atras6,
             COALESCE(garupa, '') AS garupa
             FROM reservas_temp
-            WHERE Motorista = '$usuario';";
+            WHERE Motorista = '$usuario' ORDER BY Horario ASC;";
             $result = $conexao->query($sql);
             
             // Verificação caronas Fixas
@@ -187,7 +186,7 @@ if ($tipo == 'reserva') {
             COALESCE(atras6, '') AS atras6,
             COALESCE(garupa, '') AS garupa
             FROM reservas
-            WHERE Motorista = '$usuario';";
+            WHERE Motorista = '$usuario' ORDER BY Horario ASC;";
             $result2 = $conexao->query($query);
 
             if ($result && $result->num_rows > 0) {
@@ -258,8 +257,7 @@ if ($tipo == 'reserva') {
                     $user_data2 = null; // ou array() se desejar retornar um array vazio
                     echo 'Não há nenhuma carona';
                 }
-            } else if($result2 && $result2->num_rows > 0)
-            {
+            } else if($result2 && $result2->num_rows > 0) {
                 $user_data = mysqli_fetch_assoc($result2);
                     
                 
@@ -343,7 +341,7 @@ if ($tipo == 'reserva') {
         COALESCE(atras6, '') AS atras6,
         COALESCE(garupa, '') AS garupa
         FROM reservas
-        WHERE Motorista = '$usuario';";
+        WHERE Motorista = '$usuario' ORDER BY Horario ASC;";
         $result = $conexao->query($sql);
         
         $sql2 = "SELECT
@@ -356,7 +354,7 @@ if ($tipo == 'reserva') {
         COALESCE(atras6, '') AS atras6,
         COALESCE(garupa, '') AS garupa
         FROM reservas_temp
-        WHERE Motorista = '$usuario';";
+        WHERE Motorista = '$usuario' ORDER BY Horario ASC;";
         $result2 = $conexao->query($sql2);
 
         if ($result && $result->num_rows > 0) {

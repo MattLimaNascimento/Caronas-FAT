@@ -1,4 +1,4 @@
 Ideias para aplicativo App FAT
 
 -Rastreamento do ônibus em tempo real, e notícias sobre funcionamento.
--Grupo de conversa com cada uma das pessoas que que confirmaram marcação (tipo grupo de wpp)
+-Grupo de conversa com cada uma das pessoas que confirmaram marcação (tipo grupo de wpp)

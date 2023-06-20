@@ -1,7 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-analytics.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";
-import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";
+import { getAuth, sendPasswordResetEmail , createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";
 
 $.ajax({
     url: '/PHP/sessao.php',
@@ -139,6 +138,23 @@ window.registro = (e) => {
     });
 };
 
+window.rec_senha = (e) => {
+    var email = $('#email_entrada').val();
+    
+    if (email == '') {
+        alert('Por favor insira um email de recuperação!');
+        return;
+    };
+
+    sendPasswordResetEmail(auth, email)
+    .then(() => {
+        alert('Por favor verifique seu email para troca de senha!');
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+    });
+};
 
 window.login = (e) => {
     e.preventDefault();
@@ -183,4 +199,4 @@ window.login = (e) => {
                 alert('Login error: ' + e);
             }
         })
-}
+};
