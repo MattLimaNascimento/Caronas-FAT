@@ -140,7 +140,8 @@
 
 .confirmado {
     padding: 4px;
-    width: 60px;
+    width: 65px;
+    height: 65px;
     border-radius: 50%;
 }
 

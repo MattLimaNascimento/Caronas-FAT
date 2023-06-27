@@ -58,22 +58,14 @@ let activeButton = document.querySelector(".menu__item.active");
 // }
 // getlocation();
 
-// $.ajax({
-//   url: "/PHP/sair.php",
-//   type: "post",
-//   success: (resultado) => {
-//     window.location.reload( );
-//   },
-// });
-
 $.ajax({
   url: "/PHP/infos.php",
   type: "post",
   success: (resultado) => {
-    // var res = JSON.parse(resultado);
-    // action.innerHTML += res[0];
-    // var event = new Event("infosCarregadas");
-    // document.dispatchEvent(event);
+    var res = JSON.parse(resultado);
+    action.innerHTML += res[0];
+    var event = new Event("infosCarregadas");
+    document.dispatchEvent(event);
   },
 });
 
@@ -686,7 +678,7 @@ function clickHandler() {
 
   // Desativa o evento de clique temporariamente
   disableClickEvent();
-}
+};
 
 // Função para desativar temporariamente o evento de clique
 function disableClickEvent() {
@@ -699,7 +691,7 @@ function disableClickEvent() {
       option.addEventListener("click", clickHandler);
     });
   }, disableTime);
-}
+};
 
 selected1.addEventListener("click", () => {
   optionsContainer1.classList.toggle("active");

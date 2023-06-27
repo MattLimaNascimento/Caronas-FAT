@@ -17,7 +17,17 @@ file.addEventListener('change', () => {
 
   let reader = new FileReader();
   reader.onload = () => {
-    photo.src = reader.result;
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = 600;
+      canvas.height = 600;
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      const resizedImage = canvas.toDataURL('image/jpeg');
+      photo.src = resizedImage;
+    };
+    img.src = reader.result;
   },
 
     reader.readAsDataURL(file.files[0]);
