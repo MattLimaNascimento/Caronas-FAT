@@ -503,9 +503,21 @@ input[type='file'] {
     left: 36%;
 }
 
+.login-name.desactive {
+    opacity: 0;
+    overflow: hidden;
+}
+
 /* Loading */
 
+.loading.active {
+    opacity: 1;
+    overflow: visible;
+}
+
 .loading {
+    opacity: 1;
+    overflow: hidden;
     position: fixed;
     z-index: 999;
     height: 2em;

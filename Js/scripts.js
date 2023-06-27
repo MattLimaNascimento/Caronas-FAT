@@ -36,6 +36,8 @@ var email_registro = document.getElementById('email_registro');
 var passwords_registro = document.getElementById('senha_registro');
 var passwords_login = document.getElementById('senha_entrada');
 var email_login = document.getElementById('email_entrada');
+const login_name = document.querySelector('.login-name');
+const loading = document.querySelector('.loading');
 const check = document.getElementById('checkbox');
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
@@ -160,6 +162,11 @@ window.rec_senha = (e) => {
 
 window.login = (e) => {
     e.preventDefault();
+
+    login_name.classList.add('desactive');
+
+    loading.classList.add('active');
+
     var obj = {
         email: email_login.value,
         passwords: passwords_login.value
@@ -179,7 +186,7 @@ window.login = (e) => {
                 success: (res) => {
                     if (res == 'sessão criada com sucesso') {
                         window.location.href = "/HTML/telalog.html"
-                    }  else if (res == 'Error') {
+                    } else if (res == 'Error') {
                         alert('Erro ao criar sua sessão!');
                     }
                 }
@@ -188,17 +195,27 @@ window.login = (e) => {
         .catch((e) => {
             if (e == 'FirebaseError: Firebase: Error (auth/wrong-password).') {
                 alert('Senha ou usuário não estão corretos, por favor tente novamente!');
+                login_name.classList.remove('desactive');
+                loading.classList.remove('active');
             } else if (e == 'FirebaseError: Firebase: Error (auth/user-not-found).') {
                 alert('Usuário não encontrado!');
+                login_name.classList.remove('desactive');
+                loading.classList.remove('active');
                 wrapper.classList.add('active');
             } else if (e == 'FirebaseError: Firebase: Error (auth/missing-password).') {
                 alert('Por favor, insira sua senha!');
+                login_name.classList.remove('desactive');
+                loading.classList.remove('active');
                 wrapper.classList.add('active');
             } else if (e == 'FirebaseError: Firebase: Error (auth/invalid-email).') {
                 alert('Por favor, insira um E-mail válido!');
+                login_name.classList.remove('desactive');
+                loading.classList.remove('active');
                 wrapper.classList.add('active');
             } else {
+                login_name.classList.remove('desactive');
+                loading.classList.remove('active');
                 alert('Login error: ' + e);
             }
-        })
+        });
 };
