@@ -503,6 +503,11 @@ input[type='file'] {
     left: 36%;
 }
 
+.register-name.desactive {
+    opacity: 0;
+    overflow: hidden;
+}
+
 .login-name.desactive {
     opacity: 0;
     overflow: hidden;
@@ -510,12 +515,61 @@ input[type='file'] {
 
 /* Loading */
 
-.loading.active {
+.loading.register.active {
     opacity: 1;
     overflow: visible;
 }
 
-.loading {
+.loading.register {
+    opacity: 1;
+    overflow: hidden;
+    position: fixed;
+    z-index: 999;
+    height: 2em;
+    width: 2em;
+    overflow: show;
+    margin: auto;
+    top: 365px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+  
+  /* :not(:required) hides these rules from IE9 and below */
+  .loading.register:not(:required) {
+    /* hide "loading..." text */
+    font: 0/0 a;
+    color: transparent;
+    text-shadow: none;
+    background-color: transparent;
+    border: 0;
+  }
+  
+  .loading.register:not(:required):after {
+    content: '';
+    display: block;
+    font-size: 10px;
+    width: 1em;
+    height: 1em;
+    margin-top: -0.5em;
+    -webkit-animation: spinner 150ms infinite linear;
+    -moz-animation: spinner 150ms infinite linear;
+    -ms-animation: spinner 150ms infinite linear;
+    -o-animation: spinner 150ms infinite linear;
+    animation: spinner 150ms infinite linear;
+    border-radius: 0.5em;
+    -webkit-box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1.1em 0 0, rgba(255,255,255, 0.75) 0 1.5em 0 0, rgba(255,255,255, 0.75) -1.1em 1.1em 0 0, rgba(255,255,255, 0.75) -1.5em 0 0 0, rgba(255,255,255, 0.75) -1.1em -1.1em 0 0, rgba(255,255,255, 0.75) 0 -1.5em 0 0, rgba(255,255,255, 0.75) 1.1em -1.1em 0 0;
+    box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1.1em 0 0, rgba(255,255,255, 0.75) 0 1.5em 0 0, rgba(255,255,255, 0.75) -1.1em 1.1em 0 0, rgba(255,255,255, 0.75) -1.5em 0 0 0, rgba(255,255,255, 0.75) -1.1em -1.1em 0 0, rgba(255,255,255, 0.75) 0 -1.5em 0 0, rgba(255,255,255, 0.75) 1.1em -1.1em 0 0;
+  }
+
+/* Loading */
+
+.loading.login.active {
+    opacity: 1;
+    overflow: visible;
+}
+
+.loading.login {
     opacity: 1;
     overflow: hidden;
     position: fixed;
@@ -531,7 +585,7 @@ input[type='file'] {
   }
   
   /* :not(:required) hides these rules from IE9 and below */
-  .loading:not(:required) {
+  .loading.login:not(:required) {
     /* hide "loading..." text */
     font: 0/0 a;
     color: transparent;
@@ -540,7 +594,7 @@ input[type='file'] {
     border: 0;
   }
   
-  .loading:not(:required):after {
+  .loading.login:not(:required):after {
     content: '';
     display: block;
     font-size: 10px;
@@ -559,7 +613,7 @@ input[type='file'] {
   
   /* Animation */
   
-  @-webkit-keyframes spinner {
+@-webkit-keyframes spinner {
     0% {
       -webkit-transform: rotate(0deg);
       -moz-transform: rotate(0deg);
@@ -575,7 +629,7 @@ input[type='file'] {
       transform: rotate(360deg);
     }
   }
-  @-moz-keyframes spinner {
+@-moz-keyframes spinner {
     0% {
       -webkit-transform: rotate(0deg);
       -moz-transform: rotate(0deg);
@@ -591,7 +645,7 @@ input[type='file'] {
       transform: rotate(360deg);
     }
   }
-  @-o-keyframes spinner {
+@-o-keyframes spinner {
     0% {
       -webkit-transform: rotate(0deg);
       -moz-transform: rotate(0deg);
@@ -607,7 +661,7 @@ input[type='file'] {
       transform: rotate(360deg);
     }
   }
-  @keyframes spinner {
+@keyframes spinner {
     0% {
       -webkit-transform: rotate(0deg);
       -moz-transform: rotate(0deg);

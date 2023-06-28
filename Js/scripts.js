@@ -37,7 +37,9 @@ var passwords_registro = document.getElementById('senha_registro');
 var passwords_login = document.getElementById('senha_entrada');
 var email_login = document.getElementById('email_entrada');
 const login_name = document.querySelector('.login-name');
-const loading = document.querySelector('.loading');
+const loading = document.querySelector('.loading.login');
+const register_name = document.querySelector('.register-name');
+const loading2 = document.querySelector('.loading.register');
 const check = document.getElementById('checkbox');
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
@@ -70,6 +72,10 @@ let file = document.getElementById('flImage');
 window.registro = (e) => {
     e.preventDefault();
 
+    register_name.classList.add('desactive');
+
+    loading2.classList.add('active');
+
     var obj = {
         usuario: usuario.value,
         email: email_registro.value,
@@ -79,67 +85,108 @@ window.registro = (e) => {
 
     if (!obj.file) {
         alert('Por favor, insira uma foto de usuário!');
+        register_name.classList.remove('desactive');
+        loading2.classList.remove('active');
         return; // Impede que o registro continue
-    } else if (obj.file.type != 'image/jpg' && obj.file.type != 'image/') {}
+    }
+    
+    if (obj.usuario == undefined || obj.usuario == '') {
+        alert('Por favor, insira seu Nome!');
+        register_name.classList.remove('desactive');
+        loading2.classList.remove('active');
+        return; // Impede que o registro continue
+    } else if (obj.email == undefined || obj.email == '') { 
+        alert('Por favor, insira seu Email!'); 
+        register_name.classList.remove('desactive');
+        loading2.classList.remove('active');
+        return; // Impede que o registro continue
+    } else if (obj.passwords == undefined || obj.passwords == '') { 
+        alert('Por favor, insira sua senha!');
+        register_name.classList.remove('desactive');
+        loading2.classList.remove('active');
+        return; // Impede que o registro continue
+    }
+
+    const extensao = obj.file.type.replace('image/', '');
+    if (extensao == 'jpg' || extensao == 'jpeg' || extensao == 'png' || extensao == 'ico') { 
+        $.ajax({
+            url: '/PHP/registro.php',
+            type: 'POST',
+            data: {
+                tipo: 'usuario_test',
+                usuario: obj.usuario,
+                email: obj.email,
+            },
+            success: (response) => {
+                if (response == 'usuário já existente') {
+                    alert('Nome de usuário já existente. Se possível use nome e sobrenome!');
+                    return;
+                }
+    
+                // Usuário não existe, então continua com o registro
+                createUserWithEmailAndPassword(auth, obj.email, obj.passwords)
+                    .then((success) => {
+                        var form = document.getElementById('registroForm');
+                        var formData = new FormData(form);
+                        formData.append('tipo', 'usuario');
+    
+                        fetch(form.action, {
+                            method: form.method,
+                            body: formData
+                        })
+                            .then(response => {
+                                if (response.ok) {
+                                    return response.text(); // Obtém o conteúdo da resposta como texto
+                                } else {
+                                    throw new Error('Erro ao receber o arquivo');
+                                }
+                            })
+                            .then(data => {
+                                // Exibe a resposta no console do navegador, porém esta resposta vem do arquivo php
+    
+                                // Faça algo com o resultado (PromisseResult) aqui
+                            })
+                            .catch(error => {
+                                console.error('Erro ao enviar o formulário', error);
+                            });
+                         alert('Usuário Cadastrado com sucesso!');
+                         wrapper.classList.remove('active');
+                    })
+                    .catch((e) => {
+                        if (e == 'FirebaseError: Firebase: Error (auth/email-already-in-use).') {
+                            alert('Erro: Usuário já cadastrado!');
+                            wrapper.classList.remove('active');
+                            register_name.classList.remove('desactive');
+                            loading2.classList.remove('active');
+                            return;
+                        } else if (e == 'FirebaseError: Firebase: Password should be at least 6 characters (auth/weak-password).') {
+                            alert('Por favor, insira uma senha que contenha, no mínimo 6 dígitos!');
+                            register_name.classList.remove('desactive');
+                            loading2.classList.remove('active');
+                            return;
+                        } else if (e == 'FirebaseError: Firebase: Error (auth/missing-email).') {
+                            alert('Por favor, insira um E-mail válido!');
+                            register_name.classList.remove('desactive');
+                            loading2.classList.remove('active');
+                            return;
+                        } else {
+                            register_name.classList.remove('desactive');
+                            loading2.classList.remove('active');
+                            alert('Register Error: ' + e);
+                            return;
+                        }
+                    });
+            }
+        });
+    } else {
+        alert('Por favor, insira sua foto nos formatos: PNG, JPEG, JPG');
+        register_name.classList.remove('desactive');
+        loading2.classList.remove('active');
+        console.log(extensao);
+        return; // Impede que o registro continue
+    }
     
 
-    // $.ajax({
-    //     url: '/PHP/registro.php',
-    //     type: 'POST',
-    //     data: {
-    //         tipo: 'usuario_test',
-    //         usuario: obj.usuario,
-    //         email: obj.email,
-    //     },
-    //     success: (response) => {
-    //         if (response == 'usuário já existente') {
-    //             alert('Nome de usuário já existente. Se possível use nome e sobrenome!');
-    //             return;
-    //         }
-
-    //         // Usuário não existe, então continua com o registro
-    //         createUserWithEmailAndPassword(auth, obj.email, obj.passwords)
-    //             .then((success) => {
-    //                 var form = document.getElementById('registroForm');
-    //                 var formData = new FormData(form);
-    //                 formData.append('tipo', 'usuario');
-
-    //                 fetch(form.action, {
-    //                     method: form.method,
-    //                     body: formData
-    //                 })
-    //                     .then(response => {
-    //                         if (response.ok) {
-    //                             return response.text(); // Obtém o conteúdo da resposta como texto
-    //                         } else {
-    //                             throw new Error('Erro ao receber o arquivo');
-    //                         }
-    //                     })
-    //                     .then(data => {
-    //                         // Exibe a resposta no console do navegador, porém esta resposta vem do arquivo php
-
-    //                         // Faça algo com o resultado (PromisseResult) aqui
-    //                     })
-    //                     .catch(error => {
-    //                         console.error('Erro ao enviar o formulário', error);
-    //                     });
-    //                  alert('Usuário Cadastrado com sucesso!');
-    //                  wrapper.classList.remove('active');
-    //             })
-    //             .catch((e) => {
-    //                 if (e == 'FirebaseError: Firebase: Error (auth/email-already-in-use).') {
-    //                     alert('Erro: Usuário já cadastrado!');
-    //                     wrapper.classList.remove('active');
-    //                 } else if (e == 'FirebaseError: Firebase: Password should be at least 6 characters (auth/weak-password).') {
-    //                     alert('Por favor, insira uma senha que contenha, no mínimo 6 dígitos!');
-    //                 } else if (e == 'FirebaseError: Firebase: Error (auth/missing-email).') {
-    //                     alert('Por favor, insira um E-mail válido!');
-    //                 } else {
-    //                     alert('Register Error: ' + e);
-    //                 }
-    //             });
-    //     }
-    // });
 };
 
 window.rec_senha = (e) => {
