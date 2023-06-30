@@ -289,75 +289,6 @@ canvas {
     background-color: #1976D2;
 }
 
-/* .form-box.register button::before {   
-    background: black;
-    border-radius: 6px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4) inset;
-    content: '';
-    display: block;
-    height: 100%;
-    outline: none;
-    margin: 0 auto;
-    position: relative;
-    transition: width 0.2s cubic-bezier(0.39, 1.86, 0.64, 1) 0.3s;
-    width: 100%;
-    cursor: pointer;
-} */
-
-/* .form-box.register button.btn .submitMessage svg {
-    opacity: 1;
-    top: 1px;
-    transition: top .4s ease 600ms, opacity .3s linear 600ms;
-}
-
-.form-box.register button.btn .submitMessage .button-text span {
-    top: 0;
-    opacity: 1;
-    transition: all 0.2s ease calc(var(--dr) + 600ms);
-}
-
-.form-box.register button.loading::before {
-    transition: width .3s ease;
-    width: 80%;
-}
-
-.form-box.register button.loading .loadingMessage {
-    opacity: 1;
-}
-
-.form-box.register button.loading .loadingCircle {
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
-    animation-name: loading;
-    cy: 10;
-}
-
-.form-box.register button.complete .submitMessage svg {
-    top: -30px;
-    transition: none;
-}
-
-.form-box.register button.complete .submitMessage .button-text span {
-    top: -8px;
-    transition: none;
-}
-
-.form-box.register button.complete .loadingMessage {
-    top: 80px;
-}
-
-.form-box.register button.complete .successMessage .button-text span {
-    left: 0;
-    opacity: 1;
-    transition: all 0.2s ease calc(var(--d) + 1000ms);
-}
-
-.form-box.register button.complete .successMessage svg {
-    stroke-dashoffset: 0;
-    transition: stroke-dashoffset .3s ease-in-out 1.4s;
-    
-} */
-
 .button-text span {
     opacity: 0;
     position: relative;
@@ -371,61 +302,6 @@ canvas {
     width: 100%;
 }
 
-/* .message svg {
-    display: inline-block;
-    fill: none;
-    margin-right: 5px;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-width: 2;
-}
-
-.submitMessage .button-text span {
-    top: 8px;
-    transition: all 0.2s ease var(--d);
-}
-
- .submitMessage svg {
-    color: #2196F3;
-    margin-left: -1px;
-    opacity: 0;
-    position: relative;
-    top: 30px;
-    transition: top .4s ease, opacity .3s linear;
-    width: 14px;
-}
-
-.loadingMessage {
-    opacity: 0;
-    transition: opacity 0.3s linear 0.3s, top 0.4s cubic-bezier(0.22, 0, 0.41, -0.57);
-}
-
-.loadingMessage svg {
-    fill: #5c86ff;
-    margin: 0;
-    width: 22px;
-}
-
-.successMessage .button-text span {
-    left: 5px;
-    transition: all 0.2s ease var(--dr);
-}
-
-.successMessage svg {
-    color: #5cffa1;
-    stroke-dasharray: 20;
-    stroke-dashoffset: 20;
-    transition: stroke-dashoffset .3s ease-in-out;
-    width: 14px;
-}
-
-.loadingCircle:nth-child(2) {
-    animation-delay: 0.1s;
-}
-
-.loadingCircle:nth-child(3) {
-    animation-delay: 0.2s;
-} */
 /* Botão de Login */
 .btn_1 {
     width: 100%;
@@ -680,7 +556,7 @@ input[type='file'] {
 
 /* Media query de adaptação */
 /* Celular */
-@media screen and (width < 430px) {
+@media screen and (max-width: 430px) {
     
     .rodape {
         display: flex;
@@ -728,7 +604,7 @@ input[type='file'] {
     }
   }
 
-@media screen and (height < 500px) {
+@media screen and (max-height: 500px) {
     .logo-text {
         top: 235px;
     }
