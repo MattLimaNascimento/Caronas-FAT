@@ -1,28 +1,19 @@
 
 .triangulo {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 30%;
+  left: 25%;
   transform: translate(-50%, -50%);
   border-right: 50px solid transparent;
   border-bottom: 300px solid #fff;
   border-left: 50px solid transparent;
   transform: rotate(180deg);
 }
-.aureula {
-  position: absolute;
-  top: 50%;
-  left: 52%;
-  transform: translate(-50%, -50%);
-  width: 110px;
-  height: 15px;
-  border-radius: 20px;
-  background-color: #fff;
-}
+
 .aureula1 {
   position: absolute;
-  top: 49%;
-  left: 52%;
+  top: 30%;
+  left: 50%;
   transform: translate(-50%, -50%);
   width: 110px;
   height: 50px;
@@ -30,11 +21,22 @@
 
   background-color: #fff;
 }
+
+.tocha {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 400px;
+}
+
 .logo-tocha {
   position: absolute;
-  top: 52%;
-  left: 50.6%;
-  width: 70px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
   z-index: 1;
 }
 
@@ -102,10 +104,11 @@ body {
 
 .fire {
   position: absolute;
-  top: 38%;
-  left: 49.8%;
+  top: 15%;
+  left: 50%;
   width: 100px;
   height: 100px;
+  transform: translate(-50%, -50%);
   background-color: transparent;
   margin-left: auto;
   margin-right: auto;
