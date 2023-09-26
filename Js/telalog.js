@@ -35,29 +35,6 @@ const items = document.querySelectorAll('.nav-item');
 const cardWrapper2 = document.getElementById('anuncios_caronas_temp');
 let activeButton = document.querySelector(".menu__item.active");
 
-// // Mandar Notificações
-// Notification.requestPermission().then(perm => {
-//   if (perm === "granted") {
-//     new Notification("Notificação Teste", {
-//       body: "Sua carona exprirará em 10 minutos!",
-//       icon: '/CSS/Imagens/Caronas_FAT icon.png'
-//     });
-//   } else {
-//     alert("Por favor libere as permissões de notificações para melhor experiência com o app!");
-//   }
-// });
-
-// // Geolocalização
-// const getlocation = () => {
-//   if (navigator.geolocation) {
-//     navigator.geolocation.getCurrentPosition(
-//           (position) => {
-//             console.log(position);
-//           });
-//   }
-// }
-// getlocation();
-
 $.ajax({
   url: "/PHP/infos.php",
   type: "post",

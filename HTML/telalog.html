@@ -17,342 +17,375 @@
   <link rel="manifest" href="/manifest.json">
   <script src="/Js/swiper-bundle.min.js"></script>
   <script src="/Js/swiper.js"></script>
+  <link rel="stylesheet" href="/CSS/carregamento.css">
+  <script src="/Js/carregamento.js"></script>
 </head>
 
-<body>
-  <header class="rodape">
-    <button id="refresh" class="Btn_refresh">
-      <h5 class="carona_fat">Carona FAT</h5>
-      <img src="/CSS/Imagens/logo carrinho.png" alt="Logo Caronas FAT" class="logo_carrinho">
-    </button>
-
-    <menu class="menu">
-      <button class="menu__item active" id="tela1">
-        <div class="menu__icon">
-
-          <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 179.1 145">
-
-            <g id="home-anm">
-              <path stroke-linejoin="round" stroke-linecap="round" d="M70.5,80.1h40.7" />
-              <path d="M35,64v80" />
-              <path d="M145.1,143V63" />
-              <path stroke-linecap="round" stroke-linejoin="round" d="M24.9,70l65.7-50.7L156.3,70" />
-            </g>
-
-            <path stroke-linejoin="round" d="M145.1,117.6v33.1c0,1.5-1.2,2.8-2.8,2.8h-28.4c-1.5,0-2.8-1.2-2.8-2.8V126c0-11.3-9.2-20.5-20.5-20.5l0,0
-                    c-11.3,0-20.5,9.2-20.5,20.5v27.5h16H37.8c-1.5,0-2.8-1.2-2.8-2.8v-34.2" />
-
-          </svg>
-
+<body onload="loading()">
+  <div class="carregamento">
+    <div class="tocha">
+      <div class="fire">
+        <div class="fire-left">
+          <div class="main-fire"></div>
+          <div class="particle-fire"></div>
         </div>
-        <strong class="menu__text active">Caronas</strong>
-      </button>
-
-      <button class="menu__item" id="tela2">
-        <div class="menu__icon">
-
-          <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 179.1 145">
-
-            <g id="strategy-anm">
-              <path d="M84.1,50.4L72,64.7c-2,2.4-5.2,3.5-8.3,3l-40.1-6.8c-3.2-0.6-5.8,2.4-4.8,5.5L42,127.9c1.2,3.6,4.6,6.1,8.4,6.1
-                        h81.6c3.9,0,7.3-2.6,8.5-6.3l21.5-61.4c0.9-3-1.7-6-4.9-5.4l-38.3,6.7c-3,0.6-6.2-0.5-8.2-2.8L97.4,50.2
-                        C93.8,46.3,87.6,46.3,84.1,50.4z" />
-            </g>
-            <path stroke-linecap="round" d="M38.8,153.5h105.5" />
-            <path stroke-linecap="round" d="M66.8,112.5h49.5" />
-            <path id="strategy-cir1" stroke-width="0" fill="currentColor"
-              d="M32.4,37.5c0,5.8-4.7,10.5-10.5,10.5s-10.5-4.7-10.5-10.5S16.1,27,21.9,27S32.4,31.7,32.4,37.5z" />
-            <path id="strategy-cir2" stroke-width="0" fill="currentColor"
-              d="M102.3,23.5c0,5.8-4.7,10.5-10.5,10.5s-10.5-4.7-10.5-10.5S86,13,91.8,13S102.3,17.7,102.3,23.5z" />
-            <path id="strategy-cir3" stroke-width="0" fill="currentColor"
-              d="M169.6,37.5c0,5.8-4.7,10.5-10.5,10.5s-10.5-4.7-10.5-10.5S153.3,27,159.1,27S169.6,31.7,169.6,37.5z" />
-
-          </svg>
-
+        <div class="fire-center">
+          <div class="main-fire"></div>
+          <div class="particle-fire"></div>
         </div>
-        <strong class="menu__text">Motoristas</strong>
-      </button>
-    </menu>
-
-    <div class="container">
-      <div class="action_user">
+        <div class="fire-right">
+          <div class="main-fire"></div>
+          <div class="particle-fire"></div>
+        </div>
+        <div class="fire-bottom">
+          <div class="main-fire"></div>
+        </div>
       </div>
+      <img
+        src="/CSS/Imagens/kisspng-rio-de-janeiro-state-university-federal-university-palestina-5b29fdf3eeabb9.1278597615294786439776-removebg-preview.png"
+        alt="logo uerj" class="logo-tocha">
+
+      <div class="aureula1"></div>
+      <div class="triangulo"></div>
     </div>
-  </header>
-  <main>
-    <div class="menus">
-      <nav class="nav">
-        <a href="#" class="nav-item is-active" id="tela1_cel" active-color="#1976D2">Home</a>
-        <a href="#" class="nav-item" id="tela2_cel" active-color="#2196F3">Motoristas</a>
-        <span class="nav-indicator"></span>
-      </nav>
+    <div class="spinner">
+      <span>C</span>
+      <span>A</span>
+      <span>R</span>
+      <span>R</span>
+      <span>E</span>
+      <span>G</span>
+      <span>A</span>
+      <span>N</span>
+      <span>D</span>
+      <span>O</span>
     </div>
 
-    <div class="menu1">
-      <header class="rodape-menu1">
-        <div class="day select">
-          <div class="select-box1">
-            <div class="options-container" id="options-container2">
-              <div class="option1" id="option1">
-                <input type="radio" class="radio" id="segunda" value="Segunda" name="category">
-                <label for="segunda">Segunda</label>
+    <div class="newtons-cradle">
+      <div class="newtons-cradle__dot"></div>
+      <div class="newtons-cradle__dot"></div>
+      <div class="newtons-cradle__dot"></div>
+      <div class="newtons-cradle__dot"></div>
+    </div>
+  </div>
+  <div class="conteudo">
+    <header class="rodape">
+      
+      <button id="refresh" class="Btn_refresh">
+        <h5 class="carona_fat">Carona FAT</h5>
+        <img src="/CSS/Imagens/logo carrinho.png" alt="Logo Caronas FAT" class="logo_carrinho">
+      </button>
+
+      <menu class="menu">
+        <button class="menu__item active" id="tela1">
+          <div class="menu__icon">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 179.1 145">
+
+              <g id="home-anm">
+                <path stroke-linejoin="round" stroke-linecap="round" d="M70.5,80.1h40.7" />
+                <path d="M35,64v80" />
+                <path d="M145.1,143V63" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M24.9,70l65.7-50.7L156.3,70" />
+              </g>
+
+              <path stroke-linejoin="round"
+                d="M145.1,117.6v33.1c0,1.5-1.2,2.8-2.8,2.8h-28.4c-1.5,0-2.8-1.2-2.8-2.8V126c0-11.3-9.2-20.5-20.5-20.5l0,0
+                                                                                            c-11.3,0-20.5,9.2-20.5,20.5v27.5h16H37.8c-1.5,0-2.8-1.2-2.8-2.8v-34.2" />
+
+            </svg>
+
+          </div>
+          <strong class="menu__text active">Caronas</strong>
+          </button>
+
+        <button class="menu__item" id="tela2">
+          <div class="menu__icon">
+
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 179.1 145">
+
+              <g id="strategy-anm">
+                <path d="M84.1,50.4L72,64.7c-2,2.4-5.2,3.5-8.3,3l-40.1-6.8c-3.2-0.6-5.8,2.4-4.8,5.5L42,127.9c1.2,3.6,4.6,6.1,8.4,6.1
+                                                                                                h81.6c3.9,0,7.3-2.6,8.5-6.3l21.5-61.4c0.9-3-1.7-6-4.9-5.4l-38.3,6.7c-3,0.6-6.2-0.5-8.2-2.8L97.4,50.2
+                                                                                                C93.8,46.3,87.6,46.3,84.1,50.4z" />
+              </g>
+              <path stroke-linecap="round" d="M38.8,153.5h105.5" />
+              <path stroke-linecap="round" d="M66.8,112.5h49.5" />
+              <path id="strategy-cir1" stroke-width="0" fill="currentColor"
+                d="M32.4,37.5c0,5.8-4.7,10.5-10.5,10.5s-10.5-4.7-10.5-10.5S16.1,27,21.9,27S32.4,31.7,32.4,37.5z" />
+              <path id="strategy-cir2" stroke-width="0" fill="currentColor"
+                d="M102.3,23.5c0,5.8-4.7,10.5-10.5,10.5s-10.5-4.7-10.5-10.5S86,13,91.8,13S102.3,17.7,102.3,23.5z" />
+              <path id="strategy-cir3" stroke-width="0" fill="currentColor"
+                d="M169.6,37.5c0,5.8-4.7,10.5-10.5,10.5s-10.5-4.7-10.5-10.5S153.3,27,159.1,27S169.6,31.7,169.6,37.5z" />
+
+            </svg>
+
+          </div>
+          <strong class="menu__text">Motoristas</strong>
+          </button>
+          </menu>
+
+      <div class="container">
+        <div class="action_user">
+        </div>
+      </div>
+
+    </header>
+    <main>
+      <div class="menus">
+        <nav class="nav">
+          <a href="#" class="nav-item is-active" id="tela1_cel" active-color="#1976D2">Home</a>
+          <a href="#" class="nav-item" id="tela2_cel" active-color="#2196F3">Motoristas</a>
+          <span class="nav-indicator"></span>
+        </nav>
+      </div>
+
+      <div class="menu1">
+        <header class="rodape-menu1">
+          <div class="day select">
+            <div class="select-box1">
+              <div class="options-container" id="options-container2">
+                <div class="option1" id="option1">
+                  <input type="radio" class="radio" id="segunda" value="Segunda" name="category">
+                  <label for="segunda">Segunda</label>
+                </div>
+                <div class="option1" id="option1">
+                  <input type="radio" class="radio" id="terca" value="Terca" name="category">
+                  <label for="terca">Terça</label>
+                </div>
+                <div class="option1" id="option1">
+                  <input type="radio" class="radio" id="quarta" value="Quarta" name="category">
+                  <label for="quarta">Quarta</label>
+                </div>
+                <div class="option1" id="option1">
+                  <input type="radio" class="radio" id="quinta" value="Quinta" name="category">
+                  <label for="quinta">Quinta</label>
+                </div>
+                <div class="option1 sexta" id="option1">
+                  <input type="radio" class="radio" id="sexta" value="Sexta" name="category">
+                  <label for="sexta">Sexta</label>
+                </div>
               </div>
-              <div class="option1" id="option1">
-                <input type="radio" class="radio" id="terca" value="Terca" name="category">
-                <label for="terca">Terça</label>
+              <div class="selected1" id="selected2">
+                <h4>Selecione o Dia p/ Sua Carona!</h4>
               </div>
-              <div class="option1" id="option1">
-                <input type="radio" class="radio" id="quarta" value="Quarta" name="category">
-                <label for="quarta">Quarta</label>
-              </div>
-              <div class="option1" id="option1">
-                <input type="radio" class="radio" id="quinta" value="Quinta" name="category">
-                <label for="quinta">Quinta</label>
-              </div>
-              <div class="option1 sexta" id="option1">
-                <input type="radio" class="radio" id="sexta" value="Sexta" name="category">
-                <label for="sexta">Sexta</label>
-              </div>
-            </div>
-            <div class="selected1" id="selected2">
-              <h4>Selecione o Dia p/ Sua Carona!</h4>
             </div>
           </div>
-        </div>
-        <div class="container-car-register">
-          <button id="Caroneiro" class="Car_register">
-            <a class="Caroneiro">
-              Quero Ser Caroneiro!
-            </a>
-          </button>
-        </div>
-      </header>
+          <div class="container-car-register">
+            <button id="Caroneiro" class="Car_register">
+              <a class="Caroneiro">
+                Quero Ser Caroneiro!
+              </a>
+            </button>
+          </div>
+        </header>
 
 
-      <div class="container_wrapper">
-        <div class="wrapper">
-          <span class="icon-close"><ion-icon name="close"></ion-icon></span>
-          <div class="form-box register">
-            <h2>Registro</h2>
-            <form id="myForm">
+        <div class="container_wrapper">
+          <div class="wrapper">
+            <span class="icon-close"><ion-icon name="close"></ion-icon></span>
+            <div class="form-box register">
+              <h2>Registro</h2>
+              <form id="myForm">
+                <div class="input-box">
+                  <span class="icon"><i class="fa fa-id-card"></i></span>
+                  <input type="number" id="n_registro" name="n_registro" maxlength="11" pattern="\d{1,11}" required>
+                  <label>Nº Registro (CNH)</label>
+                </div>
+                <div class="input-box">
+                  <span class="icon"><i class="fa fa-car"></i></span>
+                  <input type="text" id="placa_carro" name="placa_carro" oninput="formatarPlaca('placa_carro')" maxlength="8" required>
+                  <label>Placa do Carro</label>
+                  </div>
+                  <div class="remember-forgot">
+                    <label><input type="checkbox">Eu aceito os termos & condições</label>
+                  </div>
+                  <button type="submit" id="Button_register" name="submit" class="btn">
+                    <div class="message submitMessage">
+                    <span id="Button-text" class="button-text">Registrar-se</span>
+                    </div>
+                </button>
+                <div class="login-register">
+                  <p>Já possui uma conta? <a href="#" class="login-link">Login</a></p>
+                </div>
+                </form>
+                </div>
+                </div>
+                </div>
+
+
+        <div class="container anuncios_caronas">
+          <header class="rodape_anuncios">
+          Caronas Fixas de Acordo com o Dia da Semana
+          </header>
+          <div class="slide-container swiper">
+            <div class="slide-content">
+              <div class="card-wrapper swiper-wrapper" id="anuncios_caronas">
+          
+              </div>
+            </div>
+            <div class="swiper-button-next swiper-navBtn"></div>
+            <div class="swiper-button-prev swiper-navBtn"></div>
+            <div class="swiper-pagination"></div>
+          </div>
+          </div>
+
+        <div class="container anuncios_caronas temp">
+          <header class="rodape_anuncios">
+            <h2>Caronas Anunciadas Recentemente</h2>
+          </header>
+          <div class="slide-container swiper">
+            <div class="slide-content1">
+              <div class="card-wrapper swiper-wrapper" id="anuncios_caronas_temp">
+              </div>
+            </div>
+            <div class="swiper-button-next1 swiper-navBtn"></div>
+            <div class="swiper-button-prev1 swiper-navBtn"></div>
+            <div class="swiper-pagination1"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="seguranca">
+        <div class="wrapper2">
+          <span class="icon-close" id="icon-close-2"><ion-icon name="close"></ion-icon></span>
+          <div class="form-box login">
+            <h2>Login</h2>
+            <form action="#">
               <div class="input-box">
                 <span class="icon"><i class="fa fa-id-card"></i></span>
-                <input type="number" id="n_registro" name="n_registro" maxlength="11" pattern="\d{1,11}" required>
+                <input type="number" id="n_registro_login" name="n_registro_login" required>
                 <label>Nº Registro (CNH)</label>
               </div>
+
               <div class="input-box">
                 <span class="icon"><i class="fa fa-car"></i></span>
-                <input type="text" id="placa_carro" name="placa_carro" oninput="formatarPlaca('placa_carro')"
+                <input type="text" id="placa_carro_login" name="placa_carro_login" oninput="formatarPlaca('placa_carro_login')"
                   maxlength="8" required>
                 <label>Placa do Carro</label>
-              </div>
-              <div class="remember-forgot">
-                <label><input type="checkbox">Eu aceito os termos & condições</label>
-              </div>
-              <button type="submit" id="Button_register" name="submit" class="btn">
-                <div class="message submitMessage">
-                  <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13 12.2">
-                      <polyline stroke="currentColor" points="2,7.1 6.5,11.1 11,7.1 " />
-                      <line stroke="currentColor" x1="6.5" y1="1.2" x2="6.5" y2="10.3" /> -->
-                  </svg> <span id="Button-text" class="button-text">Registrar-se</span>
+                </div>
+                <div class="remember-forgot">
+                  <a href="#">Esqueceu sua Senha?</a>
+                </div>
+                <button type="submit" id="btn_login" name="submit2" class="btn_1">Login</button>
+                <div class="login-register">
+                  <p>Já possui uma conta? <a href="#" class="register-link">Registrar</a></p>
+                </div>
+                </form>
+                </div>
+                </div>
                 </div>
 
-                <!-- <div class="message loadingMessage">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 17">
-                      <circle class="loadingCircle" cx="2.2" cy="10" r="1.6" />
-                      <circle class="loadingCircle" cx="9.5" cy="10" r="1.6" />
-                      <circle class="loadingCircle" cx="16.8" cy="10" r="1.6" />
-                    </svg>
-                  </div>
-
-                  <div class="message successMessage">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13 11">
-                      <polyline stroke="currentColor" points="1.4,5.8 5.1,9.5 11.6,2.1 " />
-                    </svg> <span id="Button-text" class="button-text">Cadastrado!</span>
-                  </div> -->
-              </button>
-              <div class="login-register">
-                <p>Já possui uma conta? <a href="#" class="login-link">Login</a></p>
-              </div>
-            </form>
+      <div class="menu2">
+        <header class="rodape-menu2">
+          <div class="container-car-register">
+            <button id="anuncio-caronas" class="Car_register">
+              <a class="Caroneiro">
+                Anuncie Sua Carona Já!
+              </a>
+            </button>
           </div>
-        </div>
-      </div>
-
-
-      <div class="container anuncios_caronas">
-        <header class="rodape_anuncios">
-          <h2>Caronas Fixas de Acordo com o Dia da Semana</h2>
         </header>
-        <div class="slide-container swiper">
-          <div class="slide-content">
-            <div class="card-wrapper swiper-wrapper" id="anuncios_caronas">
-              
-            </div>
-          </div>
-          <div class="swiper-button-next swiper-navBtn"></div>
-          <div class="swiper-button-prev swiper-navBtn"></div>
-          <div class="swiper-pagination"></div>
-        </div>
-      </div>
 
-      <div class="container anuncios_caronas temp">
-        <header class="rodape_anuncios">
-          <h2>Caronas Anunciadas Recentemente</h2>
-        </header>
-        <div class="slide-container swiper">
-          <div class="slide-content1">
-            <div class="card-wrapper swiper-wrapper" id="anuncios_caronas_temp">
-            </div>
-          </div>
-          <div class="swiper-button-next1 swiper-navBtn"></div>
-          <div class="swiper-button-prev1 swiper-navBtn"></div>
-          <div class="swiper-pagination1"></div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="seguranca">
-      <div class="wrapper2">
-        <span class="icon-close" id="icon-close-2"><ion-icon name="close"></ion-icon></span>
-        <div class="form-box login">
-          <h2>Login</h2>
-          <form action="#">
-            <div class="input-box">
-              <span class="icon"><i class="fa fa-id-card"></i></span>
-              <input type="number" id="n_registro_login" name="n_registro_login" required>
-              <label>Nº Registro (CNH)</label>
-            </div>
-
-            <div class="input-box">
-              <span class="icon"><i class="fa fa-car"></i></span>
-              <input type="text" id="placa_carro_login" name="placa_carro_login"
-                oninput="formatarPlaca('placa_carro_login')" maxlength="8" required>
-              <label>Placa do Carro</label>
-            </div>
-            <div class="remember-forgot">
-              <a href="#">Esqueceu sua Senha?</a>
-            </div>
-            <button type="submit" id="btn_login" name="submit2" class="btn_1">Login</button>
-            <div class="login-register">
-              <p>Já possui uma conta? <a href="#" class="register-link">Registrar</a></p>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu2">
-      <header class="rodape-menu2">
-        <div class="container-car-register">
-          <button id="anuncio-caronas" class="Car_register">
-            <a class="Caroneiro">
-              Anuncie Sua Carona Já!
-            </a>
-          </button>
-        </div>
-      </header>
-
-      <div class="container_wrapper_menu2">
-        <div class="wrapper_menu2">
-          <span class="icon-close" id="icon-close3"><ion-icon name="close"></ion-icon></span>
-          <div class="form-box anuncio-caronas">
-            <h2>Informações</h2>
-            <form action="#">
-              <div class="container_menu2">
-                <div class="select-box">
-                  <div class="options-container" id="options-container">
-                    <div class="option">
-                      <input type="radio" class="radio" id="carro" value="carro" name="category">
-                      <label for="carro">Carro</label>
+        <div class="container_wrapper_menu2">
+          <div class="wrapper_menu2">
+            <span class="icon-close" id="icon-close3"><ion-icon name="close"></ion-icon></span>
+            <div class="form-box anuncio-caronas">
+              <h2>Informações</h2>
+              <form action="#">
+                <div class="container_menu2">
+                  <div class="select-box">
+                    <div class="options-container" id="options-container">
+                      <div class="option">
+                        <input type="radio" class="radio" id="carro" value="carro" name="category">
+                        <label for="carro">Carro</label>
+                      </div>
+                      <div class="option">
+                        <input type="radio" class="radio" id="moto" value="moto" name="category">
+                        <label for="moto">Moto</label>
+                      </div>
                     </div>
-                    <div class="option">
-                      <input type="radio" class="radio" id="moto" value="moto" name="category">
-                      <label for="moto">Moto</label>
+                    <div class="selected" id="selected">
+                      <H4>Selecione o Veículo</H4>
                     </div>
                   </div>
-                  <div class="selected" id="selected">
-                    <H4>Selecione o Veículo</H4>
+                </div>
+                <div class="container left">
+                  <div class="input-box">
+                    <span class="icon"><i class="fa fa-location-dot"></i></span>
+                    <input type="text" id="origin" name="origin" required>
+                    <label>Origem</label>
+                  </div>
+                  <div class="input-box">
+                    <span class="icon"><i class="fa fa-location-dot"></i></span>
+                    <input type="text" id="destiny" name="destiny" required>
+                    <label>Destino</label>
+                  </div>
+                  <div class="input-box">
+                    <span class="icon"><i class="fa-sharp fa-solid fa-brazilian-real-sign"></i></span>
+                    <input type="number" id="preco" name="preco" value="0" min="0" max="4" required>
+                    <label>Preço</label>
+                  </div>
+                  <div class="input-box">
+                    <span class="icon"><span class="material-icons">
+                        airline_seat_recline_normal
+                      </span></span>
+                    <input type="number" id="qtd_acentos" name="qtd_acentos" value="0" min="0" max="6" required>
+                    <label>Vagas Totais</label>
                   </div>
                 </div>
-              </div>
-              <div class="container left">
-                <div class="input-box">
-                  <span class="icon"><i class="fa fa-location-dot"></i></span>
-                  <input type="text" id="origin" name="origin" required>
-                  <label>Origem</label>
-                </div>
-                <div class="input-box">
-                  <span class="icon"><i class="fa fa-location-dot"></i></span>
-                  <input type="text" id="destiny" name="destiny" required>
-                  <label>Destino</label>
-                </div>
-                <div class="input-box">
-                  <span class="icon"><i class="fa-sharp fa-solid fa-brazilian-real-sign"></i></span>
-                  <input type="number" id="preco" name="preco" value="0" min="0" max="4" required>
-                  <label>Preço</label>
-                </div>
-                <div class="input-box">
-                  <span class="icon"><span class="material-icons">
-                      airline_seat_recline_normal
-                    </span></span>
-                  <input type="number" id="qtd_acentos" name="qtd_acentos" value="0" min="0" max="6" required>
-                  <label>Vagas Totais</label>
-                </div>
-              </div>
-              <div class="container right">
-                <div class="times">
-                  <div id="time1">
-                    <label for="time1">Segunda</label>
-                    <input type="time" id="time" value="00:00" required>
-                  </div>
-                  <div id="time2">
-                    <label for="time2">Terça</label>
-                    <input type="time" id="time" value="00:00" required>
-                  </div>
-                  <div id="time3">
-                    <label for="time3">Quarta</label>
-                    <input type="time" id="time" value="00:00" required>
-                  </div>
-                  <div id="time4">
-                    <label for="time4">Quinta</label>
-                    <input type="time" id="time" value="00:00" required>
-                  </div>
-                  <div id="time5">
-                    <label for="time5">Sexta</label>
-                    <input type="time" id="time" value="00:00" required>
+                <div class="container right">
+                  <div class="times">
+                    <div id="time1">
+                      <label for="time1">Segunda</label>
+                      <input type="time" id="time" value="00:00" required>
+                    </div>
+                    <div id="time2">
+                      <label for="time2">Terça</label>
+                      <input type="time" id="time" value="00:00" required>
+                    </div>
+                    <div id="time3">
+                      <label for="time3">Quarta</label>
+                      <input type="time" id="time" value="00:00" required>
+                    </div>
+                    <div id="time4">
+                      <label for="time4">Quinta</label>
+                      <input type="time" id="time" value="00:00" required>
+                    </div>
+                    <div id="time5">
+                      <label for="time5">Sexta</label>
+                      <input type="time" id="time" value="00:00" required>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="fixo mark">
-                <input type="checkbox" id="fixo">
-                <div class="explicacao">Selecione esta opção se você estiver oferecendo carona regularmente nos mesmos
-                  horários. Isso irá permitir que você salve seus horários fixos e poupe tempo no futuro.</div>
-                <label for="fixo">Guardar Horários? (Carona Fixa)</label>
-              </div>
-              <button type="submit" name="submit3" class="btn_menu2" onclick="mostrarValores(event)">
-                <span id="Button-text" class="button-text">Anunciar Carona!</span>
-              </button>
-            </form>
+                <div class="fixo mark">
+                  <input type="checkbox" id="fixo">
+                  <div class="explicacao">Selecione esta opção se você estiver oferecendo carona regularmente nos mesmos
+                    horários. Isso irá permitir que você salve seus horários fixos e poupe tempo no futuro.</div>
+                  <label for="fixo">Guardar Horários? (Carona Fixa)</label>
+                </div>
+                <button type="submit" name="submit3" class="btn_menu2" onclick="mostrarValores(event)">
+                  <span id="Button-text" class="button-text">Anunciar Carona!</span>
+                </button>
+              </form>
+            </div>
           </div>
         </div>
+        </div>
+
+      <div class="reservas">
       </div>
-    </div>
 
-    <div class="reservas">
-    </div>
+      <div class="container-confirmados" id="container-confirmados">
+      </div>
+      </main>
+      <footer>
 
-    <div class="container-confirmados" id="container-confirmados">
-    </div>
-  </main>
-  <footer>
-
-  </footer>
+    </footer>
+  </div>
 </body>
 <script src="/Js/menu_user.js"></script>
 <script src="/Js/telalog.js"></script>
-<!-- <script src="/Js/anim-btn2.js" defer></script> -->
 <canvas id="canvas"></canvas>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js" defer></script>

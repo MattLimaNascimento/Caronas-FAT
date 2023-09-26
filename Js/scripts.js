@@ -89,7 +89,6 @@ window.registro = (e) => {
         loading2.classList.remove('active');
         return; // Impede que o registro continue
     }
-    
     if (obj.usuario == undefined || obj.usuario == '') {
         alert('Por favor, insira seu Nome!');
         register_name.classList.remove('desactive');
@@ -106,7 +105,6 @@ window.registro = (e) => {
         loading2.classList.remove('active');
         return; // Impede que o registro continue
     }
-
     const extensao = obj.file.type.replace('image/', '');
     if (extensao == 'jpg' || extensao == 'jpeg' || extensao == 'png' || extensao == 'ico') { 
         $.ajax({
